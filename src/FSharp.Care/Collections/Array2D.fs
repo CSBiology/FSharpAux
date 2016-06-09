@@ -44,6 +44,30 @@ module Array2D =
     let transpose (arr:_[,]) =
          Array2D.init (arr.GetLength(1)) (arr.GetLength(0)) (fun i j -> arr.[j,i])
 
+//    // TODO:
+//    ///
+//    let foldRows (f:'State -> 'T -> 'State) (state:'State) (arr:'State [,]) =  
+//        let rowLen = arr.GetLength(1)
+//        let colLen = arr.GetLength(2)
+//        let f = OptimizedClosures.FSharpFunc<_,_,_>.Adapt(f)
+//        let mutable x = state 
+//        
+//        while e.MoveNext() do
+//            x <- f.Invoke(state, e.Current)
+//        state        
+//        arr
+//
+//    ///
+//    let foldiRows (f:'State -> 'T -> 'State) (state:'State) (arr:'State [,]) = 
+//        arr
+//
+//    ///
+//    let foldCols (f:'State -> 'T -> 'State) (state:'State) (arr:'State [,]) = 
+//        arr
+//
+//    ///
+//    let foldicols (f:'State -> 'T -> 'State) (state:'State) (arr:'State [,]) = 
+//        arr
 
     /// Shuffels each column of the input Array2D separately  (method: Fisher-Yates)
     let shuffleColumnWise (arr:_[,]) =  
