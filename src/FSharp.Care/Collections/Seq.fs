@@ -110,7 +110,19 @@ module Seq =
         | Some(x) -> x
         | None    -> defaultValue
 
-    
+    /// Splits a sequence of pairs into two sequences
+    let unzip (input:seq<_>) =
+        let (lstA, lstB) = 
+            Seq.foldBack (fun (a,b) (accA, accB) -> 
+                a::accA, b::accB) input ([],[])
+        (Seq.ofList lstA, Seq.ofList lstB)    
+
+    /// Splits a sequence of triples into three sequences
+    let unzip3 (input:seq<_>) =
+        let (lstA, lstB, lstC) = 
+            Seq.foldBack (fun (a,b,c) (accA, accB, accC) -> 
+                a::accA, b::accB, c::accC) input ([],[],[])
+        (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)    
     
     //#region seq double extension
     
