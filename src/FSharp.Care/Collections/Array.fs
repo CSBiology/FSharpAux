@@ -2,6 +2,11 @@
 
 [<AutoOpen>]
 module Array = 
+
+    let inline checkNonNull argName arg = 
+        match box arg with 
+        | null -> nullArg argName 
+        | _ -> ()
     
     let inline contains x (arr: 'T []) =
         let mutable found = false
@@ -109,6 +114,27 @@ module Array =
 
         Array.mapi window source
 
+    // Applies a function to each element of the sub-collection in range (iFrom - iTo), threading an accumulator argument through the computation.
+    let foldSub<'T,'State> (f : 'State -> 'T -> 'State) (acc: 'State) (array:'T[]) iFrom iTo =
+        checkNonNull "array" array
+        let f = OptimizedClosures.FSharpFunc<_,_,_>.Adapt(f)
+        let mutable state = acc 
+        //let len = array.Length
+        for i = iFrom to iTo do
+            state <- f.Invoke(state,array.[i])
+        state
+
+    // Applies a function to each element of two sub-collections in range (iFrom - iTo), threading an accumulator argument through the computation.
+    let fold2Sub<'T1,'T2,'State>  f (acc: 'State) (array1:'T1[]) (array2:'T2 []) iFrom iTo =
+        checkNonNull "array1" array1
+        checkNonNull "array2" array2
+        let f = OptimizedClosures.FSharpFunc<_,_,_,_>.Adapt(f)
+        let mutable state = acc 
+        let len = array1.Length
+        if len <> array2.Length then invalidArg "array2" "Arrays must have same size."
+        for i = iFrom to iTo do 
+            state <- f.Invoke(state,array1.[i],array2.[i])
+        state
 
 // ########################################
 // Static extensions
