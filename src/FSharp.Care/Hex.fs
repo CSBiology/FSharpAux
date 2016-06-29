@@ -15,18 +15,29 @@ module Hex =
         elif c >= 'a' && c <= 'f' then (int c - int 'a') + 10
         else raise <| new ArgumentException()
         
+//    [<CompiledName("Encode")>]
+//    let encode (buf:byte array) (prefix:bool) =
+//        let hex = Array.zeroCreate (buf.Length * 2)
+//        let mutable n = 0
+//        for i = 0 to buf.Length - 1 do
+//            hex.[n] <- toHexDigit ((int buf.[i] &&& 0xF0) >>> 4)
+//            n <- n + 1
+//            hex.[n] <- toHexDigit (int buf.[i] &&& 0xF)
+//            n <- n + 1
+//        if prefix then String.Concat("0x", new String(hex)) 
+//        else new String(hex)
     [<CompiledName("Encode")>]
-    let encode (buf:byte array) (prefix:bool) =
-        let hex = Array.zeroCreate (buf.Length * 2)
+    let encode (prefix:string) (color:byte array)  =
+        let hex = Array.zeroCreate (color.Length * 2)
         let mutable n = 0
-        for i = 0 to buf.Length - 1 do
-            hex.[n] <- toHexDigit ((int buf.[i] &&& 0xF0) >>> 4)
+        for i = 0 to color.Length - 1 do
+            hex.[n] <- toHexDigit ((int color.[i] &&& 0xF0) >>> 4)
             n <- n + 1
-            hex.[n] <- toHexDigit (int buf.[i] &&& 0xF)
+            hex.[n] <- toHexDigit (int color.[i] &&& 0xF)
             n <- n + 1
-        if prefix then String.Concat("0x", new String(hex)) 
-        else new String(hex)
-            
+        String.Concat(prefix, new String(hex))
+        
+                    
     [<CompiledName("Decode")>]
     let decode (s:string) =
         match s with

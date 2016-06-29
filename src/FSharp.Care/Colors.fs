@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Care
 //http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 /// Represents an ARGB (alpha, red, green, blue) color
-module Colors =
+module Colors =   
     
     /// Color component ARGB
     type ColorComponent =
@@ -32,21 +32,12 @@ module Colors =
     
     let maxRGB c =
         let r,g,b = R c.R,G c.G,B c.B
-        let mutable tmp = r
-        if g > tmp then
-            tmp <- g
-        if b > tmp then
-            tmp <- b
-        tmp
+        max r g |> max b
 
     let minRGB c =
         let r,g,b = R c.R,G c.G,B c.B
-        let mutable tmp = r
-        if g < tmp then
-            tmp <- g
-        if b < tmp then
-            tmp <- b
-        tmp
+        min r g |> min b
+        
 
 
     /// Creates a Color structure from the four ARGB component (alpha, red, green, and blue) values.
@@ -63,8 +54,8 @@ module Colors =
     let fromRgb r g b =
         fromArgb 255 r g b
 
-    /// Gets the hue-saturation-brightness (HSB) brightness value for this Color structure.
-    let getBrightness = ()
+//    /// Gets the hue-saturation-brightness (HSB) brightness value for this Color structure.
+//    let getBrightness = ()
 
     /// Gets the hue-saturation-brightness (HSB) hue value, in degrees, for this Color structure.
     let getHue c =
@@ -87,14 +78,78 @@ module Colors =
     let toArgb c =
         (int c.A, int c.R, int c.G, int c.B)
     
+    /// Gets the hex representataion (FFFFFF) of a color (with valid prefix "0xFFFFFF")
+    let toHex prefix (c:Color) =
+        let prefix' = if prefix then "0x" else ""
+        Hex.encode prefix' [|c.R;c.G;c.B|]
+
+    /// Gets color from hex representataion (FFFFFF) or (0xFFFFFF)
+    let fromHex (s:string) =
+        match (Hex.decode s) with
+        | [|r;g;b|]  -> fromRgb (int r) (int g) (int b)
+        | _          -> failwithf "Invalid hex color format"
+
+    /// Gets the web color representataion (#FFFFFF)
+    let toWebColor c =        
+        Hex.encode "#" [|c.R;c.G;c.B|]                
+
+    /// Gets color from web color (#FFFFFF)
+    let fromWebColor (s:string) =
+        let s' = s.TrimStart([|'#'|])
+        match (Hex.decode s') with
+        | [|r;g;b|]  -> fromRgb (int r) (int g) (int b)
+        | _          -> failwithf "Invalid hex color format"
+
+
     /// Converts this Color structure to a human-readable string.
     let toString c =
         let a,r,g,b = toArgb c
         sprintf "{Alpha: %i Red: %i Green: %i Blue: %i}" a r g b
 
-    module KnownColors =
+
+    // http://graphicdesign.stackexchange.com/questions/3682/where-can-i-find-a-large-palette-set-of-contrasting-colors-for-coloring-many-d
+    module Table =    
+
+        let black       = fromRgb   0   0   0                
+        let blackLite   = fromRgb  89  89  89 // 35% lighter
+        let white       = fromRgb 255 255 255
+
+        /// Color palette from Microsoft office 2016
+        module Office = 
         
-        let blue = 0. 
+            // blue
+            let blue        = fromRgb  65 113 156        
+            let lightBlue   = fromRgb 189 215 238
+            let darkBlue    = fromRgb  68 114 196
+                        
+            // red           
+            let red         = fromRgb 241  90  96  
+            let lightRed    = fromRgb 252 212 214
+
+            // orange           
+            let orange      = fromRgb 237 125  49
+            let lightOrange = fromRgb 248 203 173
+                                                                  
+            // yellow        
+            let yellow      = fromRgb 255 217 102
+            let lightYellow = fromRgb 255 230 153
+            let darkYellow  = fromRgb 255 192   0
+                         
+            // green         
+            let green       = fromRgb 122 195 106
+            let lightGreen  = fromRgb 197 224 180
+            let darkGreen   = fromRgb 112 173  71
+
+            // grey         
+            let grey        = fromRgb 165 165 165
+            let lightGrey   = fromRgb 217 217 217
+
+        // From publication: Escaping RGBland: Selecting Colors for Statistical Graphics
+        // http://epub.wu.ac.at/1692/1/document.pdf
+        module StatisticalGraphics24 =
+            let a = 1
+        // 
+        //{2,63,165},{125,135,185},{190,193,212},{214,188,192},{187,119,132},{142,6,59},{74,111,227},{133,149,225},{181,187,227},{230,175,185},{224,123,145},{211,63,106},{17,198,56},{141,213,147},{198,222,199},{234,211,198},{240,185,141},{239,151,8},{15,207,192},{156,222,214},{213,234,231},{243,225,235},{246,196,225},{247,156,212}
 
 
 
