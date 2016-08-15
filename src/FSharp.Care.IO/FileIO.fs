@@ -49,12 +49,91 @@ module FileIO =
 
 
     /// Checks if the file exists on disk.
+    let fileExists fileName = File.Exists fileName
+
+
+    /// Checks if the file exists on disk.
     let checkFileExists fileName =
         if not <| File.Exists fileName then failwithf "File %s does not exist." fileName
 
 
     /// Checks if all given files exists
     let allFilesExist files = Seq.forall File.Exists files
+
+
+    /// Normalizes a filename.
+    let rec normalizeFileName (fileName : string) = 
+        fileName.Replace("\\", Path.DirectorySeparatorChar.ToString()).Replace("/", Path.DirectorySeparatorChar.ToString())
+                .TrimEnd(Path.DirectorySeparatorChar).ToLower()
+
+    /// Checks if dir1 is a subfolder of dir2. If dir1 equals dir2 the function returns also true.
+    let rec isSubfolderOf (dir2 : DirectoryInfo) (dir1 : DirectoryInfo) = 
+        if normalizeFileName dir1.FullName = normalizeFileName dir2.FullName then true
+        else if dir1.Parent = null then false
+        else dir1.Parent |> isSubfolderOf dir2
+
+    /// Checks if the file is in a subfolder of the dir.
+    let isInFolder (dir : DirectoryInfo) (fileInfo : FileInfo) = isSubfolderOf dir fileInfo.Directory
+
+    /// Checks if the directory exists on disk.
+    let directoryExists dir = Directory.Exists dir
+
+    /// Ensure that directory chain exists. Create necessary directories if necessary.
+    let inline ensureDirExists (dir : DirectoryInfo) = 
+        if not dir.Exists then dir.Create()
+
+    /// Checks if the given directory exists. If not then this functions creates the directory.
+    let inline ensureDirectory dir = directoryInfo dir |> ensureDirExists
+
+    /// Detects whether the given path is a directory.
+    let isDirectory path = 
+        let attr = File.GetAttributes path
+        attr &&& FileAttributes.Directory = FileAttributes.Directory
+
+    /// Detects whether the given path is a file.
+    let isFile path = isDirectory path |> not
+
+    /// Detects whether the given path does not contains invalid characters.
+    let isValidPath (path:string) =
+        Path.GetInvalidPathChars()
+        |> Array.filter (fun char -> path.Contains(char.ToString()))
+        |> Array.isEmpty
+
+
+    /// Creates a directory if it does not exist.
+    let CreateDir path = 
+        let dir = directoryInfo path
+        if not dir.Exists then 
+            dir.Create()
+
+    /// Creates a file if it does not exist.
+    let CreateFile fileName = 
+        let file = fileInfo fileName
+        if not file.Exists then 
+            let newFile = file.Create()
+            newFile.Close()
+        
+    /// Deletes a file if it exists.
+    let DeleteFile fileName = 
+        let file = fileInfo fileName
+        if file.Exists then 
+            file.Delete()
+        
+
+    /// Deletes the given files.
+    let DeleteFiles files = Seq.iter DeleteFile files
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /// Reads a file as one text
