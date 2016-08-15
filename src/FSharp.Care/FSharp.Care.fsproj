@@ -61,6 +61,7 @@
   <ItemGroup>
     <!-- Collections -->
     <Compile Include="Collections/Array.fs" />
+    <Compile Include="Collections\ArrayDivvy.fs" />
     <Compile Include="Collections/Array2D.fs" />
     <Compile Include="Collections/Dict.fs" />
     <!-- Monads -->

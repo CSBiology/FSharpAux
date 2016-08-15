@@ -22,7 +22,7 @@ module Dictionary =
     /// <returns>The resulting dictionary.</returns>  
     let toList (d:IDictionary<_,_>) = d |> toSeq |> Seq.toList
 
-    /// <summary>Builds a dictionary that contains the bindings of the given map.</summary>
+    /// <summary>Builds a dictionary that contains the bindings of the given dictionary.</summary>
     /// <param name="elements">The input map.</param>
     /// <returns>The resulting dictionary.</returns> 
     let ofMap (m:Map<'k,'v>) = new Dictionary<'k,'v>(m) :> IDictionary<'k,'v>
@@ -90,14 +90,14 @@ module Dictionary =
     let containsKey key (table:IDictionary<_,_>) = table.ContainsKey(key)
 
     /// <summary>The number of bindings in the dictionary.</summary>
-    let Count (table:IDictionary<_,_>) = table.Count
+    let count (table:IDictionary<_,_>) = table.Count
 
     /// <summary>Lookup an element in the dictionary. Raise <c>KeyNotFoundException</c> if no binding
     /// exists in the dictionary.</summary>
     /// <param name="key">The input key.</param>
     /// <exception cref="System.Collections.Generic.KeyNotFoundException">Thrown when the key is not found.</exception>
     /// <returns>The value mapped to the key.</returns>
-    let Item key (table:IDictionary<_,_>) = table.[key]
+    let item key (table:IDictionary<_,_>) = table.[key]
 
     /// <summary>Removes an element from the domain of the dictionary. No exception is raised if the element is not present.</summary>
     /// <param name="key">The input key.</param>
