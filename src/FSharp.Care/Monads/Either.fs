@@ -66,8 +66,14 @@ module Either =
         | Success _ ,Failure f2 -> Failure f2
         | Failure f1,Failure f2 -> Failure (addFailure f1 f2)
 
-    
+    /// Returns success result or fails with exception.
     let getOrFailwith (either: Either<'a,string>) =
         match either with
         | Success suc  -> suc
         | Failure fail -> failwith fail //raise (new System.Exception(fail))
+
+    /// Returns success result or default value
+    let getOrDefault defValue (either: Either<'a,string>) =
+        match either with
+        | Success suc  -> suc
+        | Failure _ -> defValue
