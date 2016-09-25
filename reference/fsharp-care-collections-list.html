@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>List - FSharp.Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FSharp.Care/content/style.css" />
+    <script type="text/javascript" src="/FSharp.Care/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/csbiology/FSharp.Care">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharp.Care/index.html">FSharp.Care</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>List</h1>
+<p>
+  <span>Namespace: FSharp.Care.Collections</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '189', 189)" onmouseover="showTip(event, '189', 189)">
+            applyEachPairwise f l
+          </code>
+          <div class="tip" id="189">
+            <strong>Signature:</strong> f:(&#39;a -&gt; &#39;a -&gt; &#39;b) -&gt; l:&#39;a list -&gt; &#39;b list<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L83-83" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applies function f two each unique compination of items in list</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '190', 190)" onmouseover="showTip(event, '190', 190)">
+            applyEachPairwiseWith f l
+          </code>
+          <div class="tip" id="190">
+            <strong>Signature:</strong> f:(&#39;a -&gt; &#39;a -&gt; &#39;b) -&gt; l:&#39;a list -&gt; &#39;b list<br />
+                          <strong>Type parameters:</strong> 'a, 'b          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L98-98" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applies function f two each unique compination of items in list</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '191', 191)" onmouseover="showTip(event, '191', 191)">
+            cut input
+          </code>
+          <div class="tip" id="191">
+            <strong>Signature:</strong> input:&#39;?7851 list -&gt; &#39;?7851 list * &#39;?7851 list<br />
+                          <strong>Type parameters:</strong> '?7851          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Cuts a list into two parts</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '192', 192)" onmouseover="showTip(event, '192', 192)">
+            cutAfterN n input
+          </code>
+          <div class="tip" id="192">
+            <strong>Signature:</strong> n:int -&gt; input:&#39;?7849 list -&gt; &#39;?7849 list * &#39;?7849 list<br />
+                          <strong>Type parameters:</strong> '?7849          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L32-32" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Cuts a list after N and returns both parts</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '193', 193)" onmouseover="showTip(event, '193', 193)">
+            groupEquals f input
+          </code>
+          <div class="tip" id="193">
+            <strong>Signature:</strong> f:(&#39;a -&gt; &#39;a -&gt; bool) -&gt; input:&#39;a list -&gt; &#39;a list list<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L56-56" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Groups elements in list that are b function f</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '194', 194)" onmouseover="showTip(event, '194', 194)">
+            insertAt index newEl input
+          </code>
+          <div class="tip" id="194">
+            <strong>Signature:</strong> index:int -&gt; newEl:&#39;?7863 -&gt; input:&#39;?7863 list -&gt; &#39;?7863 list<br />
+                          <strong>Type parameters:</strong> '?7863          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L123-123" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Inserts an element into a list at a given index
+(Not recommended list opperation)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '195', 195)" onmouseover="showTip(event, '195', 195)">
+            removeAt index input
+          </code>
+          <div class="tip" id="195">
+            <strong>Signature:</strong> index:int -&gt; input:&#39;?7861 list -&gt; &#39;?7861 list<br />
+                          <strong>Type parameters:</strong> '?7861          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L112-112" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Removes an element from a list at a given index
+(Not recommended list opperation)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '196', 196)" onmouseover="showTip(event, '196', 196)">
+            scanArraySubRight (...)
+          </code>
+          <div class="tip" id="196">
+            <strong>Signature:</strong> f:FSharpFunc&lt;&#39;T,&#39;State,&#39;State&gt; -&gt; arr:&#39;T [] -&gt; start:int -&gt; fin:int -&gt; initState:&#39;State -&gt; &#39;State list<br />
+                          <strong>Type parameters:</strong> 'T, 'State          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L13-13" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '197', 197)" onmouseover="showTip(event, '197', 197)">
+            scanReduce f l
+          </code>
+          <div class="tip" id="197">
+            <strong>Signature:</strong> f:(&#39;?7842 -&gt; &#39;?7842 -&gt; &#39;?7842) -&gt; l:&#39;?7842 list -&gt; &#39;?7842 list<br />
+                          <strong>Type parameters:</strong> '?7842          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L8-8" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '198', 198)" onmouseover="showTip(event, '198', 198)">
+            scanReduceBack f l
+          </code>
+          <div class="tip" id="198">
+            <strong>Signature:</strong> f:(&#39;?7847 -&gt; &#39;?7847 -&gt; &#39;?7847) -&gt; l:&#39;?7847 list -&gt; &#39;?7847 list<br />
+                          <strong>Type parameters:</strong> '?7847          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Collections/List.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharp.Care/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharp.Care</li>
+            <li><a href="/FSharp.Care/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharp.Care">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/csbiology/FSharp.Care">Source Code on GitHub</a></li>
+            <li><a href="/FSharp.Care/license.html">License</a></li>
+            <li><a href="/FSharp.Care/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharp.Care/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharp.Care/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/csbiology/FSharp.Care"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

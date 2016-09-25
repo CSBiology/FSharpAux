@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Either - FSharp.Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FSharp.Care/content/style.css" />
+    <script type="text/javascript" src="/FSharp.Care/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/csbiology/FSharp.Care">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharp.Care/index.html">FSharp.Care</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Either</h1>
+<p>
+  <span>Namespace: FSharp.Care.Monads</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '361', 361)" onmouseover="showTip(event, '361', 361)">
+            ( &gt;=&gt; ) s1 s2
+          </code>
+          <div class="tip" id="361">
+            <strong>Signature:</strong> s1:(&#39;?7298 -&gt; Either&lt;&#39;?7299,&#39;?7300&gt;) -&gt; s2:(&#39;?7299 -&gt; Either&lt;&#39;?7301,&#39;?7300&gt;) -&gt; &#39;?7298 -&gt; Either&lt;&#39;?7301,&#39;?7300&gt;<br />
+                          <strong>Type parameters:</strong> '?7298, '?7299, '?7300, '?7301          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L35-35" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>op_GreaterEqualsGreater</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '362', 362)" onmouseover="showTip(event, '362', 362)">
+            ( &gt;&gt;= ) x f
+          </code>
+          <div class="tip" id="362">
+            <strong>Signature:</strong> x:Either&lt;&#39;?7294,&#39;?7295&gt; -&gt; f:(&#39;?7294 -&gt; Either&lt;&#39;?7296,&#39;?7295&gt;) -&gt; Either&lt;&#39;?7296,&#39;?7295&gt;<br />
+                          <strong>Type parameters:</strong> '?7294, '?7295, '?7296          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L31-31" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>op_GreaterGreaterEquals</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '363', 363)" onmouseover="showTip(event, '363', 363)">
+            bind f
+          </code>
+          <div class="tip" id="363">
+            <strong>Signature:</strong> f:(&#39;?7290 -&gt; Either&lt;&#39;?7291,&#39;?7292&gt;) -&gt; Either&lt;&#39;?7290,&#39;?7292&gt; -&gt; Either&lt;&#39;?7291,&#39;?7292&gt;<br />
+                          <strong>Type parameters:</strong> '?7290, '?7291, '?7292          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L27-27" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '364', 364)" onmouseover="showTip(event, '364', 364)">
+            doubleMap successFunc failureFunc
+          </code>
+          <div class="tip" id="364">
+            <strong>Signature:</strong> successFunc:(&#39;?7317 -&gt; &#39;?7318) -&gt; failureFunc:(&#39;?7319 -&gt; &#39;?7320) -&gt; Either&lt;&#39;?7317,&#39;?7319&gt; -&gt; Either&lt;&#39;?7318,&#39;?7320&gt;<br />
+                          <strong>Type parameters:</strong> '?7317, '?7318, '?7319, '?7320          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L58-58" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '365', 365)" onmouseover="showTip(event, '365', 365)">
+            either (...)
+          </code>
+          <div class="tip" id="365">
+            <strong>Signature:</strong> successFunc:(&#39;?7286 -&gt; &#39;?7287) -&gt; failureFunc:(&#39;?7288 -&gt; &#39;?7287) -&gt; twoTrackInput:Either&lt;&#39;?7286,&#39;?7288&gt; -&gt; &#39;?7287<br />
+                          <strong>Type parameters:</strong> '?7286, '?7287, '?7288          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '366', 366)" onmouseover="showTip(event, '366', 366)">
+            fail x
+          </code>
+          <div class="tip" id="366">
+            <strong>Signature:</strong> x:&#39;?7283 -&gt; Either&lt;&#39;?7284,&#39;?7283&gt;<br />
+                          <strong>Type parameters:</strong> '?7283, '?7284          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L17-17" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '367', 367)" onmouseover="showTip(event, '367', 367)">
+            getOrDefault defValue either
+          </code>
+          <div class="tip" id="367">
+            <strong>Signature:</strong> defValue:&#39;a -&gt; either:Either&lt;&#39;a,string&gt; -&gt; &#39;a<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L76-76" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns success result or default value</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '368', 368)" onmouseover="showTip(event, '368', 368)">
+            getOrFailwith either
+          </code>
+          <div class="tip" id="368">
+            <strong>Signature:</strong> either:Either&lt;&#39;a,string&gt; -&gt; &#39;a<br />
+                          <strong>Type parameters:</strong> 'a          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L70-70" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns success result or fails with exception.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '369', 369)" onmouseover="showTip(event, '369', 369)">
+            map f
+          </code>
+          <div class="tip" id="369">
+            <strong>Signature:</strong> f:(&#39;?7307 -&gt; &#39;?7308) -&gt; Either&lt;&#39;?7307,&#39;?7309&gt; -&gt; Either&lt;&#39;?7308,&#39;?7309&gt;<br />
+                          <strong>Type parameters:</strong> '?7307, '?7308, '?7309          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L43-43" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '370', 370)" onmouseover="showTip(event, '370', 370)">
+            plus (...)
+          </code>
+          <div class="tip" id="370">
+            <strong>Signature:</strong> addSuccess:(&#39;?7322 -&gt; &#39;?7323 -&gt; &#39;?7324) -&gt; addFailure:(&#39;?7325 -&gt; &#39;?7325 -&gt; &#39;?7325) -&gt; switch1:(&#39;?7326 -&gt; Either&lt;&#39;?7322,&#39;?7325&gt;) -&gt; switch2:(&#39;?7326 -&gt; Either&lt;&#39;?7323,&#39;?7325&gt;) -&gt; x:&#39;?7326 -&gt; Either&lt;&#39;?7324,&#39;?7325&gt;<br />
+                          <strong>Type parameters:</strong> '?7322, '?7323, '?7324, '?7325, '?7326          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L62-62" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '371', 371)" onmouseover="showTip(event, '371', 371)">
+            succeed x
+          </code>
+          <div class="tip" id="371">
+            <strong>Signature:</strong> x:&#39;?7280 -&gt; Either&lt;&#39;?7280,&#39;?7281&gt;<br />
+                          <strong>Type parameters:</strong> '?7280, '?7281          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L13-13" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '372', 372)" onmouseover="showTip(event, '372', 372)">
+            switch f
+          </code>
+          <div class="tip" id="372">
+            <strong>Signature:</strong> f:(&#39;?7303 -&gt; &#39;?7304) -&gt; &#39;?7303 -&gt; Either&lt;&#39;?7304,&#39;?7305&gt;<br />
+                          <strong>Type parameters:</strong> '?7303, '?7304, '?7305          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L39-39" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '373', 373)" onmouseover="showTip(event, '373', 373)">
+            tee f x
+          </code>
+          <div class="tip" id="373">
+            <strong>Signature:</strong> f:(&#39;?7311 -&gt; unit) -&gt; x:&#39;?7311 -&gt; &#39;?7311<br />
+                          <strong>Type parameters:</strong> '?7311          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L47-47" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '374', 374)" onmouseover="showTip(event, '374', 374)">
+            tryCatch f exnHandler x
+          </code>
+          <div class="tip" id="374">
+            <strong>Signature:</strong> f:(&#39;?7313 -&gt; &#39;?7314) -&gt; exnHandler:(exn -&gt; &#39;?7315) -&gt; x:&#39;?7313 -&gt; Either&lt;&#39;?7314,&#39;?7315&gt;<br />
+                          <strong>Type parameters:</strong> '?7313, '?7314, '?7315          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/csbiology/FSharp.Care/tree/master/src/FSharp.Care/Monads/Either.fs#L51-51" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharp.Care/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharp.Care</li>
+            <li><a href="/FSharp.Care/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharp.Care">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/csbiology/FSharp.Care">Source Code on GitHub</a></li>
+            <li><a href="/FSharp.Care/license.html">License</a></li>
+            <li><a href="/FSharp.Care/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharp.Care/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharp.Care/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/csbiology/FSharp.Care"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
