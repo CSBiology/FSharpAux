@@ -71,6 +71,7 @@
     <Compile Include="Collections\Map.fs" />
     <Compile Include="Collections\MultiMap.fs" />
     <Compile Include="Collections\PSeq.fs" />
+    <Compile Include="Collections\ResizeArray.fs" />
     <Compile Include="Collections\Seq.fs" />
     <Compile Include="Collections\Tree.fs" />
     <Compile Include="Monads/Either.fs" />

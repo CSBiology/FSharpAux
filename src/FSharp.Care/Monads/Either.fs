@@ -77,3 +77,24 @@ module Either =
         match either with
         | Success suc  -> suc
         | Failure _ -> defValue
+
+    /// Returns success value as optional. In case of failure None.
+    let toOption (either:Either<'a,'b>) = 
+        match either with
+        | Success s -> Some s
+        | Failure f -> None
+
+    [<AutoOpen>]
+    module List =
+        
+
+        let firstSuccessOrDefault (defaultValue:'a) (data:list<Either<'a,'b>>) =
+            let rec loop l =
+                match l with
+                | h::t -> 
+                    match h with
+                    | Success s -> s
+                    | Failure f -> loop t 
+                | [] -> defaultValue
+            loop data
+

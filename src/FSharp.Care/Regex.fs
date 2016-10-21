@@ -87,4 +87,12 @@ module Regex =
 //            | _ -> None
 
 
-
+    /// Try to parse source string with pattern returns Either monoid with match and remaining string. On success f is applied on both result string.
+    let tryEitherMatchReplace f pattern =
+        let replaceMatch (m:Match) (source:string) (replacement:string) =
+            source.Substring(0, m.Index) + replacement + source.Substring(m.Index + m.Length)    
+        let regex = createRegex RegexOptions.Compiled pattern
+        fun replacement source -> 
+            let m = regex.Match(source) 
+            if m.Success then Success (f m.Value (replaceMatch m source replacement))
+            else Failure source
