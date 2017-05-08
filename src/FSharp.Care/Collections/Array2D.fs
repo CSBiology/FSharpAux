@@ -40,6 +40,34 @@ module Array2D =
         seq {for i in 0..Array2D.length1 arr - 1 do
                 for j in 0..Array2D.length2 arr - 1 do yield arr.[i,j]}
 
+    ///Returns the element of the array which is the biggest after projection according to the Operators.max operator
+    let maxBy projection (arr: _ [,])  =
+        let n,m = arr |> Array2D.length1, arr |> Array2D.length2
+        let rec compareMax i j max =
+            if j = m then max
+            else
+                let value = arr.[i,j]
+                if (projection value) < (projection max) then compareMax i (j+1) max 
+                else compareMax i (j+1) value 
+        let rec countRow max i = 
+            if i = n then max
+            else countRow (compareMax i 0 max) (i+1)
+        countRow arr.[0,0] 0
+
+    ///Returns the index of the element which is the biggest after projection according to the Operators.max operator in the array
+    let indexMaxBy projection (arr: _ [,])  =
+        let n,m = arr |> Array2D.length1, arr |> Array2D.length2
+        let rec compareMax i j max indexMax =
+            if j = m then max,indexMax
+            else
+                let value = arr.[i,j]
+                if (projection value) < (projection max) then compareMax i (j+1) max indexMax
+                else compareMax i (j+1) value (i,j)
+        let rec countRow i (max,indexMax) = 
+            if i = n then indexMax
+            else countRow  (i+1) (compareMax i 0 max indexMax)
+        countRow 0 (arr.[0,0],(0,0))        
+
     /// Transpose the array
     let transpose (arr:_[,]) =
          Array2D.init (arr.GetLength(1)) (arr.GetLength(0)) (fun i j -> arr.[j,i])
