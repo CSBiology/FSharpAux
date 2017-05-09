@@ -74,6 +74,7 @@
     <Compile Include="Collections\ResizeArray.fs" />
     <Compile Include="Collections\Seq.fs" />
     <Compile Include="Collections\Tree.fs" />
+    <Compile Include="Collections\KdTree.fs" />
     <Compile Include="Monads/Either.fs" />
     <!-- Care -->
     <Compile Include="Hex.fs" />
