@@ -3,7 +3,7 @@
 
 // (c) Microsoft Corporation 2005-2009. 
 
-namespace FSharpAux
+namespace FSharp.Care.Collections
 
 open Microsoft.FSharp.Core.OptimizedClosures
 
@@ -16,9 +16,12 @@ module ResizeArray =
         | _ -> () 
 
     let length (arr: ResizeArray<'T>) =  arr.Count
+    
     let get (arr: ResizeArray<'T>) (n: int) =  arr.[n]
+    
     let set (arr: ResizeArray<'T>) (n: int) (x:'T) =  arr.[n] <- x
-    let create  (n: int) x = 
+    
+    let create  (n: int) (x:'T) : ResizeArray<'T> = 
         let arr = ResizeArray<_>(n)
         for i=0 to n-1 do arr.Add x
         arr
@@ -38,6 +41,7 @@ module ResizeArray =
             arr2.[start2+i] <- arr1.[start1 + i]
 
     let concat (arrs: seq<ResizeArray<'T>>) = new ResizeArray<_> (seq { for arr in arrs do for x in arr do yield x })
+    
     let append (arr1: ResizeArray<'T>) (arr2: ResizeArray<'T>) = concat [arr1; arr2]
 
     let sub (arr: ResizeArray<'T>) start len =
