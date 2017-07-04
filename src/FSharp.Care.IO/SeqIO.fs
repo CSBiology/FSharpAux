@@ -17,7 +17,7 @@ module SeqIO =
 
         /// This function builds an IEnumerable object that enumerates the file 
         /// and splits lines of the given file on-demand 
-        static member fromFileWithSeq (separator:char) (filePath) =     
+        static member fromFileWithSep (separator:char) (filePath) =     
             // The function is implemented using a sequence expression
             seq { let sr = System.IO.File.OpenText(filePath)
                   while not sr.EndOfStream do 

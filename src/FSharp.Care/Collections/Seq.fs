@@ -38,22 +38,66 @@ module Seq =
     ///
     /// For example: 
     ///    Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
-    let groupWhen f (input:seq<_>) = seq {
+    let groupWhen f (input:seq<'a>) =
         use en = input.GetEnumerator()
-        let running = ref true
-    
-        // Generate a group starting with the current element. Stops generating
-        // when it founds element such that 'f en.Current' is 'true'
-        let rec group() = 
-            [ yield en.Current
-              if en.MoveNext() then
-                if not (f en.Current) then yield! group() 
-              else running := false ]
-    
-        if en.MoveNext() then
-            // While there are still elements, start a new group
-            while running.Value do
-            yield group() |> Seq.ofList }
+
+        let rec loop cont =
+            if en.MoveNext() then
+                if (f en.Current) then
+                    let temp = en.Current
+                    loop (fun y -> 
+                        cont 
+                            (   match y with
+                                | h::t -> []::(temp::h)::t
+                                //| h::t -> [temp]::(h)::t
+                                | [] -> [[temp]]
+                            )
+                         )
+                else
+                    let temp = en.Current                    
+                    loop (fun y -> 
+                        cont 
+                            (   match y with
+                                | h::t -> (temp::h)::t
+                                | []   -> [[temp]]
+                            )
+                         )
+            else
+                cont []
+        // Remove when first element is empty due to "[]::(temp::h)::t"
+        let tmp:seq<seq<'a>> = 
+            match (loop id) with
+            | h::t -> match h with
+                      | [] -> t
+                      | _  -> h::t
+            | [] -> []
+            |> Seq.cast
+
+        tmp
+
+
+// // Without continuation passing
+
+//    let groupWhen f (input:seq<_>) = seq {
+//        use en = input.GetEnumerator()
+//        let running = ref true
+//    
+//        // Generate a group starting with the current element. Stops generating
+//        // when it founds element such that 'f en.Current' is 'true'
+//        let rec group() = 
+//            [ yield en.Current
+//              if en.MoveNext() then
+//                if not (f en.Current) then yield! group() 
+//              else running := false ]
+//    
+//        if en.MoveNext() then
+//            // While there are still elements, start a new group
+//            while running.Value do
+//            yield group() |> Seq.ofList }
+
+
+
+
 
     
     /// Break sequence into n-element subsequences

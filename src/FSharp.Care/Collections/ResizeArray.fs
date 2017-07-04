@@ -3,7 +3,8 @@
 
 // (c) Microsoft Corporation 2005-2009. 
 
-namespace FSharpAux
+namespace FSharp.Care.Collections
+
 
 open Microsoft.FSharp.Core.OptimizedClosures
 
