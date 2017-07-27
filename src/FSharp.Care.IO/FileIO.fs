@@ -165,6 +165,7 @@ module FileIO =
     let readFileGZip (filePath:string) =   
         seq {use reader     = File.OpenRead(filePath)
              use unzip      = new GZipStream(reader, CompressionMode.Decompress, true)
+             unzip.Seek(0L,SeekOrigin.Begin) |> ignore
              use textReader = new StreamReader(unzip, Encoding.Default)
              while not textReader.EndOfStream do
                 yield textReader.ReadLine()}

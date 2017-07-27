@@ -66,8 +66,35 @@ module Either =
         | Success _ ,Failure f2 -> Failure f2
         | Failure f1,Failure f2 -> Failure (addFailure f1 f2)
 
-    
+    /// Returns success result or fails with exception.
     let getOrFailwith (either: Either<'a,string>) =
         match either with
         | Success suc  -> suc
         | Failure fail -> failwith fail //raise (new System.Exception(fail))
+
+    /// Returns success result or default value
+    let getOrDefault defValue (either: Either<'a,string>) =
+        match either with
+        | Success suc  -> suc
+        | Failure _ -> defValue
+
+    /// Returns success value as optional. In case of failure None.
+    let toOption (either:Either<'a,'b>) = 
+        match either with
+        | Success s -> Some s
+        | Failure f -> None
+
+    [<AutoOpen>]
+    module List =
+        
+
+        let firstSuccessOrDefault (defaultValue:'a) (data:list<Either<'a,'b>>) =
+            let rec loop l =
+                match l with
+                | h::t -> 
+                    match h with
+                    | Success s -> s
+                    | Failure f -> loop t 
+                | [] -> defaultValue
+            loop data
+

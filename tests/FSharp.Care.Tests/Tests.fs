@@ -1,6 +1,6 @@
 module FSharp.Care.Tests
 
-open FSharp.Care
+
 open NUnit.Framework
 
 [<Test>]
