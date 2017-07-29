@@ -22,8 +22,14 @@ module Memoization =
     /// Memoizes the return value of function f (thread-safe)
     let memoizeP f =
         let dict = new  System.Collections.Concurrent.ConcurrentDictionary<'a,'b>()
-        fun n -> let temp:'b = f(n)  
-                 dict.GetOrAdd(n, temp)
+        fun n ->             
+            match dict.TryGetValue(n) with
+            | (true, v) -> v
+            | _ ->
+                let temp = f(n)
+                dict.TryAdd(n, temp) |> ignore
+                temp
+
         
 
 
