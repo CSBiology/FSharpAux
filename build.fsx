@@ -222,6 +222,11 @@ let buildDocumentationTarget fsiargs target =
         failwith "generating reference documentation failed"
     ()
 
+Target "onlyDocu" (
+    fun _ ->
+        buildDocumentationTarget "--define:HELP" "Default"
+)
+
 Target "GenerateReferenceDocs" (fun _ ->
     buildDocumentationTarget "-d:RELEASE -d:REFERENCE" "Default"
 )
@@ -332,6 +337,16 @@ Target "ReleaseDocs" (fun _ ->
     Branches.push tempDocsDir
 )
 
+Target "ReleaseLocal" (fun _ ->
+    let tempDocsDir = "docs/local"
+    CreateDir tempDocsDir
+    CleanDir tempDocsDir
+    CopyRecursive "docs/output" tempDocsDir true |> tracefn "%A"
+    ReplaceInFiles 
+        (seq {yield "/" + project + "/",""}) 
+        ((filesInDirMatching "*.html" (directoryInfo tempDocsDir)) |> Array.map (fun x -> tempDocsDir + "/" + x.Name))
+)
+
 #load "paket-files/build/fsharp/FAKE/modules/Octokit/Octokit.fsx"
 open Octokit
 
@@ -394,6 +409,10 @@ Target "All" DoNothing
   ==> "GenerateHelp"
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
+
+"CleanDocs"
+  ==> "Clean"
+  ==> "onlyDocu"
 
 "CleanDocs"
   ==> "GenerateHelpDebug"

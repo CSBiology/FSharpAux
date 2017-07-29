@@ -136,6 +136,21 @@ module Array =
             state <- f.Invoke(state,array1.[i],array2.[i])
         state
 
+    ///Applies a keyfunction to each elements and counts the distinct resulting keys
+    let countDistinctBy (keyf : 'T -> 'Key) (array: 'T array) =
+        let dict = System.Collections.Generic.Dictionary<_, int []> HashIdentity.Structural<'Key>
+        // Build the distinct-key dictionary with count
+        for v in array do 
+            let key = keyf v
+            match dict.TryGetValue(key) with
+            | true, count ->
+                    count.[0] <- count.[0] + 1 //If it matches a key in the dictionary increment by one
+            | _ -> 
+                dict.[key] <- [|1|] //If it doesnt match create a new count for this key
+        //Write to array
+        [|
+        for i in dict do yield i.Key |> Operators.id,i.Value.[0]
+        |]
 // ########################################
 // Static extensions
 
