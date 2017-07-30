@@ -222,11 +222,6 @@ let buildDocumentationTarget fsiargs target =
         failwith "generating reference documentation failed"
     ()
 
-Target "onlyDocu" (
-    fun _ ->
-        buildDocumentationTarget "--define:HELP" "Default"
-)
-
 Target "GenerateReferenceDocs" (fun _ ->
     buildDocumentationTarget "-d:RELEASE -d:REFERENCE" "Default"
 )
@@ -343,7 +338,9 @@ Target "ReleaseLocal" (fun _ ->
     CleanDir tempDocsDir
     CopyRecursive "docs/output" tempDocsDir true |> tracefn "%A"
     ReplaceInFiles 
-        (seq {yield "/" + project + "/",""}) 
+        (seq {
+            yield "href=\"/" + project + "/","href=\""
+            yield "src=\"/" + project + "/","src=\""})
         ((filesInDirMatching "*.html" (directoryInfo tempDocsDir)) |> Array.map (fun x -> tempDocsDir + "/" + x.Name))
 )
 
@@ -409,10 +406,6 @@ Target "All" DoNothing
   ==> "GenerateHelp"
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
-
-"CleanDocs"
-  ==> "Clean"
-  ==> "onlyDocu"
 
 "CleanDocs"
   ==> "GenerateHelpDebug"

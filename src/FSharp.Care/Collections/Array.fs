@@ -115,41 +115,41 @@ module Array =
         Array.mapi window source
 
     // Applies a function to each element of the sub-collection in range (iFrom - iTo), threading an accumulator argument through the computation.
-    let foldSub<'T,'State> (f : 'State -> 'T -> 'State) (acc: 'State) (array:'T[]) iFrom iTo =
-        checkNonNull "array" array
+    let foldSub<'T,'State> (f : 'State -> 'T -> 'State) (acc: 'State) (arr:'T[]) iFrom iTo =
+        checkNonNull "array" arr
         let f = OptimizedClosures.FSharpFunc<_,_,_>.Adapt(f)
         let mutable state = acc 
         //let len = array.Length
         for i = iFrom to iTo do
-            state <- f.Invoke(state,array.[i])
+            state <- f.Invoke(state,arr.[i])
         state
 
     // Applies a function to each element of two sub-collections in range (iFrom - iTo), threading an accumulator argument through the computation.
-    let fold2Sub<'T1,'T2,'State>  f (acc: 'State) (array1:'T1[]) (array2:'T2 []) iFrom iTo =
-        checkNonNull "array1" array1
-        checkNonNull "array2" array2
+    let fold2Sub<'T1,'T2,'State>  f (acc: 'State) (arr1:'T1[]) (arr2:'T2 []) iFrom iTo =
+        checkNonNull "array1" arr1
+        checkNonNull "array2" arr2
         let f = OptimizedClosures.FSharpFunc<_,_,_,_>.Adapt(f)
         let mutable state = acc 
-        let len = array1.Length
-        if len <> array2.Length then invalidArg "array2" "Arrays must have same size."
+        let len = arr1.Length
+        if len <> arr2.Length then invalidArg "array2" "Arrays must have same size."
         for i = iFrom to iTo do 
-            state <- f.Invoke(state,array1.[i],array2.[i])
+            state <- f.Invoke(state,arr1.[i],arr2.[i])
         state
 
-    ///Applies a keyfunction to each elements and counts the distinct resulting keys
-    let countDistinctBy (keyf : 'T -> 'Key) (array: 'T array) =
-        let dict = System.Collections.Generic.Dictionary<_, int []> HashIdentity.Structural<'Key>
+    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    let countDistinctBy (keyf : 'T -> 'Key) (arr: 'T array) =
+        let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
         // Build the distinct-key dictionary with count
-        for v in array do 
+        for v in arr do 
             let key = keyf v
             match dict.TryGetValue(key) with
             | true, count ->
-                    count.[0] <- count.[0] + 1 //If it matches a key in the dictionary increment by one
+                    count := !count + 1 //If it matches a key in the dictionary increment by one
             | _ -> 
-                dict.[key] <- [|1|] //If it doesnt match create a new count for this key
+                dict.[key] <- ref 1 //If it doesnt match create a new count for this key
         //Write to array
         [|
-        for i in dict do yield i.Key |> Operators.id,i.Value.[0]
+        for v in dict do yield v.Key |> Operators.id,!v.Value
         |]
 // ########################################
 // Static extensions

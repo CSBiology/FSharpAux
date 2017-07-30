@@ -166,8 +166,24 @@ module Seq =
         let (lstA, lstB, lstC) = 
             Seq.foldBack (fun (a,b,c) (accA, accB, accC) -> 
                 a::accA, b::accB, c::accC) input ([],[],[])
-        (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)    
-    
+        (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)
+
+    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    let countDistinctBy (keyf : 'T -> 'Key) (sequence:seq<'T>) =
+        let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
+        let en = sequence.GetEnumerator()
+        // Build the distinct-key dictionary with count
+        do 
+            while en.MoveNext() do
+                let key = keyf en.Current
+                match dict.TryGetValue(key) with
+                | true, count ->
+                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                | _ -> 
+                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key  
+        //Write to Sequence
+        seq {for v in dict do yield v.Key |> Operators.id,!v.Value}
+
     //#region seq double extension
     
     /// Seq module extensions specialized for seq<float>
