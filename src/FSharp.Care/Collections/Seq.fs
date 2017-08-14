@@ -38,22 +38,66 @@ module Seq =
     ///
     /// For example: 
     ///    Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
-    let groupWhen f (input:seq<_>) = seq {
+    let groupWhen f (input:seq<'a>) =
         use en = input.GetEnumerator()
-        let running = ref true
-    
-        // Generate a group starting with the current element. Stops generating
-        // when it founds element such that 'f en.Current' is 'true'
-        let rec group() = 
-            [ yield en.Current
-              if en.MoveNext() then
-                if not (f en.Current) then yield! group() 
-              else running := false ]
-    
-        if en.MoveNext() then
-            // While there are still elements, start a new group
-            while running.Value do
-            yield group() |> Seq.ofList }
+
+        let rec loop cont =
+            if en.MoveNext() then
+                if (f en.Current) then
+                    let temp = en.Current
+                    loop (fun y -> 
+                        cont 
+                            (   match y with
+                                | h::t -> []::(temp::h)::t
+                                //| h::t -> [temp]::(h)::t
+                                | [] -> [[temp]]
+                            )
+                         )
+                else
+                    let temp = en.Current                    
+                    loop (fun y -> 
+                        cont 
+                            (   match y with
+                                | h::t -> (temp::h)::t
+                                | []   -> [[temp]]
+                            )
+                         )
+            else
+                cont []
+        // Remove when first element is empty due to "[]::(temp::h)::t"
+        let tmp:seq<seq<'a>> = 
+            match (loop id) with
+            | h::t -> match h with
+                      | [] -> t
+                      | _  -> h::t
+            | [] -> []
+            |> Seq.cast
+
+        tmp
+
+
+// // Without continuation passing
+
+//    let groupWhen f (input:seq<_>) = seq {
+//        use en = input.GetEnumerator()
+//        let running = ref true
+//    
+//        // Generate a group starting with the current element. Stops generating
+//        // when it founds element such that 'f en.Current' is 'true'
+//        let rec group() = 
+//            [ yield en.Current
+//              if en.MoveNext() then
+//                if not (f en.Current) then yield! group() 
+//              else running := false ]
+//    
+//        if en.MoveNext() then
+//            // While there are still elements, start a new group
+//            while running.Value do
+//            yield group() |> Seq.ofList }
+
+
+
+
 
     
     /// Break sequence into n-element subsequences
@@ -122,8 +166,24 @@ module Seq =
         let (lstA, lstB, lstC) = 
             Seq.foldBack (fun (a,b,c) (accA, accB, accC) -> 
                 a::accA, b::accB, c::accC) input ([],[],[])
-        (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)    
-    
+        (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)
+
+    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    let countDistinctBy (keyf : 'T -> 'Key) (sequence:seq<'T>) =
+        let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
+        let en = sequence.GetEnumerator()
+        // Build the distinct-key dictionary with count
+        do 
+            while en.MoveNext() do
+                let key = keyf en.Current
+                match dict.TryGetValue(key) with
+                | true, count ->
+                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                | _ -> 
+                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key  
+        //Write to Sequence
+        seq {for v in dict do yield v.Key |> Operators.id,!v.Value}
+
     //#region seq double extension
     
     /// Seq module extensions specialized for seq<float>

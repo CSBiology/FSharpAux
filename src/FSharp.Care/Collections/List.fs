@@ -127,7 +127,26 @@ module List =
       input |> List.mapi (fun i el -> if i = index then [newEl; el] else [el])
             |> List.concat
 
-
+    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    let countDistinctBy (keyf : 'T -> 'Key) (list: 'T list) =
+        let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
+        // Build the distinct-key list with count
+        let rec loop list =
+            match list with
+            | v :: t -> 
+                let key = keyf v
+                match dict.TryGetValue(key) with
+                | true, count ->
+                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                | _ -> 
+                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key
+                loop t
+            | _ -> ()
+        loop list
+        //Write to list
+        [
+        for v in dict do yield v.Key |> Operators.id,!v.Value
+        ]
 // ########################################
 // Static extensions
 

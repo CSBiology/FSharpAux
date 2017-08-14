@@ -253,5 +253,21 @@ module Array2D =
                 arr.[ri - 1,ci - 1] <- tmp
         arr
 
+    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    let countDistinctBy (keyf : 'T -> 'Key) (arr: 'T [,]) =
+        let dict = System.Collections.Generic.Dictionary<_, ref<int>> HashIdentity.Structural<'Key>
+        // Build the distinct-key dictionary with count
+        Array2D.iter (fun v -> 
+                let key = keyf v
+                match dict.TryGetValue(key) with
+                | true, count ->
+                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                | _ -> 
+                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key
+        ) arr
+        //Write to array
+        [|
+        for v in dict do yield v.Key |> Operators.id,!v.Value
+        |]
 
 

@@ -196,7 +196,11 @@ module String =
         elif Seq.forall isFloat values then typeof<float>
         else typeof<string>
 
-
+    /// Reverts a string
+    let rev (str:string) =
+        let len = str.Length
+        Array.init len (fun i -> str.[len-i-1]) |> fromCharArray
+    
 //    /// String Buider wrapper type
 //    type StringBuilder = B of (Text.StringBuilder -> unit)
 //
