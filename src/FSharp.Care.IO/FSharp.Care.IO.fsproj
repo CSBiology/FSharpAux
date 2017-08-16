@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Web/WebServer.fs" />
+    <Compile Include="Web/Http.fs" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="FileIO.fs" />
     <Compile Include="PathFileName.fs" />
