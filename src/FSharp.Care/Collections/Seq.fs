@@ -168,6 +168,14 @@ module Seq =
                 a::accA, b::accB, c::accC) input ([],[],[])
         (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)
 
+    let foldi (f : int -> 'State -> 'T -> 'State) (acc: 'State) (sequence:seq<'T>) =
+        let en = sequence.GetEnumerator()
+        let rec loop i acc = 
+            match en.MoveNext() with
+            | false -> acc
+            | true -> loop (i+1) (f i acc en.Current)
+        loop 0 acc
+
     ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
     let countDistinctBy (keyf : 'T -> 'Key) (sequence:seq<'T>) =
         let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>

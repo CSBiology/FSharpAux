@@ -113,6 +113,14 @@ module Array =
             target
 
         Array.mapi window source
+    
+    ///Applies a function to each element and its index of the array, threading an accumulator argument through the computation
+    let foldi (f : int -> 'State -> 'T -> 'State) (acc: 'State) (arr:'T[]) =
+        let l = arr.Length
+        let rec loop i acc = 
+            if i = l then acc
+            else loop (i+1) (f i acc arr.[i])
+        loop 0 acc
 
     // Applies a function to each element of the sub-collection in range (iFrom - iTo), threading an accumulator argument through the computation.
     let foldSub<'T,'State> (f : 'State -> 'T -> 'State) (acc: 'State) (arr:'T[]) iFrom iTo =
