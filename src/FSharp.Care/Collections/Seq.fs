@@ -4,11 +4,19 @@
 [<AutoOpen>]
 module Seq =    
     
-    /// Initialie a sequence of length and repeted value (like R! repeat : but swapped input)
+    ///Adds a value to the back of a sequence
+    let appendSingleton (s:seq<'T>) (value: 'T) =
+        Seq.append s (Seq.singleton value)
+
+    ///Adds a value to the front of a sequence
+    let consSingleton (s:seq<'T>) (value: 'T) =
+        Seq.append (Seq.singleton value) s
+
+    /// Initialize a sequence of length and repeated value (like R! repeat : but swapped input)
     let initRepeatValue length value =
         Seq.initInfinite ( fun _ -> value) |> Seq.take (length)
 
-    /// Initialie a sequence of length and repeted values (like R! repeat: but swapped input)
+    /// Initialize a sequence of length and repeated values (like R! repeat: but swapped input)
     let initRepeatValues length values =
         Seq.initInfinite ( fun _ -> values) |> Seq.take (length) |> Seq.concat
 
@@ -178,7 +186,7 @@ module Seq =
 
     ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
     let countDistinctBy (keyf : 'T -> 'Key) (sequence:seq<'T>) =
-        let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
+        let dict = System.Collections.Generic.Dictionary<_, int> HashIdentity.Structural<'Key>
         let en = sequence.GetEnumerator()
         // Build the distinct-key dictionary with count
         do 
@@ -186,11 +194,11 @@ module Seq =
                 let key = keyf en.Current
                 match dict.TryGetValue(key) with
                 | true, count ->
-                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                        dict.[key] <- count + 1 //If it matches a key in the dictionary increment by one
                 | _ -> 
-                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key  
+                        dict.[key] <- 1 //If it doesnt match create a new count for this key  
         //Write to Sequence
-        seq {for v in dict do yield v.Key |> Operators.id,!v.Value}
+        seq {for v in dict do yield v.Key |> Operators.id,v.Value}
 
     //#region seq double extension
     
