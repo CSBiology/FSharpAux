@@ -76,7 +76,7 @@ module List =
 
         outerLoop input []
 
-
+    
     // Example:
     // applyEachPairwise (+) ["A";"B";"C";"D";] --> ["AB"; "AC"; "AD"; "BC"; "BD"; "CD"]
     /// Applies function f two each unique compination of items in list 
@@ -106,7 +106,7 @@ module List =
             | []      -> acc |> List.rev
         loop l []
 
-
+    
     /// Removes an element from a list at a given index
     /// (Not recommended list opperation)
     let removeAt index input =
@@ -126,6 +126,14 @@ module List =
       // for the specified index
       input |> List.mapi (fun i el -> if i = index then [newEl; el] else [el])
             |> List.concat
+
+    ///Applies a function to each element and its index of the list, threading an accumulator argument through the computation
+    let foldi (f : int -> 'State -> 'T -> 'State) (acc: 'State) (l:'T list) =
+        let rec loop i acc l = 
+            match l with
+            | [] -> acc
+            | h :: t -> loop (i+1) (f i acc h) t
+        loop 0 acc l
 
     ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
     let countDistinctBy (keyf : 'T -> 'Key) (list: 'T list) =
