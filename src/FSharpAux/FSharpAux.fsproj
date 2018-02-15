@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>0.0.0.1</FileVersion>
+    <Authors>Timo Mühlhaus</Authors>
+    <Company>CSBiology</Company>
+    <Description>Auxiliary functions and data structures for F# programming language</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AdjacencyGraph.fs" />
+    <Compile Include="Array.fs" />
+    <Compile Include="Array2D.fs" />
+    <Compile Include="ArrayDivvy.fs" />
+    <Compile Include="BidirectionalDictionary.fs" />
+    <Compile Include="Dict.fs" />
+    <Compile Include="Dictionary.fs" />
+    <Compile Include="Guid.fs" />
+    <Compile Include="Interop.fs" />
+    <Compile Include="JaggedArray.fs" />
+    <Compile Include="KdTree.fs" />
+    <Compile Include="List.fs" />
+    <Compile Include="Map.fs" />
+    <Compile Include="Memoization.fs" />
+    <Compile Include="MultiMap.fs" />
+    <Compile Include="PSeq.fs" />
+    <Compile Include="Regex.fs" />
+    <Compile Include="ResizeArray.fs" />
+    <Compile Include="Seq.fs" />
+    <Compile Include="String.fs" />
+    <Compile Include="Tree.fs" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y &quot;$(TargetDir)*.dll&quot;  &quot;$(SolutionDir)bin\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.xml&quot; &quot;$(SolutionDir)bin\&quot;" />
+  </Target>
+
+</Project>
