@@ -29,7 +29,7 @@ This example demonstrates using a function defined in this sample library.
 #r "FSharpAux.dll"
 open FSharpAux
 
-printfn "hello = %i" <| Library.hello 0
+printfn "hello = %i" 0
 
 (**
 Some more info

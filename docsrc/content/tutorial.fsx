@@ -13,7 +13,7 @@ Say more
 #r "FSharpAux.dll"
 open FSharpAux
 
-Library.hello 0
+let hello 0
 (**
 Some more info
 *)
