@@ -1,4 +1,4 @@
-﻿namespace FSharp.Care
+﻿namespace FSharpAux
 
 
 /// Wrapper to use System Guid
