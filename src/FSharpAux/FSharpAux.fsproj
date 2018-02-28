@@ -24,6 +24,7 @@
     <Compile Include="KdTree.fs" />
     <Compile Include="List.fs" />
     <Compile Include="Map.fs" />
+    <Compile Include="Math.fs" />
     <Compile Include="Memoization.fs" />
     <Compile Include="MultiMap.fs" />
     <Compile Include="PSeq.fs" />

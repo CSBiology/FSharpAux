@@ -1,4 +1,4 @@
-﻿namespace FSharp.Care
+﻿namespace FSharpAux
 
 
 /// Module for facilitated .net interop erability

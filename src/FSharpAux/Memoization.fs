@@ -1,4 +1,4 @@
-﻿namespace FSharp.Care
+﻿namespace FSharpAux
 
 // https://en.wikibooks.org/wiki/F_Sharp_Programming/Caching
 // Although dictionary lookups occur in constant time, the hash function used by the dictionary can take an arbitrarily long time to execute (this is especially true with strings, where
