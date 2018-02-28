@@ -12,7 +12,6 @@ open Fake.UserInputHelper
 open System
 open System.IO
 open System.Diagnostics
-open Fake.XUnitHelper
 open Fake.Testing.XUnit
 
 // --------------------------------------------------------------------------------------
