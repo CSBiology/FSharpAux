@@ -132,6 +132,10 @@ Target "Clean" (fun _ ->
     CleanDirs ["bin"; "temp"; "docs"]
 )
 
+Target "Restore" (fun _ ->
+        Fake.DotNetCli.Restore id
+    )
+
 // --------------------------------------------------------------------------------------
 // Build library & test project
 
@@ -318,6 +322,33 @@ Target "AddLangDocs" (fun _ ->
 #load "paket-files/build/fsharp/FAKE/modules/Octokit/Octokit.fsx"
 open Octokit
 
+Target "ReleaseDocs" (fun _ ->
+    let tempDocsDir = "temp/gh-pages"
+    CleanDir tempDocsDir
+    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+
+    CopyRecursive "docs" tempDocsDir true |> tracefn "%A"
+    StageAll tempDocsDir
+    Git.Commit.Commit tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
+    Branches.push tempDocsDir
+)
+
+Target "ReleaseLocal" (fun _ ->
+    let tempDocsDir = "docs/local"
+    let temp = "temporaryDocs"
+    CreateDir temp
+    CreateDir tempDocsDir
+    CleanDir tempDocsDir
+    CopyRecursive "docs" temp true |> tracefn "%A"
+    CopyRecursive temp tempDocsDir true |> tracefn "%A"
+    DeleteDir temp
+    ReplaceInFiles 
+        (seq {
+            yield "href=\"/" + project + "/","href=\""
+            yield "src=\"/" + project + "/","src=\""}) 
+        ((filesInDirMatching "*.html" (directoryInfo tempDocsDir)) |> Array.map (fun x -> tempDocsDir + "/" + x.Name))
+)
+
 Target "Release" (fun _ ->
     let user =
         match getBuildParam "github-user" with
@@ -356,14 +387,18 @@ Target "BuildPackage" DoNothing
 Target "All" DoNothing
 
 "AssemblyInfo"
+  ==> "Clean"
+  ==> "Restore"
   ==> "Build"
   ==> "CopyBinaries"
   //==> "RunTests"
-  ==> "GenerateReferenceDocs"
-  ==> "GenerateDocs"
   ==> "NuGet"
   ==> "BuildPackage"
   ==> "All"
+  ==> "GenerateReferenceDocs"
+  ==> "GenerateDocs"
+  ==> "ReleaseLocal"
+  =?> ("ReleaseDocs",isLocalBuild)
 
 "GenerateHelp"
   ==> "GenerateReferenceDocs"
@@ -377,6 +412,9 @@ Target "All" DoNothing
 
 "BuildPackage"
   ==> "PublishNuget"
+  ==> "Release"
+
+"ReleaseDocs"
   ==> "Release"
 
 RunTargetOrDefault "All"
