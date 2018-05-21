@@ -1,4 +1,4 @@
-﻿namespace FSharpAux
+namespace FSharpAux
   
 open System
 open System.Collections.Generic
@@ -11,11 +11,12 @@ type internal StructuralEqualityComparer<'a when 'a : equality >() =
 
 
 
-
+/// The bidirectional dictionary allows effective search of keys and values
 type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > internal(forwardDictionary:Dictionary<'a,HashSet<'b>>,reverseDictionary:Dictionary<'b,HashSet<'a>>) = 
     let _forwardDictionary = forwardDictionary
     let _reverseDictionary = reverseDictionary
 
+    ///Adds a value v to the set of values already associated with key k
     let internalAdd (dict:Dictionary<'key,HashSet<'value>>) (k:'key) (v:'value) =
         match dict.TryGetValue(k) with
         | (true, container) ->
@@ -25,7 +26,7 @@ type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > intern
             tmp.Add(v) |> ignore
             dict.Add(k,tmp) 
 
-
+    ///Adds a range of values vv to the set of values already associated with key k
     let internalAddRange (dict:Dictionary<'key,HashSet<'value>>) (k:'key) (vv:seq<'value>) =
         match dict.TryGetValue(k) with
         | (true, container) ->
@@ -35,9 +36,22 @@ type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > intern
             vv |> Seq.iter ( fun v -> tmp.Add(v) |> ignore )
             dict.Add(k,tmp) 
 
+    ///Removes key k and all values associated with it
+    let internalRemove (dict:Dictionary<'key,HashSet<'value>>) (k:'key) =
+        dict.Remove k
 
+    ///Removes all values associated with key k for which the conditional function returns true
+    let internalRemoveConditional (f: 'key -> 'value -> bool) (dict:Dictionary<'key,HashSet<'value>>) (k:'key) = 
+        match dict.TryGetValue(k) with
+        | (true, container) ->
+            Seq.iter (fun v -> if f k v then container.Remove(v) |> ignore) container
+            if container.Count = 0 then dict.Remove k |> ignore
+        | (false,_) -> ()
+
+    ///Creates a new empty bidirectional dictionary
     new () = BidirectionalDictionary(new Dictionary<'a,HashSet<'b>>(new StructuralEqualityComparer<'a>()),new Dictionary<'b,HashSet<'a>>(new StructuralEqualityComparer<'b>()))
 
+    ///Adds a value v to the set of values already associated with key k to the forward dictionary. Adds a value k to the set of values already associated with key v to the reverse dictionary. 
     member this.Add key value =
         internalAdd _forwardDictionary key value
         internalAdd _reverseDictionary value key
@@ -46,28 +60,40 @@ type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > intern
     //     internalAddRange _forwardDictionary a b
     //     internalAddRange _reverseDictionary b a
 
-
+    ///Returns true if the forward dictionary contains the key k
     member this.ContainsKey key =
         _forwardDictionary.ContainsKey(key)
 
+    ///Returns true if the reverse dictionary contains the key k
     member this.ContainsValue value =
-        _forwardDictionary.ContainsKey(value)
+        _reverseDictionary.ContainsKey(value)
 
-
-    member this.TryGetByKey key =
+    ///Returns all values of the forward dictionary associated with key k
+    member this.TryGetByKey (key:'a) =
          match _forwardDictionary.TryGetValue(key) with
          | (true, container) -> Some (seq  { for i in container -> i })
-         | (false,_)         -> None 
+         | (false,_)         -> None
 
-
+    ///Returns all values of the reverse dictionary associated with key k
     member this.TryGetByValue value =
          match _reverseDictionary.TryGetValue(value) with
          | (true, container) -> Some (seq  { for i in container -> i })
-         | (false,_)         -> None 
+         | (false,_)         -> None
 
+    ///Removes the key key and all values associated to it from forward dictionary. Removes the value key from all keys from reverse dictionary.
+    member this.RemoveKey (key:'a) =
+        match this.TryGetByKey key with
+        | Some (vals:seq<'b>) ->
+            _forwardDictionary.Remove key |> ignore
+            let f _ v = v = key
+            Seq.iter (internalRemoveConditional f _reverseDictionary) vals
+        | None -> failwithf "Cannot remove key %A. Key not found in dictionary" key
+
+    ///Retuns all keys of the forward dictionary
     member this.GetArrayOfKeys = 
         Seq.toArray _forwardDictionary.Keys 
 
+    ///Returns all keys of the reverse dictionary
     member this.GetArrayOfValues =    
         Seq.toArray _reverseDictionary.Keys     
 
