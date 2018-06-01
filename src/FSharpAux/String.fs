@@ -1,4 +1,4 @@
-﻿namespace FSharpAux
+namespace FSharpAux
 
 // #####
 // The code is take from Fsharpx project and modified

@@ -41,12 +41,16 @@ type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > intern
         dict.Remove k
 
     ///Removes all values associated with key k for which the conditional function returns true
-    let internalRemoveConditional (f: 'key -> 'value -> bool) (dict:Dictionary<'key,HashSet<'value>>) (k:'key) = 
-        match dict.TryGetValue(k) with
-        | (true, container) ->
-            Seq.iter (fun v -> if f k v then container.Remove(v) |> ignore) container
-            if container.Count = 0 then dict.Remove k |> ignore
-        | (false,_) -> ()
+    let internalRemoveConditional (f: 'key -> 'value -> bool) (dict:Dictionary<'key,HashSet<'value>>) (k:'key) =
+        try 
+            match dict.TryGetValue(k) with
+            | (true, container) ->
+                let vals = container |> Seq.toArray
+                Array.iter (fun v -> if f k v then container.Remove(v) |> ignore) vals
+                if container.Count = 0 then dict.Remove k |> ignore
+            | (false,_) -> ()
+        with
+        | _ -> ()
 
     ///Creates a new empty bidirectional dictionary
     new () = BidirectionalDictionary(new Dictionary<'a,HashSet<'b>>(new StructuralEqualityComparer<'a>()),new Dictionary<'b,HashSet<'a>>(new StructuralEqualityComparer<'b>()))
@@ -88,6 +92,14 @@ type BidirectionalDictionary< 'a,'b when 'a: equality and 'b: equality  > intern
             let f _ v = v = key
             Seq.iter (internalRemoveConditional f _reverseDictionary) vals
         | None -> failwithf "Cannot remove key %A. Key not found in dictionary" key
+
+    member this.RemoveValue (value:'b) =
+        match this.TryGetByValue value with
+        | Some (keys:seq<'a>) ->
+            _reverseDictionary.Remove value |> ignore
+            let f _ k = k = value
+            Seq.iter (internalRemoveConditional f _forwardDictionary) keys
+        | None -> failwithf "Cannot remove key %A. Key not found in dictionary" value
 
     ///Retuns all keys of the forward dictionary
     member this.GetArrayOfKeys = 
