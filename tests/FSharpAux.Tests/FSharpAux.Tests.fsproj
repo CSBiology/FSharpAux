@@ -1,23 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <Version>0.0.1</Version>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
+    <ProjectGuid>12cff99c-5660-42fe-9370-9085a6558f16</ProjectGuid>
+    <RootNamespace>FSharpAux.Tests</RootNamespace>
+    <AssemblyName>FSharpAux.Tests</AssemblyName>
+    <DebugType>portable</DebugType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
+    <Content Include="App.config" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.9.0" />
-    <PackageReference Include="nunit.framework" Version="2.63.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\FSharpAux\FSharpAux.fsproj" />
   </ItemGroup>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
