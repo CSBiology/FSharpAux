@@ -200,6 +200,46 @@ module Seq =
         //Write to Sequence
         seq {for v in dict do yield v.Key |> Operators.id,v.Value}
 
+    type JoinOption<'a,'b, 'c> = seq<'a option*'b option> -> seq<'c>
+
+    let joinCross (s:seq<'a option*'b option>) =
+        s
+        |> Seq.choose (fun v -> match v with
+                                | (Some left,Some right) -> Some (left,right)                            
+                                | _,_ -> None
+                                )
+
+    // Combines two sequences according to key generating functions
+    let joinBy (joinOption:JoinOption<'a,'b, 'c>) (keyf1: 'a -> 'key) (keyf2: 'b -> 'key) (s1:seq<'a>) (s2:seq<'b>) =
+        // Wrap a StructBox(_) around all keys in case the key type is itself a type using null as a representation
+            let dict = new System.Collections.Generic.Dictionary<'key,'a option*'b option>()
+
+            let insertLeft key lValue =    
+                let ok,refV = dict.TryGetValue(key)
+                if ok then 
+                    let _,b = refV
+                    dict.[key] <- (Some lValue,b)            
+                else             
+                    dict.Add(key,(Some lValue,None))
+            
+            
+            let insertRight key rValue =    
+                let ok,refV = dict.TryGetValue(key)
+                if ok then 
+                    let a,_ = refV
+                    dict.[key] <- (a,Some rValue) 
+                else             
+                    dict.Add(key,(None,Some rValue))
+            
+
+            s1 |> Seq.iter (fun l -> insertLeft  (keyf1 l) l)                                         
+            s2 |> Seq.iter (fun r -> insertRight (keyf2 r) r)
+    
+            dict 
+            |> Seq.map (fun group -> group.Value)
+            |> joinOption           
+
+
     //#region seq double extension
     
     /// Seq module extensions specialized for seq<float>
