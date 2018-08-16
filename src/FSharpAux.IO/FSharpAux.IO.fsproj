@@ -1,32 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <Version>0.0.1</Version>
-    <Description>Auxiliary functions for I/O for F# programming language</Description>
-    <Company>CSBiology</Company>
-    <Authors>Timo Mühlhaus</Authors>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <ProjectGuid>300079c1-69f3-46ce-9f57-c5510b7e925b</ProjectGuid>
+    <RootNamespace>FSharpAux.IO</RootNamespace>
+    <AssemblyName>FSharpAux.IO</AssemblyName>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DocumentationFile>bin\$(Configuration)\$(AssemblyName).XML</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="FileIO.fs" />
     <Compile Include="PathFileName.fs" />
     <Compile Include="SchemaReader.fs" />
     <Compile Include="SeqIO.fs" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+    <Content Include="App.config" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\FSharpAux\FSharpAux.fsproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(TargetDir)*.dll&quot;  &quot;$(SolutionDir)bin\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.xml&quot; &quot;$(SolutionDir)bin\&quot;" />
-  </Target>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
