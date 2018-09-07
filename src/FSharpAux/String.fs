@@ -200,7 +200,25 @@ module String =
     let rev (str:string) =
         let len = str.Length
         Array.init len (fun i -> str.[len-i-1]) |> fromCharArray
-    
+
+    /// Takes the first n characters of string.
+    let take n (str:string) = 
+        if n < 0 then 
+            failwith "Can't take a negative number of characters from string."
+        elif n > str.Length then
+            failwith "The input string has an insufficient number of characters."
+        else 
+            str.[0..n-1]       
+            
+    /// Skips the first n characters of string.
+    let skip n (str:string) = 
+        if n < 0 then 
+            failwith "Can't skip a negative number of characters from string."
+        elif n > str.Length then
+            failwith "The input string has an insufficient number of characters."
+        else 
+            str.[n..(str.Length-1)]            
+
 //    /// String Buider wrapper type
 //    type StringBuilder = B of (Text.StringBuilder -> unit)
 //
