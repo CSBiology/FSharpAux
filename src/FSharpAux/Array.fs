@@ -159,6 +159,33 @@ module Array =
         [|
         for v in dict do yield v.Key |> Operators.id,!v.Value
         |]
+
+    /// Uses a binary search to retrieve an element out of the sorted array arr that fullfills a condition defined by the function compare.
+    /// The compare function has to be implemented in the following way:
+    ///  let find findThis elementOfArray = 
+    ///      if abs (findThis - elementOfArray) < 0.001  then 0 
+    ///      elif findThis < elementOfArray then -1 
+    ///      else 1
+    /// If an element in the array is found that satisfies the condition returning 0, the index is returned.
+    /// If the search ends within the array, the negative bitwise complement of the closest larger element is returned.
+    /// If the element is bigger than the largest element of the array, the negative bitwise complement of the arr.lenght+1 is returned.
+    let binarySearchIndexBy compare (arr: 'a []) = 
+        if Array.isEmpty arr then failwith "Array cannot be empty." 
+        else
+            let rec loop lower upper = 
+                if lower > upper then ~~~ lower 
+                else
+                    let middle = lower + ((upper - lower) / 2)
+                    let comparisonResult = compare arr.[middle]   
+                    if comparisonResult = 0 then
+                        middle
+                    elif comparisonResult < 0 then
+                        loop lower (middle - 1)
+                    else
+                        loop (middle + 1) upper           
+            loop 0 (arr.Length-1) 
+
+
 // ########################################
 // Static extensions
 
