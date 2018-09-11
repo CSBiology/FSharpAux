@@ -1,5 +1,5 @@
 # FSharpAux	# FSharpAux
-Extensions, auxiliary functions and data structures for F# programming language. Documentation can be found here
+Extensions, auxiliary functions and data structures for F# programming language
 
  * Extensions 	
  * Monads	
