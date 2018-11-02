@@ -69,10 +69,11 @@ module SchemaReader =
         /// column used in the data format for the schema as index
         type FieldAttribute(indexTag:FieldIndex) =
             inherit Attribute()    
-            new (index:int)           = FieldAttribute(FieldIndex.Single (Index.Int index))
-            new (index:string)        = FieldAttribute(FieldIndex.Single (Index.String index))    
-            new (indices:int[])       = FieldAttribute(FieldIndex.Collection (indices |> Array.map (fun item -> Index.Int item))) 
-            new (indices:string[])    = FieldAttribute(FieldIndex.Collection (indices |> Array.map (fun item -> Index.String item)))
+            new (index:int)                 = FieldAttribute(FieldIndex.Single (Index.Int index))
+            new (index:string)              = FieldAttribute(FieldIndex.Single (Index.String index))    
+            new (indices:int[])             = FieldAttribute(FieldIndex.Collection (indices |> Array.map (fun item -> Index.Int item))) 
+            new (indices:string[])          = FieldAttribute(FieldIndex.Collection (indices |> Array.map (fun item -> Index.String item)))
+            new (indexFrom:int,indexTo:int) = FieldAttribute(FieldIndex.Collection ([for i=indexFrom to indexTo do yield Index.Int i]))
             member this.IndexTag = indexTag
 
  
@@ -128,10 +129,11 @@ module SchemaReader =
             createSchemaItem fieldIndex propertyInfoName fieldTag deserialize)
 
     
-    ///
+    /// Type encodes the mapping from Schema index to value
     type SchemaValues = Map<Index,string> 
-
-        
+    
+    /// Type encodes the mapping from Schema index to index of string array
+    type SchemaPosition = Map<Index,int>     
 
     //#region RecordSchemaReader
     ///
@@ -182,9 +184,10 @@ module SchemaReader =
             if schemaIndexCount <> (Seq.length(words)) then failwithf "Number of columns do not match the number of attributes"       
             
             // Get value from schemaValues but failes if there is key not found exception
-            let getvalue (words:SchemaValues) key = match words.TryFind(key) with
-                                                    | Some(value) -> value
-                                                    | None -> failwithf "No value in Column %A" key 
+            let getvalue (words:SchemaValues) key = 
+                match words.TryFind(key) with
+                | Some(value) -> value
+                | None -> failwithf "No value in Column %A" key 
 
             let valueToObject schemaItem =
                 match schemaItem.Tag,schemaItem.Deserialize with
@@ -208,23 +211,23 @@ module SchemaReader =
     //#region Csv reader
     module Csv = 
 
-        type SchemaMode = 
+        type SchemaModes = 
             | Exact
             | Fill
 
 
 
         /// 
-        type CsvReader<'Schema>(?typeConverter:Type -> Converter, ?schemaMode:SchemaMode,?verbose) =
+        type CsvReader<'Schema>(?TypeConverter:Type -> Converter, ?SchemaMode:SchemaModes,?Verbose) =
 
              // Split string by delimiter
             let split (delim:char) (line:string) = 
                line.Split([|delim|]) |> Array.map( fun s -> s.Trim())
 
             // Default SchemaMode
-            let schemaMode = defaultArg schemaMode SchemaMode.Exact
-            let typeConverter = defaultArg typeConverter defaultTypeConverter
-            let verbose = defaultArg verbose false
+            let schemaMode = defaultArg SchemaMode SchemaModes.Exact
+            let typeConverter = defaultArg TypeConverter defaultTypeConverter
+            let verbose = defaultArg Verbose false
 
             // Converts header line to header map
             let convertHeaderLine (separator) (headerLine:string) =
@@ -239,7 +242,7 @@ module SchemaReader =
 
 
             /// Converts a seperated string according to the schema
-            member this.ReadLine (header:Map<Index,int>) (separator:char) (line) =             
+            member this.ReadLine (header:SchemaPosition) (separator:char) (line) =             
                 let splitLine = line |> split separator
                 let words     = if header.IsEmpty then
                                     splitLine |> Array.mapi (fun i v -> (Index.Int i,v)) |> Map.ofArray
@@ -247,27 +250,14 @@ module SchemaReader =
                                      header |> Seq.map (fun (kv) -> (kv.Key,splitLine.[kv.Value])) |> Map.ofSeq
                             
                 match schemaMode with
-                    | SchemaMode.Exact ->  schemaReader.ConvertExact words 
-                    | SchemaMode.Fill  ->  schemaReader.Convert words
+                    | SchemaModes.Exact ->  schemaReader.ConvertExact words 
+                    | SchemaModes.Fill  ->  schemaReader.Convert words
 
-      
-            /// Reads in a file and returns typed rows in a sequence according to the schema
-            member this.ReadFile(file, separator:char, firstLineHasHeader:bool, ?skipLines:int, ?skipLinesBeforeHeader:int) =                                   
-                let reader = File.OpenText(file)
-                let skipLines             = (defaultArg skipLines 0) 
-                let skipLinesBeforeHeader = (defaultArg skipLinesBeforeHeader 0) 
-                let header = match firstLineHasHeader with
-                             | true  -> for i = 1 to skipLinesBeforeHeader do reader.ReadLine() |> ignore
-                                        let tmpLine = reader.ReadLine()
-                                        if tmpLine = null then 
-                                            reader.Close()
-                                            Map.empty
-                                        else
-                                            // Convert header according to SchemaReader Index type
-                                            convertHeaderLine separator tmpLine
-                             | false -> Map.empty
-            
-            
+            /// Reads from a StreamReader and returns typed rows in a sequence according to the schema and given header string
+            member this.ReadTextReader(reader:#TextReader, separator:char, header:string, ?SkipLines:int) = 
+                let skipLines = (defaultArg SkipLines 0)                 
+                let header    = convertHeaderLine separator header
+
                 Seq.unfold(fun line -> 
                     if line = null then 
                         reader.Close() 
@@ -276,26 +266,41 @@ module SchemaReader =
                         Some(line,reader.ReadLine())) (reader.ReadLine())
                 |> Seq.skip skipLines
                 |> Seq.filter ( fun line -> not (String.IsNullOrEmpty line) )
-                |> Seq.map    ( fun line -> this.ReadLine header separator line ) 
+                |> Seq.map    ( fun line -> this.ReadLine header separator line )  
 
-            /// Reads in a file and returns typed rows in a sequence according to the schema
-            member this.ReadFile(file, separator:char, lineHasHeader:string, ?skipLines:int, ?skipLinesBeforeHeader:int) =                                   
+            /// Reads from a StreamReader and returns typed rows in a sequence according to the schema
+            member this.ReadTextReader(reader:#TextReader, separator:char, firstLineHasHeader:bool, ?SkipLines:int, ?SkipLinesBeforeHeader:int) = 
+                let skipLinesBeforeHeader = (defaultArg SkipLinesBeforeHeader 0) 
+                let header' = 
+                    match firstLineHasHeader with
+                    | true  ->
+                        for i = 1 to skipLinesBeforeHeader do reader.ReadLine() |> ignore
+                        let tmpLine = reader.ReadLine()
+                        if tmpLine = null then 
+                            reader.Close()
+                            String.Empty
+                        else
+                            // Convert header according to SchemaReader Index type
+                            tmpLine
+                    | false -> String.Empty
+                
+                this.ReadTextReader(reader, separator, header', ?SkipLines=SkipLines)
+
+            /// Reads in a file and returns typed rows in a sequence according to the schema and given header string
+            member this.ReadFile(file, separator:char, header:string, ?SkipLines:int) =                                   
                 let reader = File.OpenText(file)
-                let skipLines             = (defaultArg skipLines 0) 
-                let skipLinesBeforeHeader = (defaultArg skipLinesBeforeHeader 0) 
-                let header = convertHeaderLine separator lineHasHeader
-                             
-            
-            
-                Seq.unfold(fun line -> 
-                    if line = null then 
-                        reader.Close() 
-                        None 
-                    else 
-                        Some(line,reader.ReadLine())) (reader.ReadLine())
-                |> Seq.skip skipLines
-                |> Seq.filter ( fun line -> not (String.IsNullOrEmpty line) )
-                |> Seq.map    ( fun line -> this.ReadLine header separator line ) 
+                this.ReadTextReader(reader,separator,header, ?SkipLines=SkipLines)
+           
+            /// Reads in a file and returns typed rows in a sequence according to the schema
+            member this.ReadFile(file, separator:char, firstLineHasHeader:bool, ?SkipLines:int, ?SkipLinesBeforeHeader:int) =                                   
+                let reader = File.OpenText(file)
+                this.ReadTextReader(reader,separator,firstLineHasHeader, ?SkipLines=SkipLines, ?SkipLinesBeforeHeader=SkipLinesBeforeHeader)
+
+            /// Reads from a string and returns typed rows in a sequence according to the schema and given header string
+            member this.ReadFromString(str:string, separator:char, firstLineHasHeader:bool, ?SkipLines:int,?SkipLinesBeforeHeader:int) =
+                let reader = new StringReader(str)
+                this.ReadTextReader(reader, separator, firstLineHasHeader, ?SkipLines=SkipLines, ?SkipLinesBeforeHeader=SkipLinesBeforeHeader)
+
 
         //#endregion Csv reader
 
