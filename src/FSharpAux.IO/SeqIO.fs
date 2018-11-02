@@ -31,7 +31,7 @@ module SeqIO =
             let skipLines             = (defaultArg skipLines 0)
             let skipLinesBeforeHeader = (defaultArg skipLinesBeforeHeader 0)
             let schemaMode = (defaultArg schemaMode SchemaReader.Csv.Exact)
-            let csvReader = SchemaReader.Csv.CsvReader<'schema>(schemaMode=schemaMode)
+            let csvReader = SchemaReader.Csv.CsvReader<'schema>(SchemaMode=schemaMode)
             csvReader.ReadFile(filePath,separator,firstLineHasHeader,skipLines, skipLinesBeforeHeader)
 
         /// Writes a sequence to file path

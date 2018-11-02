@@ -49,9 +49,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{7C6D08
 		build.proj = build.proj
 		build.sh = build.sh
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DD8B5A5-46DF-41A5-8865-7DDA8A98D86A}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpAux.IO", "src\FSharpAux.IO\FSharpAux.IO.fsproj", "{A35B96DE-6DC0-41D6-A6A0-9C3153235632}"
 EndProject
 Global
