@@ -1,21 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.0.1</Version>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <Authors>Timo Mühlhaus</Authors>
-    <Company>CSBiology</Company>
-    <Description>Auxiliary functions and data structures for F# programming language</Description>
+    <TargetFrameworks>net45;net47;netstandard2.0</TargetFrameworks>
+    <RootNamespace>FSharpAux</RootNamespace>
+    <AssemblyName>FSharpAux</AssemblyName>
+    <Name>FSharpAux</Name>
+    <OutputType>Library</OutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-
   <ItemGroup>
+    <Compile Include="Hex.fs" />
+    <Compile Include="Colors.fs" />
     <Compile Include="AdjacencyGraph.fs" />
     <Compile Include="Array.fs" />
     <Compile Include="Array2D.fs" />
     <Compile Include="ArrayDivvy.fs" />
     <Compile Include="BidirectionalDictionary.fs" />
+    <Compile Include="DateTime.fs" />
     <Compile Include="Dict.fs" />
     <Compile Include="Dictionary.fs" />
     <Compile Include="Guid.fs" />
@@ -33,10 +39,8 @@
     <Compile Include="Seq.fs" />
     <Compile Include="String.fs" />
     <Compile Include="Tree.fs" />
+    <None Include="paket.references" />
+    <None Include="paket.template" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(TargetDir)*.dll&quot;  &quot;$(SolutionDir)bin\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.xml&quot; &quot;$(SolutionDir)bin\&quot;" />
-  </Target>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

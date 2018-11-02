@@ -1,32 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <Version>0.0.1</Version>
-    <Description>Auxiliary functions for I/O for F# programming language</Description>
-    <Company>CSBiology</Company>
-    <Authors>Timo Mühlhaus</Authors>
+    <TargetFrameworks>net45;net47;netstandard2.0</TargetFrameworks>
+    <RootNamespace>FSharpAux.IO</RootNamespace>
+    <AssemblyName>FSharpAux.IO</AssemblyName>
+    <Name>FSharpAux.IO</Name>
+    <OutputType>Library</OutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="FileIO.fs" />
     <Compile Include="PathFileName.fs" />
     <Compile Include="SchemaReader.fs" />
     <Compile Include="SeqIO.fs" />
+    <None Include="paket.references" />
+    <None Include="paket.template" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\FSharpAux\FSharpAux.fsproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(TargetDir)*.dll&quot;  &quot;$(SolutionDir)bin\&quot;&#xD;&#xA;xcopy /Y &quot;$(TargetDir)*.xml&quot; &quot;$(SolutionDir)bin\&quot;" />
-  </Target>
-
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

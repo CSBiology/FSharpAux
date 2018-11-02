@@ -20,6 +20,7 @@ build/
 [Bb]in/
 [Oo]bj/
 
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -169,6 +170,15 @@ $RECYCLE.BIN/
 # NuGet Packages Directory
 packages/
 
+# Generated documentation folder
+docs/formatted/
+
+#ignore local docs
+docs/local/
+
+# Temp folder used for publishing docs
+temp/
+
 # Test results produced by build
 TestResults.xml
 
@@ -179,8 +189,8 @@ release.sh
 localpackages/
 paket-files
 *.orig
-.paket/paket.exe
-docsrc/content/license.md
-docsrc/content/release-notes.md
+docs/content/license.md
+docs/content/release-notes.md
 .fake
-docsrc/tools/FSharp.Formatting.svclog
+docs/tools/FSharp.Formatting.svclog
+/docs

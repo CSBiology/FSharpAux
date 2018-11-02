@@ -1,4 +1,4 @@
-﻿namespace FSharpAux
+namespace FSharpAux
 
 open System.Text.RegularExpressions
 
