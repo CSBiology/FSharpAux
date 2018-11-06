@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Seq - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Seq</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+        <span>
+          Attributes:<br />
+[&lt;AutoOpen&gt;]<br />
+          
+      </span>
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-seq-joinoption-3.html">JoinOption<'a, 'b, 'c></a>
+          </td>
+          <td class="xmldoc">
+          
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table table-bordered module-list">
+    <thead>
+      <tr><td>Module</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="module-name">
+            <a href="fsharpaux-seq-double.html">Double</a>
+          </td>
+          <td class="xmldoc">
+          <p>Seq module extensions specialized for seq<float></p>
+
+
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '354', 354)" onmouseover="showTip(event, '354', 354)">
+            appendSingleton s value
+          </code>
+          <div class="tip" id="354">
+            <strong>Signature:</strong> s:seq&lt;&#39;T&gt; -&gt; value:&#39;T -&gt; seq&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L8-8" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Adds a value to the back of a sequence</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '355', 355)" onmouseover="showTip(event, '355', 355)">
+            consSingleton s value
+          </code>
+          <div class="tip" id="355">
+            <strong>Signature:</strong> s:seq&lt;&#39;T&gt; -&gt; value:&#39;T -&gt; seq&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L12-12" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Adds a value to the front of a sequence</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '356', 356)" onmouseover="showTip(event, '356', 356)">
+            countDistinctBy keyf sequence
+          </code>
+          <div class="tip" id="356">
+            <strong>Signature:</strong> keyf:(&#39;T -&gt; &#39;Key) -&gt; sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;Key * int&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'Key                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L218-218" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applies a keyfunction to each element and counts the amount of each distinct resulting key</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '357', 357)" onmouseover="showTip(event, '357', 357)">
+            countIf f input
+          </code>
+          <div class="tip" id="357">
+            <strong>Signature:</strong> f:(&#39;?8173 -&gt; bool) -&gt; input:seq&lt;&#39;?8173&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> '?8173                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L133-133" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Iterates over elements of the input sequence and increase the counter
+if the function returens true</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '358', 358)" onmouseover="showTip(event, '358', 358)">
+            foldi f acc sequence
+          </code>
+          <div class="tip" id="358">
+            <strong>Signature:</strong> f:(int -&gt; &#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; acc:&#39;State -&gt; sequence:seq&lt;&#39;T&gt; -&gt; &#39;State<br />
+                          <strong>Type parameters:</strong> 'State, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L209-209" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '359', 359)" onmouseover="showTip(event, '359', 359)">
+            groupAfter f input
+          </code>
+          <div class="tip" id="359">
+            <strong>Signature:</strong> f:(&#39;?8167 -&gt; bool) -&gt; input:seq&lt;&#39;?8167&gt; -&gt; seq&lt;&#39;?8167 list&gt;<br />
+                          <strong>Type parameters:</strong> '?8167                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L32-32" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Iterates over the elements of the input sequence and groups adjacent
+elements. A new group is started after the specified predicate holds
+about the element of the sequence (and at the beginning of the iteration).</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '360', 360)" onmouseover="showTip(event, '360', 360)">
+            groupsOfAtMost size s
+          </code>
+          <div class="tip" id="360">
+            <strong>Signature:</strong> size:int -&gt; s:seq&lt;&#39;v&gt; -&gt; seq&lt;&#39;v list&gt;<br />
+                          <strong>Type parameters:</strong> 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L112-112" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Break sequence into n-element subsequences</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '361', 361)" onmouseover="showTip(event, '361', 361)">
+            groupWhen f input
+          </code>
+          <div class="tip" id="361">
+            <strong>Signature:</strong> f:(&#39;a -&gt; bool) -&gt; input:seq&lt;&#39;a&gt; -&gt; seq&lt;seq&lt;&#39;a&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'a                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Iterates over elements of the input sequence and groups adjacent elements.
+A new group is started when the specified predicate holds about the element
+of the sequence (and at the beginning of the iteration).</p>
+<p>For example:
+Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '362', 362)" onmouseover="showTip(event, '362', 362)">
+            headOrDefault defaultValue s
+          </code>
+          <div class="tip" id="362">
+            <strong>Signature:</strong> defaultValue:&#39;?8181 -&gt; s:seq&lt;&#39;?8181&gt; -&gt; &#39;?8181<br />
+                          <strong>Type parameters:</strong> '?8181                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L190-190" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns head of a seq or default value if seq is empty</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '363', 363)" onmouseover="showTip(event, '363', 363)">
+            initRepeatValue length value
+          </code>
+          <div class="tip" id="363">
+            <strong>Signature:</strong> length:int -&gt; value:&#39;?8160 -&gt; seq&lt;&#39;?8160&gt;<br />
+                          <strong>Type parameters:</strong> '?8160                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L16-16" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Initialize a sequence of length and repeated value (like R! repeat : but swapped input)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '364', 364)" onmouseover="showTip(event, '364', 364)">
+            initRepeatValues length values
+          </code>
+          <div class="tip" id="364">
+            <strong>Signature:</strong> length:int -&gt; values:seq&lt;&#39;?8162&gt; -&gt; seq&lt;&#39;?8162&gt;<br />
+                          <strong>Type parameters:</strong> '?8162                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L20-20" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Initialize a sequence of length and repeated values (like R! repeat: but swapped input)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '365', 365)" onmouseover="showTip(event, '365', 365)">
+            joinBy joinOption keyf1 keyf2 s1 s2
+          </code>
+          <div class="tip" id="365">
+            <strong>Signature:</strong> joinOption:JoinOption&lt;&#39;a,&#39;b,&#39;c&gt; -&gt; keyf1:(&#39;a -&gt; &#39;key) -&gt; keyf2:(&#39;b -&gt; &#39;key) -&gt; s1:seq&lt;&#39;a&gt; -&gt; s2:seq&lt;&#39;b&gt; -&gt; seq&lt;&#39;c&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b, 'c, 'key                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L256-256" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '366', 366)" onmouseover="showTip(event, '366', 366)">
+            joinCross(s)
+          </code>
+          <div class="tip" id="366">
+            <strong>Signature:</strong> s:seq&lt;&#39;a option * &#39;b option&gt; -&gt; seq&lt;&#39;a * &#39;b&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L236-236" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '367', 367)" onmouseover="showTip(event, '367', 367)">
+            joinLeft(s)
+          </code>
+          <div class="tip" id="367">
+            <strong>Signature:</strong> s:seq&lt;&#39;a option * &#39;b option&gt; -&gt; seq&lt;&#39;a * &#39;b&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L242-242" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '368', 368)" onmouseover="showTip(event, '368', 368)">
+            joinRight(s)
+          </code>
+          <div class="tip" id="368">
+            <strong>Signature:</strong> s:seq&lt;&#39;a option * &#39;b option&gt; -&gt; seq&lt;&#39;a * &#39;b&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L249-249" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '369', 369)" onmouseover="showTip(event, '369', 369)">
+            pivotize(...)
+          </code>
+          <div class="tip" id="369">
+            <strong>Signature:</strong> aggregation:(seq&lt;&#39;T&gt; -&gt; &#39;A) -&gt; defaultValue:&#39;A -&gt; keyList:seq&lt;&#39;key&gt; -&gt; valueList:seq&lt;&#39;key * seq&lt;&#39;T&gt;&gt; -&gt; seq&lt;&#39;A&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'A, 'key                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L146-146" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '370', 370)" onmouseover="showTip(event, '370', 370)">
+            sortByDesc f s
+          </code>
+          <div class="tip" id="370">
+            <strong>Signature:</strong> f:(&#39;a -&gt; &#39;b) -&gt; s:IEnumerable&lt;&#39;a&gt; -&gt; IOrderedEnumerable&lt;&#39;a&gt;<br />
+                          <strong>Type parameters:</strong> 'a, 'b                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L24-24" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Sorts sequence in descending order</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '371', 371)" onmouseover="showTip(event, '371', 371)">
+            tryHead(s)
+          </code>
+          <div class="tip" id="371">
+            <strong>Signature:</strong> s:seq&lt;&#39;?8179&gt; -&gt; &#39;?8179 option<br />
+                          <strong>Type parameters:</strong> '?8179                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L187-187" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns head of a seq as option or None if seq is empty</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '372', 372)" onmouseover="showTip(event, '372', 372)">
+            unzip(input)
+          </code>
+          <div class="tip" id="372">
+            <strong>Signature:</strong> input:seq&lt;&#39;?8183 * &#39;?8184&gt; -&gt; seq&lt;&#39;?8183&gt; * seq&lt;&#39;?8184&gt;<br />
+                          <strong>Type parameters:</strong> '?8183, '?8184                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L196-196" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Splits a sequence of pairs into two sequences</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '373', 373)" onmouseover="showTip(event, '373', 373)">
+            unzip3(input)
+          </code>
+          <div class="tip" id="373">
+            <strong>Signature:</strong> input:seq&lt;&#39;?8186 * &#39;?8187 * &#39;?8188&gt; -&gt; seq&lt;&#39;?8186&gt; * seq&lt;&#39;?8187&gt; * seq&lt;&#39;?8188&gt;<br />
+                          <strong>Type parameters:</strong> '?8186, '?8187, '?8188                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Seq.fs#L203-203" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Splits a sequence of triples into three sequences</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

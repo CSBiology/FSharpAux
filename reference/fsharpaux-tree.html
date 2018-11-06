@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tree - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Tree</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+  </p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-tree-genericnode-2.html">GenericNode<'key, 'data></a>
+          </td>
+          <td class="xmldoc">
+          <p>Generic tree node containing member list and child map</p>
+
+
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '421', 421)" onmouseover="showTip(event, '421', 421)">
+            add keyPath item tree
+          </code>
+          <div class="tip" id="421">
+            <strong>Signature:</strong> keyPath:&#39;?8072 list -&gt; item:&#39;?8073 -&gt; tree:GenericNode&lt;&#39;?8072,&#39;?8073&gt; -&gt; GenericNode&lt;&#39;?8072,&#39;?8073&gt;<br />
+                          <strong>Type parameters:</strong> '?8072, '?8073                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L17-17" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Add item to tree having keyPath as list of keys</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '422', 422)" onmouseover="showTip(event, '422', 422)">
+            contains keyPath item tree
+          </code>
+          <div class="tip" id="422">
+            <strong>Signature:</strong> keyPath:&#39;?8078 list -&gt; item:&#39;?8079 -&gt; tree:GenericNode&lt;&#39;?8078,&#39;?8079&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8078, '?8079                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L33-33" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Contains</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '423', 423)" onmouseover="showTip(event, '423', 423)">
+            createTree(keyItemList)
+          </code>
+          <div class="tip" id="423">
+            <strong>Signature:</strong> keyItemList:(&#39;?8075 list * &#39;?8076) list -&gt; GenericNode&lt;&#39;?8075,&#39;?8076&gt;<br />
+                          <strong>Type parameters:</strong> '?8075, '?8076                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L29-29" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Create tree out of keyPath*item list</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '424', 424)" onmouseover="showTip(event, '424', 424)">
+            empty
+          </code>
+          <div class="tip" id="424">
+            <strong>Signature:</strong> GenericNode&lt;&#39;?8069,&#39;?8070&gt;<br />
+                          <strong>Type parameters:</strong> '?8069, '?8070                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L13-13" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Generic tree node empty</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '425', 425)" onmouseover="showTip(event, '425', 425)">
+            getDeepMemberSeqByKeyPath keyPath tree
+          </code>
+          <div class="tip" id="425">
+            <strong>Signature:</strong> keyPath:&#39;key list -&gt; tree:GenericNode&lt;&#39;key,&#39;data&gt; -&gt; seq&lt;&#39;data&gt;<br />
+                          <strong>Type parameters:</strong> 'key, 'data                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L61-61" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '426', 426)" onmouseover="showTip(event, '426', 426)">
+            mapMember f tree
+          </code>
+          <div class="tip" id="426">
+            <strong>Signature:</strong> f:(&#39;data -&gt; &#39;ndata) -&gt; tree:GenericNode&lt;&#39;key,&#39;data&gt; -&gt; GenericNode&lt;&#39;key,&#39;ndata&gt;<br />
+                          <strong>Type parameters:</strong> 'data, 'ndata, 'key                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L42-42" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '427', 427)" onmouseover="showTip(event, '427', 427)">
+            print(tree)
+          </code>
+          <div class="tip" id="427">
+            <strong>Signature:</strong> tree:GenericNode&lt;&#39;key,&#39;data&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'key, 'data                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L70-70" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '428', 428)" onmouseover="showTip(event, '428', 428)">
+            toMemberSeq(tree)
+          </code>
+          <div class="tip" id="428">
+            <strong>Signature:</strong> tree:GenericNode&lt;&#39;key,&#39;data&gt; -&gt; seq&lt;List&lt;&#39;data&gt;&gt;<br />
+                          <strong>Type parameters:</strong> 'key, 'data                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Tree.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

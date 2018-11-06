@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Dictionary - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Dictionary</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+  </p>
+<div class="xmldoc">
+<p>.Net Dictionary</p>
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '107', 107)" onmouseover="showTip(event, '107', 107)">
+            addInPlace key value table
+          </code>
+          <div class="tip" id="107">
+            <strong>Signature:</strong> key:&#39;?8830 -&gt; value:&#39;?8831 -&gt; table:IDictionary&lt;&#39;?8830,&#39;?8831&gt; -&gt; IDictionary&lt;&#39;?8830,&#39;?8831&gt;<br />
+                          <strong>Type parameters:</strong> '?8830, '?8831                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L50-50" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the dictionary with the binding added to the given dictionary.
+If a binding with the given key already exists in the input dictionary, System.ArgumentException is thrown.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '108', 108)" onmouseover="showTip(event, '108', 108)">
+            addOrUpdateInPlace key value table
+          </code>
+          <div class="tip" id="108">
+            <strong>Signature:</strong> key:&#39;?8833 -&gt; value:&#39;?8834 -&gt; table:IDictionary&lt;&#39;?8833,&#39;?8834&gt; -&gt; IDictionary&lt;&#39;?8833,&#39;?8834&gt;<br />
+                          <strong>Type parameters:</strong> '?8833, '?8834                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L58-58" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the dictionary with the binding added to the given dictionary.
+If a binding with the given key already exists in the input dictionary, the existing binding is replaced by the new binding in the result dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '109', 109)" onmouseover="showTip(event, '109', 109)">
+            addOrUpdateInPlaceBy f key value table
+          </code>
+          <div class="tip" id="109">
+            <strong>Signature:</strong> f:(&#39;?8836 -&gt; &#39;?8836 -&gt; &#39;?8836) -&gt; key:&#39;?8837 -&gt; value:&#39;?8836 -&gt; table:IDictionary&lt;&#39;?8837,&#39;?8836&gt; -&gt; IDictionary&lt;&#39;?8837,&#39;?8836&gt;<br />
+                          <strong>Type parameters:</strong> '?8836, '?8837                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L69-69" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the dictionary with the binding added to the given dictionary.
+If a binding with the given key already exists in the input dictionary, the existing binding is replaced by the result of the given function.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '110', 110)" onmouseover="showTip(event, '110', 110)">
+            containsKey key table
+          </code>
+          <div class="tip" id="110">
+            <strong>Signature:</strong> key:&#39;?8842 -&gt; table:IDictionary&lt;&#39;?8842,&#39;?8843&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8842, '?8843                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L90-90" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Tests if an element is in the domain of the dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '111', 111)" onmouseover="showTip(event, '111', 111)">
+            count(table)
+          </code>
+          <div class="tip" id="111">
+            <strong>Signature:</strong> table:IDictionary&lt;&#39;?8845,&#39;?8846&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> '?8845, '?8846                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L93-93" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>The number of bindings in the dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '112', 112)" onmouseover="showTip(event, '112', 112)">
+            isEmpty(table)
+          </code>
+          <div class="tip" id="112">
+            <strong>Signature:</strong> table:IDictionary&lt;&#39;?8839,&#39;?8840&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8839, '?8840                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L78-78" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns true if there are no bindings in the dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '113', 113)" onmouseover="showTip(event, '113', 113)">
+            item key table
+          </code>
+          <div class="tip" id="113">
+            <strong>Signature:</strong> key:&#39;?8848 -&gt; table:IDictionary&lt;&#39;?8848,&#39;?8849&gt; -&gt; &#39;?8849<br />
+                          <strong>Type parameters:</strong> '?8848, '?8849                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L100-100" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Lookup an element in the dictionary. Raise KeyNotFoundException if no binding
+exists in the dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '114', 114)" onmouseover="showTip(event, '114', 114)">
+            merge a b f
+          </code>
+          <div class="tip" id="114">
+            <strong>Signature:</strong> a:IDictionary&lt;&#39;k,&#39;v&gt; -&gt; b:IDictionary&lt;&#39;k,&#39;v&gt; -&gt; f:(&#39;k -&gt; &#39;v -&gt; &#39;v -&gt; &#39;v) -&gt; IDictionary&lt;&#39;k,&#39;v&gt;<br />
+                          <strong>Type parameters:</strong> 'k, 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L137-137" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Merge two Dictionaries</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '115', 115)" onmouseover="showTip(event, '115', 115)">
+            ofArray(a)
+          </code>
+          <div class="tip" id="115">
+            <strong>Signature:</strong> a:(&#39;k * &#39;v) [] -&gt; IDictionary&lt;&#39;k,&#39;v&gt;<br />
+                          <strong>Type parameters:</strong> 'k, 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L43-43" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a dictionary that contains the bindings of the given array.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '116', 116)" onmouseover="showTip(event, '116', 116)">
+            ofList(l)
+          </code>
+          <div class="tip" id="116">
+            <strong>Signature:</strong> l:(&#39;k * &#39;v) list -&gt; IDictionary&lt;&#39;k,&#39;v&gt;<br />
+                          <strong>Type parameters:</strong> 'k, 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L33-33" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a dictionary that contains the bindings of the given list.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '117', 117)" onmouseover="showTip(event, '117', 117)">
+            ofMap(m)
+          </code>
+          <div class="tip" id="117">
+            <strong>Signature:</strong> m:Map&lt;&#39;k,&#39;v&gt; -&gt; IDictionary&lt;&#39;k,&#39;v&gt;<br />
+                          <strong>Type parameters:</strong> 'k, 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L28-28" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a dictionary that contains the bindings of the given dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '118', 118)" onmouseover="showTip(event, '118', 118)">
+            ofSeq(s)
+          </code>
+          <div class="tip" id="118">
+            <strong>Signature:</strong> s:seq&lt;&#39;k * &#39;v&gt; -&gt; IDictionary&lt;&#39;k,&#39;v&gt;<br />
+                          <strong>Type parameters:</strong> 'k, 'v                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L38-38" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a dictionary that contains the bindings of the given IEnumerable.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '119', 119)" onmouseover="showTip(event, '119', 119)">
+            remove key table
+          </code>
+          <div class="tip" id="119">
+            <strong>Signature:</strong> key:&#39;Key -&gt; table:IDictionary&lt;&#39;Key,&#39;?8852&gt; -&gt; IDictionary&lt;&#39;Key,&#39;?8852&gt;<br />
+                          <strong>Type parameters:</strong> 'Key, '?8852                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L105-105" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Removes an element from the domain of the dictionary. No exception is raised if the element is not present.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '120', 120)" onmouseover="showTip(event, '120', 120)">
+            toArray(d)
+          </code>
+          <div class="tip" id="120">
+            <strong>Signature:</strong> d:IDictionary&lt;&#39;?8812,&#39;?8813&gt; -&gt; (&#39;?8812 * &#39;?8813) []<br />
+                          <strong>Type parameters:</strong> '?8812, '?8813                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L18-18" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns a new dictionary made from the given bindings.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '121', 121)" onmouseover="showTip(event, '121', 121)">
+            toList(d)
+          </code>
+          <div class="tip" id="121">
+            <strong>Signature:</strong> d:IDictionary&lt;&#39;?8815,&#39;?8816&gt; -&gt; (&#39;?8815 * &#39;?8816) list<br />
+                          <strong>Type parameters:</strong> '?8815, '?8816                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L23-23" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns a new dictionary made from the given bindings.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '122', 122)" onmouseover="showTip(event, '122', 122)">
+            toSeq(d)
+          </code>
+          <div class="tip" id="122">
+            <strong>Signature:</strong> d:seq&lt;KeyValuePair&lt;&#39;?8809,&#39;?8810&gt;&gt; -&gt; seq&lt;&#39;?8809 * &#39;?8810&gt;<br />
+                          <strong>Type parameters:</strong> '?8809, '?8810                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L13-13" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Views the collection as an enumerable sequence of pairs.
+The sequence will be ordered by the keys of the dictionary.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '123', 123)" onmouseover="showTip(event, '123', 123)">
+            tryFind key table
+          </code>
+          <div class="tip" id="123">
+            <strong>Signature:</strong> key:&#39;?8854 -&gt; table:IDictionary&lt;&#39;?8854,&#39;?8855&gt; -&gt; &#39;?8855 option<br />
+                          <strong>Type parameters:</strong> '?8854, '?8855                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Dictionary.fs#L113-113" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Lookup an element in the dictionary, returning a Some value if the element is in the domain
+of the dictionary and None if not.</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

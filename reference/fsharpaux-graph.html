@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Graph - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Graph</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+  </p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-graph-adjacency-2.html">Adjacency<'Tedge, 'Tkey></a>
+          </td>
+          <td class="xmldoc">
+          <p>Alias for a list of edges</p>
+
+
+          </td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-graph-adjacencygraph-3.html">AdjacencyGraph<'Tnode, 'Tedge, 'Tkey></a>
+          </td>
+          <td class="xmldoc">
+          <p>A Graph is a Vertex list.  The nextNode allows for consistent addressing of nodes</p>
+
+
+          </td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-graph-adjacencynode-3.html">AdjacencyNode<'Tnode, 'Tedge, 'Tkey></a>
+          </td>
+          <td class="xmldoc">
+          <p>Alias for a single node with its edges</p>
+
+
+          </td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-graph-iedge-1.html">IEdge<'Tkey></a>
+          </td>
+          <td class="xmldoc">
+          <p>Interface needs to be implemented by every edge (connection; link; line; arc) in a graph</p>
+
+
+          </td>
+        </tr>
+        <tr>
+          <td class="type-name">
+            <a href="fsharpaux-graph-inode-1.html">INode<'Tkey></a>
+          </td>
+          <td class="xmldoc">
+          <p>Interface needs to be implemented by every node (vertex; point) in a graph</p>
+
+
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '127', 127)" onmouseover="showTip(event, '127', 127)">
+            addAdjacencyNode(arg1, arg2) g
+          </code>
+          <div class="tip" id="127">
+            <strong>Signature:</strong> (&#39;Tnode * Adjacency&lt;&#39;Tedge,&#39;Tkey&gt;) -&gt; g:AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt; -&gt; AdjacencyNode&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt; list<br />
+                          <strong>Type parameters:</strong> 'Tnode, 'Tkey, 'Tedge                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L70-70" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Add a new adjacency node</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '128', 128)" onmouseover="showTip(event, '128', 128)">
+            addEdge e g
+          </code>
+          <div class="tip" id="128">
+            <strong>Signature:</strong> e:&#39;Tedge -&gt; g:AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt; -&gt; AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt;<br />
+                          <strong>Type parameters:</strong> 'Tedge, 'Tkey, 'Tnode                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L77-77" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Add a new Edge</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '129', 129)" onmouseover="showTip(event, '129', 129)">
+            getAdjacencyNode v g
+          </code>
+          <div class="tip" id="129">
+            <strong>Signature:</strong> v:&#39;?9105 -&gt; g:AdjacencyGraph&lt;&#39;?9106,&#39;?9107,&#39;?9105&gt; -&gt; AdjacencyNode&lt;&#39;?9106,&#39;?9107,&#39;?9105&gt;<br />
+                          <strong>Type parameters:</strong> '?9105, '?9106, '?9107                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L53-53" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Getting a node and its edges from a graph by id</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
+            getEdgesFromAdjacencyNode(arg1, arg2)
+          </code>
+          <div class="tip" id="130">
+            <strong>Signature:</strong> (INode&lt;&#39;?9094&gt; * Adjacency&lt;&#39;?9095,&#39;?9094&gt;) -&gt; Adjacency&lt;&#39;?9095,&#39;?9094&gt;<br />
+                          <strong>Type parameters:</strong> '?9094, '?9095                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L36-36" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Gets node from adjacencyNode</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '131', 131)" onmouseover="showTip(event, '131', 131)">
+            getNodeFromAdjacencyNode(arg1, arg2)
+          </code>
+          <div class="tip" id="131">
+            <strong>Signature:</strong> (&#39;?9090 * Adjacency&lt;&#39;?9092,&#39;?9091&gt;) -&gt; &#39;?9090<br />
+                          <strong>Type parameters:</strong> '?9090, '?9091, '?9092                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L33-33" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Gets node from adjacencyNode</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '132', 132)" onmouseover="showTip(event, '132', 132)">
+            nodeId(arg1, arg2)
+          </code>
+          <div class="tip" id="132">
+            <strong>Signature:</strong> (&#39;Tnode * Adjacency&lt;&#39;Tedge,&#39;Tkey&gt;) -&gt; &#39;Tkey<br />
+                          <strong>Type parameters:</strong> 'Tnode, 'Tkey, 'Tedge                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L45-45" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '133', 133)" onmouseover="showTip(event, '133', 133)">
+            removeEdge eId g
+          </code>
+          <div class="tip" id="133">
+            <strong>Signature:</strong> eId:&#39;Tkey -&gt; g:AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt; -&gt; AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt;<br />
+                          <strong>Type parameters:</strong> 'Tkey, 'Tnode, 'Tedge                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L88-88" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Removes an edge from a graph by id</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '134', 134)" onmouseover="showTip(event, '134', 134)">
+            removeVertex nodeId g
+          </code>
+          <div class="tip" id="134">
+            <strong>Signature:</strong> nodeId:&#39;Tkey -&gt; g:AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt; -&gt; AdjacencyGraph&lt;&#39;Tnode,&#39;Tedge,&#39;Tkey&gt;<br />
+                          <strong>Type parameters:</strong> 'Tkey, 'Tnode, 'Tedge                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L96-96" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Removes a node from a graph by id and removes any related edges</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '135', 135)" onmouseover="showTip(event, '135', 135)">
+            tryGetAdjacencyNode v g
+          </code>
+          <div class="tip" id="135">
+            <strong>Signature:</strong> v:&#39;?9101 -&gt; g:AdjacencyGraph&lt;&#39;?9102,&#39;?9103,&#39;?9101&gt; -&gt; AdjacencyNode&lt;&#39;?9102,&#39;?9103,&#39;?9101&gt; option<br />
+                          <strong>Type parameters:</strong> '?9101, '?9102, '?9103                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Tries to get a node and its edges from a graph by id</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '136', 136)" onmouseover="showTip(event, '136', 136)">
+            tryGetEdges v g
+          </code>
+          <div class="tip" id="136">
+            <strong>Signature:</strong> v:&#39;Tkey -&gt; g:AdjacencyGraph&lt;&#39;?9114,&#39;?9115,&#39;Tkey&gt; -&gt; Adjacency&lt;&#39;?9115,&#39;Tkey&gt; option<br />
+                          <strong>Type parameters:</strong> 'Tkey, '?9114, '?9115                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L64-64" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Getting all edges (adjacency) from a graph by a vertex id</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '137', 137)" onmouseover="showTip(event, '137', 137)">
+            tryGetNodeById v g
+          </code>
+          <div class="tip" id="137">
+            <strong>Signature:</strong> v:&#39;?9109 -&gt; g:AdjacencyGraph&lt;&#39;?9110,&#39;?9111,&#39;?9109&gt; -&gt; &#39;?9110 option<br />
+                          <strong>Type parameters:</strong> '?9109, '?9110, '?9111                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/AdjacencyGraph.fs#L57-57" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Tries to get a node from a graph by id</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

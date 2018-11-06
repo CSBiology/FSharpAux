@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ResizeArray - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>ResizeArray</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+  </p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '283', 283)" onmouseover="showTip(event, '283', 283)">
+            append arr1 arr2
+          </code>
+          <div class="tip" id="283">
+            <strong>Signature:</strong> arr1:ResizeArray&lt;&#39;T&gt; -&gt; arr2:ResizeArray&lt;&#39;T&gt; -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L42-42" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '284', 284)" onmouseover="showTip(event, '284', 284)">
+            blit arr1 start1 arr2 start2 len
+          </code>
+          <div class="tip" id="284">
+            <strong>Signature:</strong> arr1:ResizeArray&lt;&#39;T&gt; -&gt; start1:int -&gt; arr2:ResizeArray&lt;&#39;T&gt; -&gt; start2:int -&gt; len:int -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L32-32" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '285', 285)" onmouseover="showTip(event, '285', 285)">
+            checkNonNull argName arg
+          </code>
+          <div class="tip" id="285">
+            <strong>Signature:</strong> argName:string -&gt; arg:&#39;?8230 -&gt; unit<br />
+                          <strong>Type parameters:</strong> '?8230                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L14-14" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '286', 286)" onmouseover="showTip(event, '286', 286)">
+            choose f arr
+          </code>
+          <div class="tip" id="286">
+            <strong>Signature:</strong> f:(&#39;?8290 -&gt; &#39;?8291 option) -&gt; arr:ResizeArray&lt;&#39;?8290&gt; -&gt; ResizeArray&lt;&#39;?8291&gt;<br />
+                          <strong>Type parameters:</strong> '?8290, '?8291                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L150-150" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '287', 287)" onmouseover="showTip(event, '287', 287)">
+            combine arr1 arr2
+          </code>
+          <div class="tip" id="287">
+            <strong>Signature:</strong> arr1:ResizeArray&lt;&#39;?8382&gt; -&gt; arr2:ResizeArray&lt;&#39;?8383&gt; -&gt; ResizeArray&lt;&#39;?8382 * &#39;?8383&gt;<br />
+                          <strong>Type parameters:</strong> '?8382, '?8383                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L349-349" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '288', 288)" onmouseover="showTip(event, '288', 288)">
+            concat(arrs)
+          </code>
+          <div class="tip" id="288">
+            <strong>Signature:</strong> arrs:seq&lt;ResizeArray&lt;&#39;T&gt;&gt; -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L41-41" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '289', 289)" onmouseover="showTip(event, '289', 289)">
+            copy(arr)
+          </code>
+          <div class="tip" id="289">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L57-57" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '290', 290)" onmouseover="showTip(event, '290', 290)">
+            create n x
+          </code>
+          <div class="tip" id="290">
+            <strong>Signature:</strong> n:int -&gt; x:&#39;?8238 -&gt; ResizeArray&lt;&#39;?8238&gt;<br />
+                          <strong>Type parameters:</strong> '?8238                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L22-22" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '291', 291)" onmouseover="showTip(event, '291', 291)">
+            distinct(array)
+          </code>
+          <div class="tip" id="291">
+            <strong>Signature:</strong> array:ResizeArray&lt;&#39;?8380&gt; -&gt; ResizeArray&lt;&#39;?8380&gt;<br />
+                          <strong>Type parameters:</strong> '?8380                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L341-341" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '292', 292)" onmouseover="showTip(event, '292', 292)">
+            distinctBy keyf array
+          </code>
+          <div class="tip" id="292">
+            <strong>Signature:</strong> keyf:(&#39;?8377 -&gt; &#39;?8378) -&gt; array:ResizeArray&lt;&#39;?8377&gt; -&gt; ResizeArray&lt;&#39;?8377&gt;<br />
+                          <strong>Type parameters:</strong> '?8377, '?8378                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L333-333" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '293', 293)" onmouseover="showTip(event, '293', 293)">
+            exists f arr
+          </code>
+          <div class="tip" id="293">
+            <strong>Signature:</strong> f:(&#39;T -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L100-100" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '294', 294)" onmouseover="showTip(event, '294', 294)">
+            exists2 f arr1 arr2
+          </code>
+          <div class="tip" id="294">
+            <strong>Signature:</strong> f:(&#39;?8316 -&gt; &#39;?8317 -&gt; bool) -&gt; arr1:ResizeArray&lt;&#39;?8316&gt; -&gt; arr2:ResizeArray&lt;&#39;?8317&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8316, '?8317                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L202-202" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '295', 295)" onmouseover="showTip(event, '295', 295)">
+            fill arr start len x
+          </code>
+          <div class="tip" id="295">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; start:int -&gt; len:int -&gt; x:&#39;T -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L50-50" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '296', 296)" onmouseover="showTip(event, '296', 296)">
+            filter f arr
+          </code>
+          <div class="tip" id="296">
+            <strong>Signature:</strong> f:(&#39;?8293 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8293&gt; -&gt; ResizeArray&lt;&#39;?8293&gt;<br />
+                          <strong>Type parameters:</strong> '?8293                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L158-158" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '297', 297)" onmouseover="showTip(event, '297', 297)">
+            find f arr
+          </code>
+          <div class="tip" id="297">
+            <strong>Signature:</strong> f:(&#39;?8276 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8276&gt; -&gt; &#39;?8276<br />
+                          <strong>Type parameters:</strong> '?8276                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L112-112" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '298', 298)" onmouseover="showTip(event, '298', 298)">
+            findIndex f arr
+          </code>
+          <div class="tip" id="298">
+            <strong>Signature:</strong> f:(&#39;?8319 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8319&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> '?8319                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L208-208" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '299', 299)" onmouseover="showTip(event, '299', 299)">
+            findIndexi f arr
+          </code>
+          <div class="tip" id="299">
+            <strong>Signature:</strong> f:(int -&gt; &#39;?8321 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8321&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> '?8321                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L212-212" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '300', 300)" onmouseover="showTip(event, '300', 300)">
+            fold f acc arr
+          </code>
+          <div class="tip" id="300">
+            <strong>Signature:</strong> f:(&#39;State -&gt; &#39;T -&gt; &#39;State) -&gt; acc:&#39;State -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; &#39;State<br />
+                          <strong>Type parameters:</strong> 'State, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L187-187" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '301', 301)" onmouseover="showTip(event, '301', 301)">
+            fold2 f acc arr1 arr2
+          </code>
+          <div class="tip" id="301">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;T1 -&gt; &#39;T2 -&gt; &#39;T) -&gt; acc:&#39;T -&gt; arr1:ResizeArray&lt;&#39;T1&gt; -&gt; arr2:ResizeArray&lt;&#39;T2&gt; -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T, 'T1, 'T2                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L238-238" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '302', 302)" onmouseover="showTip(event, '302', 302)">
+            foldBack f arr acc
+          </code>
+          <div class="tip" id="302">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;State -&gt; &#39;State) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; acc:&#39;State -&gt; &#39;State<br />
+                          <strong>Type parameters:</strong> 'T, 'State                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L180-180" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '303', 303)" onmouseover="showTip(event, '303', 303)">
+            foldBack2 f arr1 arr2 acc
+          </code>
+          <div class="tip" id="303">
+            <strong>Signature:</strong> f:(&#39;T1 -&gt; &#39;T2 -&gt; &#39;State -&gt; &#39;State) -&gt; arr1:ResizeArray&lt;&#39;T1&gt; -&gt; arr2:ResizeArray&lt;&#39;T2&gt; -&gt; acc:&#39;State -&gt; &#39;State<br />
+                          <strong>Type parameters:</strong> 'T1, 'T2, 'State                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L247-247" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '304', 304)" onmouseover="showTip(event, '304', 304)">
+            foldBackSub f arr start fin acc
+          </code>
+          <div class="tip" id="304">
+            <strong>Signature:</strong> f:(&#39;?8326 -&gt; &#39;?8327 -&gt; &#39;?8327) -&gt; arr:ResizeArray&lt;&#39;?8326&gt; -&gt; start:int -&gt; fin:int -&gt; acc:&#39;?8327 -&gt; &#39;?8327<br />
+                          <strong>Type parameters:</strong> '?8326, '?8327                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L222-222" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '305', 305)" onmouseover="showTip(event, '305', 305)">
+            foldSub f acc arr start fin
+          </code>
+          <div class="tip" id="305">
+            <strong>Signature:</strong> f:(&#39;?8323 -&gt; &#39;?8324 -&gt; &#39;?8323) -&gt; acc:&#39;?8323 -&gt; arr:ResizeArray&lt;&#39;?8324&gt; -&gt; start:int -&gt; fin:int -&gt; &#39;?8323<br />
+                          <strong>Type parameters:</strong> '?8323, '?8324                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L216-216" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '306', 306)" onmouseover="showTip(event, '306', 306)">
+            forall f arr
+          </code>
+          <div class="tip" id="306">
+            <strong>Signature:</strong> f:(&#39;?8272 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8272&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8272                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L105-105" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '307', 307)" onmouseover="showTip(event, '307', 307)">
+            forall2 f arr1 arr2
+          </code>
+          <div class="tip" id="307">
+            <strong>Signature:</strong> f:(&#39;?8341 -&gt; &#39;?8342 -&gt; bool) -&gt; arr1:ResizeArray&lt;&#39;?8341&gt; -&gt; arr2:ResizeArray&lt;&#39;?8342&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8341, '?8342                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L256-256" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '308', 308)" onmouseover="showTip(event, '308', 308)">
+            get arr n
+          </code>
+          <div class="tip" id="308">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; n:int -&gt; &#39;T<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L20-20" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '309', 309)" onmouseover="showTip(event, '309', 309)">
+            indexNotFound()
+          </code>
+          <div class="tip" id="309">
+            <strong>Signature:</strong> unit -&gt; &#39;?8274<br />
+                          <strong>Type parameters:</strong> '?8274                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L110-110" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '310', 310)" onmouseover="showTip(event, '310', 310)">
+            init n f
+          </code>
+          <div class="tip" id="310">
+            <strong>Signature:</strong> n:int -&gt; f:(int -&gt; &#39;T) -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L27-27" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '311', 311)" onmouseover="showTip(event, '311', 311)">
+            isEmpty(arr)
+          </code>
+          <div class="tip" id="311">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8344&gt; -&gt; bool<br />
+                          <strong>Type parameters:</strong> '?8344                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L262-262" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '312', 312)" onmouseover="showTip(event, '312', 312)">
+            iter f arr
+          </code>
+          <div class="tip" id="312">
+            <strong>Signature:</strong> f:(&#39;?8260 -&gt; unit) -&gt; arr:ResizeArray&lt;&#39;?8260&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> '?8260                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L76-76" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '313', 313)" onmouseover="showTip(event, '313', 313)">
+            iter2 f arr1 arr2
+          </code>
+          <div class="tip" id="313">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;b -&gt; unit) -&gt; arr1:ResizeArray&lt;&#39;T&gt; -&gt; arr2:ResizeArray&lt;&#39;b&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T, 'b                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L134-134" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '314', 314)" onmouseover="showTip(event, '314', 314)">
+            iteri f arr
+          </code>
+          <div class="tip" id="314">
+            <strong>Signature:</strong> f:(int -&gt; &#39;?8268 -&gt; unit) -&gt; arr:ResizeArray&lt;&#39;?8268&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> '?8268                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L95-95" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '315', 315)" onmouseover="showTip(event, '315', 315)">
+            iteri2 f arr1 arr2
+          </code>
+          <div class="tip" id="315">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;T2 -&gt; unit) -&gt; arr1:ResizeArray&lt;&#39;T&gt; -&gt; arr2:ResizeArray&lt;&#39;T2&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T, 'T2                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L264-264" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '316', 316)" onmouseover="showTip(event, '316', 316)">
+            length(arr)
+          </code>
+          <div class="tip" id="316">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L19-19" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '317', 317)" onmouseover="showTip(event, '317', 317)">
+            map f arr
+          </code>
+          <div class="tip" id="317">
+            <strong>Signature:</strong> f:(&#39;?8262 -&gt; &#39;?8263) -&gt; arr:ResizeArray&lt;&#39;?8262&gt; -&gt; ResizeArray&lt;&#39;?8263&gt;<br />
+                          <strong>Type parameters:</strong> '?8262, '?8263                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L80-80" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '318', 318)" onmouseover="showTip(event, '318', 318)">
+            map2 f arr1 arr2
+          </code>
+          <div class="tip" id="318">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;T2 -&gt; &#39;?8288) -&gt; arr1:ResizeArray&lt;&#39;T&gt; -&gt; arr2:ResizeArray&lt;&#39;T2&gt; -&gt; ResizeArray&lt;&#39;?8288&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'T2, '?8288                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L141-141" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '319', 319)" onmouseover="showTip(event, '319', 319)">
+            mapi f arr
+          </code>
+          <div class="tip" id="319">
+            <strong>Signature:</strong> f:(int -&gt; &#39;?8265 -&gt; &#39;?8266) -&gt; arr:ResizeArray&lt;&#39;?8265&gt; -&gt; ResizeArray&lt;&#39;?8266&gt;<br />
+                          <strong>Type parameters:</strong> '?8265, '?8266                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L87-87" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '320', 320)" onmouseover="showTip(event, '320', 320)">
+            mapi2 f arr1 arr2
+          </code>
+          <div class="tip" id="320">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;T2 -&gt; &#39;c) -&gt; arr1:ResizeArray&lt;&#39;T&gt; -&gt; arr2:ResizeArray&lt;&#39;T2&gt; -&gt; ResizeArray&lt;&#39;c&gt;<br />
+                          <strong>Type parameters:</strong> 'T, 'T2, 'c                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L271-271" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '321', 321)" onmouseover="showTip(event, '321', 321)">
+            max(array)
+          </code>
+          <div class="tip" id="321">
+            <strong>Signature:</strong> array:ResizeArray&lt;&#39;?8399&gt; -&gt; &#39;?8399<br />
+                          <strong>Type parameters:</strong> '?8399                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L381-381" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '322', 322)" onmouseover="showTip(event, '322', 322)">
+            maxBy f array
+          </code>
+          <div class="tip" id="322">
+            <strong>Signature:</strong> f:(&#39;?8401 -&gt; &#39;?8402) -&gt; array:ResizeArray&lt;&#39;?8401&gt; -&gt; &#39;?8401<br />
+                          <strong>Type parameters:</strong> '?8401, '?8402                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L392-392" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '323', 323)" onmouseover="showTip(event, '323', 323)">
+            min(array)
+          </code>
+          <div class="tip" id="323">
+            <strong>Signature:</strong> array:ResizeArray&lt;&#39;?8394&gt; -&gt; &#39;?8394<br />
+                          <strong>Type parameters:</strong> '?8394                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L357-357" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '324', 324)" onmouseover="showTip(event, '324', 324)">
+            minBy f array
+          </code>
+          <div class="tip" id="324">
+            <strong>Signature:</strong> f:(&#39;?8396 -&gt; &#39;?8397) -&gt; array:ResizeArray&lt;&#39;?8396&gt; -&gt; &#39;?8396<br />
+                          <strong>Type parameters:</strong> '?8396, '?8397                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L367-367" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '325', 325)" onmouseover="showTip(event, '325', 325)">
+            of_list(l)
+          </code>
+          <div class="tip" id="325">
+            <strong>Signature:</strong> l:&#39;?8390 list -&gt; ResizeArray&lt;&#39;?8390&gt;<br />
+                          <strong>Type parameters:</strong> '?8390                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L353-353" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '326', 326)" onmouseover="showTip(event, '326', 326)">
+            ofArray(arr)
+          </code>
+          <div class="tip" id="326">
+            <strong>Signature:</strong> arr:&#39;T [] -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L195-195" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '327', 327)" onmouseover="showTip(event, '327', 327)">
+            ofList(l)
+          </code>
+          <div class="tip" id="327">
+            <strong>Signature:</strong> l:&#39;?8256 list -&gt; ResizeArray&lt;&#39;?8256&gt;<br />
+                          <strong>Type parameters:</strong> '?8256                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L65-65" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '328', 328)" onmouseover="showTip(event, '328', 328)">
+            ofSeq(s)
+          </code>
+          <div class="tip" id="328">
+            <strong>Signature:</strong> s:seq&lt;&#39;?8258&gt; -&gt; ResizeArray&lt;&#39;?8258&gt;<br />
+                          <strong>Type parameters:</strong> '?8258                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L74-74" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '329', 329)" onmouseover="showTip(event, '329', 329)">
+            partition f arr
+          </code>
+          <div class="tip" id="329">
+            <strong>Signature:</strong> f:(&#39;?8295 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8295&gt; -&gt; ResizeArray&lt;&#39;?8295&gt; * ResizeArray&lt;&#39;?8295&gt;<br />
+                          <strong>Type parameters:</strong> '?8295                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L165-165" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '330', 330)" onmouseover="showTip(event, '330', 330)">
+            reduce f arr
+          </code>
+          <div class="tip" id="330">
+            <strong>Signature:</strong> f:(&#39;?8329 -&gt; &#39;?8329 -&gt; &#39;?8329) -&gt; arr:ResizeArray&lt;&#39;?8329&gt; -&gt; &#39;?8329<br />
+                          <strong>Type parameters:</strong> '?8329                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L228-228" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '331', 331)" onmouseover="showTip(event, '331', 331)">
+            reduceBack f arr
+          </code>
+          <div class="tip" id="331">
+            <strong>Signature:</strong> f:(&#39;?8331 -&gt; &#39;?8331 -&gt; &#39;?8331) -&gt; arr:ResizeArray&lt;&#39;?8331&gt; -&gt; &#39;?8331<br />
+                          <strong>Type parameters:</strong> '?8331                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L233-233" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '332', 332)" onmouseover="showTip(event, '332', 332)">
+            rev(arr)
+          </code>
+          <div class="tip" id="332">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8297&gt; -&gt; ResizeArray&lt;&#39;?8297&gt;<br />
+                          <strong>Type parameters:</strong> '?8297                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L173-173" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '333', 333)" onmouseover="showTip(event, '333', 333)">
+            scan f acc arr
+          </code>
+          <div class="tip" id="333">
+            <strong>Signature:</strong> f:(&#39;?8359 -&gt; &#39;T -&gt; &#39;?8359) -&gt; acc:&#39;?8359 -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; ResizeArray&lt;&#39;?8359&gt;<br />
+                          <strong>Type parameters:</strong> '?8359, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L295-295" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '334', 334)" onmouseover="showTip(event, '334', 334)">
+            scanBack f arr acc
+          </code>
+          <div class="tip" id="334">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;?8363 -&gt; &#39;?8363) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; acc:&#39;?8363 -&gt; ResizeArray&lt;&#39;?8363&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?8363                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L299-299" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '335', 335)" onmouseover="showTip(event, '335', 335)">
+            scanBackSub f arr start fin acc
+          </code>
+          <div class="tip" id="335">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;?8354 -&gt; &#39;?8354) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; start:int -&gt; fin:int -&gt; acc:&#39;?8354 -&gt; ResizeArray&lt;&#39;?8354&gt;<br />
+                          <strong>Type parameters:</strong> 'T, '?8354                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L277-277" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '336', 336)" onmouseover="showTip(event, '336', 336)">
+            scanSub f acc arr start fin
+          </code>
+          <div class="tip" id="336">
+            <strong>Signature:</strong> f:(&#39;?8356 -&gt; &#39;T -&gt; &#39;?8356) -&gt; acc:&#39;?8356 -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; start:int -&gt; fin:int -&gt; ResizeArray&lt;&#39;?8356&gt;<br />
+                          <strong>Type parameters:</strong> '?8356, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L286-286" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '337', 337)" onmouseover="showTip(event, '337', 337)">
+            set arr n x
+          </code>
+          <div class="tip" id="337">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; n:int -&gt; x:&#39;T -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '338', 338)" onmouseover="showTip(event, '338', 338)">
+            singleton(x)
+          </code>
+          <div class="tip" id="338">
+            <strong>Signature:</strong> x:&#39;?8365 -&gt; ResizeArray&lt;&#39;?8365&gt;<br />
+                          <strong>Type parameters:</strong> '?8365                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L303-303" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '339', 339)" onmouseover="showTip(event, '339', 339)">
+            sort f arr
+          </code>
+          <div class="tip" id="339">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;T -&gt; int) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L198-198" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '340', 340)" onmouseover="showTip(event, '340', 340)">
+            sortBy f arr
+          </code>
+          <div class="tip" id="340">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;?8314) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; unit<br />
+                          <strong>Type parameters:</strong> 'T, '?8314                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L199-199" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '341', 341)" onmouseover="showTip(event, '341', 341)">
+            split(arr)
+          </code>
+          <div class="tip" id="341">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8385 * &#39;?8386&gt; -&gt; ResizeArray&lt;&#39;?8385&gt; * ResizeArray&lt;&#39;?8386&gt;<br />
+                          <strong>Type parameters:</strong> '?8385, '?8386                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L350-350" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '342', 342)" onmouseover="showTip(event, '342', 342)">
+            sub arr start len
+          </code>
+          <div class="tip" id="342">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; start:int -&gt; len:int -&gt; ResizeArray&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L44-44" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '343', 343)" onmouseover="showTip(event, '343', 343)">
+            to_list(arr)
+          </code>
+          <div class="tip" id="343">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8388&gt; -&gt; &#39;?8388 list<br />
+                          <strong>Type parameters:</strong> '?8388                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L352-352" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '344', 344)" onmouseover="showTip(event, '344', 344)">
+            to_seq(arr)
+          </code>
+          <div class="tip" id="344">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8392&gt; -&gt; seq&lt;&#39;?8392&gt;<br />
+                          <strong>Type parameters:</strong> '?8392                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L354-354" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '345', 345)" onmouseover="showTip(event, '345', 345)">
+            toArray(arr)
+          </code>
+          <div class="tip" id="345">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; &#39;T []<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L194-194" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '346', 346)" onmouseover="showTip(event, '346', 346)">
+            toList(arr)
+          </code>
+          <div class="tip" id="346">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8254&gt; -&gt; &#39;?8254 list<br />
+                          <strong>Type parameters:</strong> '?8254                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L59-59" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '347', 347)" onmouseover="showTip(event, '347', 347)">
+            toSeq(arr)
+          </code>
+          <div class="tip" id="347">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L196-196" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '348', 348)" onmouseover="showTip(event, '348', 348)">
+            tryFind f arr
+          </code>
+          <div class="tip" id="348">
+            <strong>Signature:</strong> f:(&#39;?8281 -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;?8281&gt; -&gt; &#39;?8281 option<br />
+                          <strong>Type parameters:</strong> '?8281                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L127-127" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '349', 349)" onmouseover="showTip(event, '349', 349)">
+            tryFindIndex f arr
+          </code>
+          <div class="tip" id="349">
+            <strong>Signature:</strong> f:(&#39;T -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; int option<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L308-308" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '350', 350)" onmouseover="showTip(event, '350', 350)">
+            tryFindIndexi f arr
+          </code>
+          <div class="tip" id="350">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; bool) -&gt; arr:ResizeArray&lt;&#39;T&gt; -&gt; int option<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L312-312" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '351', 351)" onmouseover="showTip(event, '351', 351)">
+            tryPick f arr
+          </code>
+          <div class="tip" id="351">
+            <strong>Signature:</strong> f:(&#39;?8278 -&gt; &#39;?8279 option) -&gt; arr:ResizeArray&lt;&#39;?8278&gt; -&gt; &#39;?8279 option<br />
+                          <strong>Type parameters:</strong> '?8278, '?8279                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L119-119" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '352', 352)" onmouseover="showTip(event, '352', 352)">
+            unzip(arr)
+          </code>
+          <div class="tip" id="352">
+            <strong>Signature:</strong> arr:ResizeArray&lt;&#39;?8374 * &#39;?8375&gt; -&gt; ResizeArray&lt;&#39;?8374&gt; * ResizeArray&lt;&#39;?8375&gt;<br />
+                          <strong>Type parameters:</strong> '?8374, '?8375                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L321-321" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '353', 353)" onmouseover="showTip(event, '353', 353)">
+            zip arr1 arr2
+          </code>
+          <div class="tip" id="353">
+            <strong>Signature:</strong> arr1:ResizeArray&lt;&#39;?8371&gt; -&gt; arr2:ResizeArray&lt;&#39;?8372&gt; -&gt; ResizeArray&lt;&#39;?8371 * &#39;?8372&gt;<br />
+                          <strong>Type parameters:</strong> '?8371, '?8372                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/ResizeArray.fs#L316-316" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

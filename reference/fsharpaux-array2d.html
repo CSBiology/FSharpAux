@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Array2D - FSharpAux</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Timo Mühlhaus"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11" >
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/FSharpAux/content/style.css" />
+    <script type="text/javascript" src="/FSharpAux/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="https://github.com/CSBiology/FSharpAux">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharpAux/index.html">FSharpAux</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Array2D</h1>
+<p>
+  <span>Namespace: FSharpAux</span><br />
+        <span>
+          Attributes:<br />
+[&lt;AutoOpen&gt;]<br />
+          
+      </span>
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
+            array2D_to_seq(arr)
+          </code>
+          <div class="tip" id="19">
+            <strong>Signature:</strong> arr:&#39;?8984 [,] -&gt; seq&lt;&#39;?8984&gt;<br />
+                          <strong>Type parameters:</strong> '?8984                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L39-39" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+            colCount(arr)
+          </code>
+          <div class="tip" id="20">
+            <strong>Signature:</strong> arr:&#39;T [,] -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L82-82" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the numbers of rows.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+            countDistinctBy keyf arr
+          </code>
+          <div class="tip" id="21">
+            <strong>Signature:</strong> keyf:(&#39;T -&gt; &#39;Key) -&gt; arr:&#39;T [,] -&gt; (&#39;Key * int) []<br />
+                          <strong>Type parameters:</strong> 'T, 'Key                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L257-257" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applies a keyfunction to each element and counts the amount of each distinct resulting key</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+            empty
+          </code>
+          <div class="tip" id="22">
+            <strong>Signature:</strong> &#39;a [,]<br />
+                          <strong>Type parameters:</strong> 'a                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L7-7" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Create an empty array2D</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '23', 23)" onmouseover="showTip(event, '23', 23)">
+            foldByCol f state arr
+          </code>
+          <div class="tip" id="23">
+            <strong>Signature:</strong> f:(&#39;?9004 -&gt; &#39;T -&gt; &#39;?9004) -&gt; state:&#39;?9004 -&gt; arr:&#39;T [,] -&gt; &#39;?9004 []<br />
+                          <strong>Type parameters:</strong> '?9004, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L111-111" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Fold all columns into one row array.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '24', 24)" onmouseover="showTip(event, '24', 24)">
+            foldByRow f state arr
+          </code>
+          <div class="tip" id="24">
+            <strong>Signature:</strong> f:(&#39;?9007 -&gt; &#39;T -&gt; &#39;?9007) -&gt; state:&#39;?9007 -&gt; arr:&#39;T [,] -&gt; &#39;?9007 []<br />
+                          <strong>Type parameters:</strong> '?9007, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L124-124" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Fold all rows into one column array.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
+            foldCol f state arr colI
+          </code>
+          <div class="tip" id="25">
+            <strong>Signature:</strong> f:(&#39;?8998 -&gt; &#39;T -&gt; &#39;?8998) -&gt; state:&#39;?8998 -&gt; arr:&#39;T [,] -&gt; colI:int -&gt; &#39;?8998<br />
+                          <strong>Type parameters:</strong> '?8998, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L87-87" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Fold one column.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
+            foldRow f state arr rowI
+          </code>
+          <div class="tip" id="26">
+            <strong>Signature:</strong> f:(&#39;?9001 -&gt; &#39;T -&gt; &#39;?9001) -&gt; state:&#39;?9001 -&gt; arr:&#39;T [,] -&gt; rowI:int -&gt; &#39;?9001<br />
+                          <strong>Type parameters:</strong> '?9001, 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L99-99" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Fold one row.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '27', 27)" onmouseover="showTip(event, '27', 27)">
+            indexMaxBy projection arr
+          </code>
+          <div class="tip" id="27">
+            <strong>Signature:</strong> projection:(&#39;?8989 -&gt; &#39;?8990) -&gt; arr:&#39;?8989 [,] -&gt; int * int<br />
+                          <strong>Type parameters:</strong> '?8989, '?8990                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L58-58" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the index of the element which is the biggest after projection according to the Operators.max operator in the array</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '28', 28)" onmouseover="showTip(event, '28', 28)">
+            map2 f arr1 arr2
+          </code>
+          <div class="tip" id="28">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;T -&gt; &#39;?9025) -&gt; arr1:&#39;T [,] -&gt; arr2:&#39;T [,] -&gt; &#39;?9025 [,]<br />
+                          <strong>Type parameters:</strong> 'T, '?9025                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L193-193" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a new array whose elements are the results of applying the given function
+to the corresponding pairs of elements from the two arrays.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '29', 29)" onmouseover="showTip(event, '29', 29)">
+            mapColI f arr
+          </code>
+          <div class="tip" id="29">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;?9011) -&gt; arr:&#39;T [,] -&gt; &#39;?9011 [,]<br />
+                          <strong>Type parameters:</strong> 'T, '?9011                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L140-140" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a new array whose elements are the results of applying the given function
+to each of the elements of the array. The integer indices passed to the
+function indicates the column index of the element being transformed.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '30', 30)" onmouseover="showTip(event, '30', 30)">
+            mapiInPlace f arr
+          </code>
+          <div class="tip" id="30">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;T) -&gt; arr:&#39;T [,] -&gt; &#39;T [,]<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L162-162" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applying the given function to each of the elements of the array and returns the value in place.
+The integer indices passed to the function indicates the element being transformed.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '31', 31)" onmouseover="showTip(event, '31', 31)">
+            mapInPlace f arr
+          </code>
+          <div class="tip" id="31">
+            <strong>Signature:</strong> f:(&#39;T -&gt; &#39;T) -&gt; arr:&#39;T [,] -&gt; &#39;T [,]<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L153-153" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applying the given function to each of the elements of the array and returns the value in place.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+            mapInPlaceColi f arr
+          </code>
+          <div class="tip" id="32">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;T) -&gt; arr:&#39;T [,] -&gt; &#39;T [,]<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L172-172" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applying the given function to each of the elements of the array and returns the value in place.
+The integer indices passed to the function indicates the column index of the element being transformed.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
+            mapInPlaceRowi f arr
+          </code>
+          <div class="tip" id="33">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;T) -&gt; arr:&#39;T [,] -&gt; &#39;T [,]<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L182-182" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Applying the given function to each of the elements of the array and returns the value in place.
+The integer indices passed to the function indicates the row index of the element being transformed.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
+            mapRowI f arr
+          </code>
+          <div class="tip" id="34">
+            <strong>Signature:</strong> f:(int -&gt; &#39;T -&gt; &#39;?9014) -&gt; arr:&#39;T [,] -&gt; &#39;?9014 [,]<br />
+                          <strong>Type parameters:</strong> 'T, '?9014                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L147-147" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Builds a new array whose elements are the results of applying the given function
+to each of the elements of the array. The integer indices passed to the
+function indicates the row index of the element being transformed.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+            maxBy projection arr
+          </code>
+          <div class="tip" id="35">
+            <strong>Signature:</strong> projection:(&#39;?8986 -&gt; &#39;?8987) -&gt; arr:&#39;?8986 [,] -&gt; &#39;?8986<br />
+                          <strong>Type parameters:</strong> '?8986, '?8987                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L44-44" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the element of the array which is the biggest after projection according to the Operators.max operator</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
+            ofJaggedArray(arr)
+          </code>
+          <div class="tip" id="36">
+            <strong>Signature:</strong> arr:&#39;a [] [] -&gt; &#39;a [,]<br />
+                          <strong>Type parameters:</strong> 'a                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L19-19" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Converts a jagged array (twodimensional) into a array2D</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
+            ofLongColumnArray arr nrow ncol
+          </code>
+          <div class="tip" id="37">
+            <strong>Signature:</strong> arr:&#39;?8982 [] -&gt; nrow:int -&gt; ncol:int -&gt; &#39;?8982 [,]<br />
+                          <strong>Type parameters:</strong> '?8982                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L33-33" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates a Array2D out of a column array [a1;b1;c1;a2;b2;c2;...]</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
+            rowCount(arr)
+          </code>
+          <div class="tip" id="38">
+            <strong>Signature:</strong> arr:&#39;T [,] -&gt; int<br />
+                          <strong>Type parameters:</strong> 'T                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L77-77" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the numbers of rows.</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '39', 39)" onmouseover="showTip(event, '39', 39)">
+            shuffle(arr)
+          </code>
+          <div class="tip" id="39">
+            <strong>Signature:</strong> arr:&#39;?9031 [,] -&gt; &#39;?9031 [,]<br />
+                          <strong>Type parameters:</strong> '?9031                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L240-240" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Shuffels the input Array2D (method: Fisher-Yates)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '40', 40)" onmouseover="showTip(event, '40', 40)">
+            shuffleColumnWise(arr)
+          </code>
+          <div class="tip" id="40">
+            <strong>Signature:</strong> arr:&#39;?9027 [,] -&gt; &#39;?9027 [,]<br />
+                          <strong>Type parameters:</strong> '?9027                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L206-206" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Shuffels each column of the input Array2D separately  (method: Fisher-Yates)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '41', 41)" onmouseover="showTip(event, '41', 41)">
+            shuffleRowWise(arr)
+          </code>
+          <div class="tip" id="41">
+            <strong>Signature:</strong> arr:&#39;?9029 [,] -&gt; &#39;?9029 [,]<br />
+                          <strong>Type parameters:</strong> '?9029                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L223-223" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Shuffels each row of the input Array2D separately  (method: Fisher-Yates)</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '42', 42)" onmouseover="showTip(event, '42', 42)">
+            toArray(arr)
+          </code>
+          <div class="tip" id="42">
+            <strong>Signature:</strong> arr:&#39;?8974 [,] -&gt; &#39;?8974 []<br />
+                          <strong>Type parameters:</strong> '?8974                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L11-11" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Converts a array2D with one row to array</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '43', 43)" onmouseover="showTip(event, '43', 43)">
+            toJaggedArray(arr)
+          </code>
+          <div class="tip" id="43">
+            <strong>Signature:</strong> arr:&#39;?8976 [,] -&gt; &#39;?8976 [] []<br />
+                          <strong>Type parameters:</strong> '?8976                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L15-15" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Converts a array2D to jagged array</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '44', 44)" onmouseover="showTip(event, '44', 44)">
+            toLongColumnArray(arr)
+          </code>
+          <div class="tip" id="44">
+            <strong>Signature:</strong> arr:&#39;?8980 [,] -&gt; &#39;?8980 []<br />
+                          <strong>Type parameters:</strong> '?8980                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L27-27" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>concate the columns of an Array2D into a long column array</p>
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
+            transpose(arr)
+          </code>
+          <div class="tip" id="45">
+            <strong>Signature:</strong> arr:&#39;?8992 [,] -&gt; &#39;?8992 [,]<br />
+                          <strong>Type parameters:</strong> '?8992                      </div>
+        </td>
+        <td class="xmldoc">
+                      <a href="https://github.com/CSBiology/FSharpAux/tree/master/src/FSharpAux/Array2D.fs#L72-72" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Transpose the array</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharpAux/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharpAux</li>
+            <li><a href="/FSharpAux/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharpAux">Get Library via NuGet</a></li>
+            <li><a href="https://github.com/CSBiology/FSharpAux">Source Code on GitHub</a></li>
+            <li><a href="/FSharpAux/license.html">License</a></li>
+            <li><a href="/FSharpAux/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharpAux/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharpAux/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/CSBiology/FSharpAux"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
