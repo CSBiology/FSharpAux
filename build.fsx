@@ -13,10 +13,8 @@ open Fake.DotNet
 open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
-open Fake.IO.Globbing
-open Fake.DotNet.Testing
 open Fake.Tools
-open Fake.Api
+open Fake.IO.Globbing
 
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
@@ -286,21 +284,7 @@ let copyFiles () =
     Shell.copyRecursive (formatting @@ "styles") (output @@ "content") true
     |> Trace.logItems "Copying styles and scripts: "
 
-
-
-/// Specifies the fsformatting executable
-let mutable toolPath =
-    Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "tools" @@ "FSharp.Formatting.CommandTool" @@ "tools")
-
-/// Runs fsformatting.exe with the given command in the given repository directory.
-let private run toolPath command = 
-    if 0 <> Process.execSimple ((fun info ->
-            { info with
-                FileName = toolPath
-                Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
-    then failwithf "FSharp.Formatting %s failed." command
-
-type LiterateArguments' =
+type LiterateArguments =
     { ToolPath : string
       Source : string
       OutputDirectory : string 
@@ -309,17 +293,29 @@ type LiterateArguments' =
       LayoutRoots : string list 
       FsiEval : bool }
 
-let defaultLiterateArguments =
-    { ToolPath = toolPath
-      Source = ""
-      OutputDirectory = ""
-      Template = ""
-      ProjectParameters = []
-      LayoutRoots = [] 
-      FsiEval = false }
+
+let private run toolPath command = 
+    if 0 <> Process.execSimple ((fun info ->
+            { info with
+                FileName = toolPath
+                Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
+
+    then failwithf "FSharp.Formatting %s failed." command
 
 let createDocs p =
-    let arguments = (p:LiterateArguments'->LiterateArguments') defaultLiterateArguments
+    let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib")
+    printfn "ToolPath : %s" toolPath
+
+    let defaultLiterateArguments =
+        { ToolPath = toolPath
+          Source = ""
+          OutputDirectory = ""
+          Template = ""
+          ProjectParameters = []
+          LayoutRoots = [] 
+          FsiEval = false }
+
+    let arguments = (p:LiterateArguments->LiterateArguments) defaultLiterateArguments
     let layoutroots =
         if arguments.LayoutRoots.IsEmpty then []
         else [ "--layoutRoots" ] @ arguments.LayoutRoots
@@ -342,9 +338,6 @@ let createDocs p =
     run arguments.ToolPath command
     printfn "Successfully generated docs for %s" source
 
-
-
-
 Target.create "Docs" (fun _ ->
     File.delete "docsrc/content/release-notes.md"
     Shell.copyFile "docsrc/content/" "RELEASE_NOTES.md"
@@ -353,8 +346,9 @@ Target.create "Docs" (fun _ ->
     File.delete "docsrc/content/license.md"
     Shell.copyFile "docsrc/content/" "LICENSE.txt"
     Shell.rename "docsrc/content/license.md" "docsrc/content/LICENSE.txt"
-
-
+    //to do : copy formatting exe to bin folder, add plotly to project dependencies
+    
+    
     DirectoryInfo.getSubDirectories (DirectoryInfo.ofPath templates)
     |> Seq.iter (fun d ->
                     let name = d.Name
@@ -364,7 +358,7 @@ Target.create "Docs" (fun _ ->
                                        formatting @@ "templates"
                                        formatting @@ "templates/reference" ]))
     copyFiles ()
-
+    //"C:\Users\Kevin\source\repos\CSBiology\FSharpAux\lib\fsformatting.exe"
     for dir in  [ content; ] do
         let langSpecificPath(lang, path:string) =
             path.Split([|'/'; '\\'|], System.StringSplitOptions.RemoveEmptyEntries)
@@ -374,7 +368,8 @@ Target.create "Docs" (fun _ ->
             match key with
             | Some lang -> layoutRootsAll.[lang]
             | None -> layoutRootsAll.["en"] // "en" is the default language
-
+        
+        
         createDocs (fun args ->
             { args with
                 Source = content
@@ -486,4 +481,4 @@ Target.create "All" ignore
   ==> "NuGet"
   ==> "GitReleaseNuget"
 
-Target.runOrDefaultWithArguments "All"
+Target.runOrDefault "All"
