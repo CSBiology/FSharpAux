@@ -486,4 +486,4 @@ Target.create "All" ignore
   ==> "NuGet"
   ==> "GitReleaseNuget"
 
-Target.runOrDefault "All"
+Target.runOrDefaultWithArguments "All"
