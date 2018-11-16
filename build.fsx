@@ -13,9 +13,8 @@ open Fake.DotNet
 open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
-open Fake.DotNet.Testing
 open Fake.Tools
-open Fake.Api
+open Fake.IO.Globbing
 
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
@@ -285,6 +284,60 @@ let copyFiles () =
     Shell.copyRecursive (formatting @@ "styles") (output @@ "content") true
     |> Trace.logItems "Copying styles and scripts: "
 
+type LiterateArguments =
+    { ToolPath : string
+      Source : string
+      OutputDirectory : string 
+      Template : string
+      ProjectParameters : (string * string) list
+      LayoutRoots : string list 
+      FsiEval : bool }
+
+
+let private run toolPath command = 
+    if 0 <> Process.execSimple ((fun info ->
+            { info with
+                FileName = toolPath
+                Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
+
+    then failwithf "FSharp.Formatting %s failed." command
+
+let createDocs p =
+    let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib")
+    printfn "ToolPath : %s" toolPath
+
+    let defaultLiterateArguments =
+        { ToolPath = toolPath
+          Source = ""
+          OutputDirectory = ""
+          Template = ""
+          ProjectParameters = []
+          LayoutRoots = [] 
+          FsiEval = false }
+
+    let arguments = (p:LiterateArguments->LiterateArguments) defaultLiterateArguments
+    let layoutroots =
+        if arguments.LayoutRoots.IsEmpty then []
+        else [ "--layoutRoots" ] @ arguments.LayoutRoots
+    let source = arguments.Source
+    let template = arguments.Template
+    let outputDir = arguments.OutputDirectory
+    let fsiEval = if arguments.FsiEval then [ "--fsieval" ] else []
+
+    let command = 
+        arguments.ProjectParameters
+        |> Seq.map (fun (k, v) -> [ k; v ])
+        |> Seq.concat
+        |> Seq.append 
+               (["literate"; "--processdirectory" ] @ layoutroots @ [ "--inputdirectory"; source; "--templatefile"; template; 
+                  "--outputDirectory"; outputDir] @ fsiEval @ [ "--replacements" ])
+        |> Seq.map (fun s -> 
+               if s.StartsWith "\"" then s
+               else sprintf "\"%s\"" s)
+        |> String.separated " "
+    run arguments.ToolPath command
+    printfn "Successfully generated docs for %s" source
+
 Target.create "Docs" (fun _ ->
     File.delete "docsrc/content/release-notes.md"
     Shell.copyFile "docsrc/content/" "RELEASE_NOTES.md"
@@ -293,8 +346,9 @@ Target.create "Docs" (fun _ ->
     File.delete "docsrc/content/license.md"
     Shell.copyFile "docsrc/content/" "LICENSE.txt"
     Shell.rename "docsrc/content/license.md" "docsrc/content/LICENSE.txt"
-
-
+    //to do : copy formatting exe to bin folder, add plotly to project dependencies
+    
+    
     DirectoryInfo.getSubDirectories (DirectoryInfo.ofPath templates)
     |> Seq.iter (fun d ->
                     let name = d.Name
@@ -304,7 +358,7 @@ Target.create "Docs" (fun _ ->
                                        formatting @@ "templates"
                                        formatting @@ "templates/reference" ]))
     copyFiles ()
-
+    //"C:\Users\Kevin\source\repos\CSBiology\FSharpAux\lib\fsformatting.exe"
     for dir in  [ content; ] do
         let langSpecificPath(lang, path:string) =
             path.Split([|'/'; '\\'|], System.StringSplitOptions.RemoveEmptyEntries)
@@ -314,14 +368,17 @@ Target.create "Docs" (fun _ ->
             match key with
             | Some lang -> layoutRootsAll.[lang]
             | None -> layoutRootsAll.["en"] // "en" is the default language
-
-        FSFormatting.createDocs (fun args ->
+        
+        
+        createDocs (fun args ->
             { args with
                 Source = content
                 OutputDirectory = output
                 LayoutRoots = layoutRoots
                 ProjectParameters  = ("root", root)::info
-                Template = docTemplate } )
+                Template = docTemplate 
+                FsiEval = true
+                } )
 )
 
 

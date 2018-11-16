@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;net47;netstandard2.0</TargetFrameworks>
     <RootNamespace>FSharpAux</RootNamespace>
@@ -14,6 +14,7 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Hex.fs" />
     <Compile Include="Colors.fs" />
     <Compile Include="AdjacencyGraph.fs" />
@@ -21,6 +22,7 @@
     <Compile Include="Array2D.fs" />
     <Compile Include="ArrayDivvy.fs" />
     <Compile Include="BidirectionalDictionary.fs" />
+    <Compile Include="DateTime.fs" />
     <Compile Include="Dict.fs" />
     <Compile Include="Dictionary.fs" />
     <Compile Include="Guid.fs" />

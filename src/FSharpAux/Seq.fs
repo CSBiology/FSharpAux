@@ -240,7 +240,6 @@ module Seq =
             |> Seq.map (fun group -> group.Value)
             |> joinOption           
 
-
     //#region seq double extension
     
     /// Seq module extensions specialized for seq<float>

@@ -7,11 +7,11 @@ open System.Text
 
 open System.IO.Compression
 
-/// A module to facilitate interaction with files and directories 
+/// A module to facilitate interaction with files and directories
 /// The code is take from Fsharpx project and slightly modified
 /// Special thanks to the original authors under (https://github.com/fsprojects/fsharpx)
 module FileIO =
-    
+
     let LinuxLineBreaks = "\n"
     let WindowsLineBreaks = "\r\n"
     let MacLineBreaks = "\r"
@@ -62,12 +62,12 @@ module FileIO =
 
 
     /// Normalizes a filename.
-    let rec normalizeFileName (fileName : string) = 
+    let rec normalizeFileName (fileName : string) =
         fileName.Replace("\\", Path.DirectorySeparatorChar.ToString()).Replace("/", Path.DirectorySeparatorChar.ToString())
                 .TrimEnd(Path.DirectorySeparatorChar).ToLower()
 
     /// Checks if dir1 is a subfolder of dir2. If dir1 equals dir2 the function returns also true.
-    let rec isSubfolderOf (dir2 : DirectoryInfo) (dir1 : DirectoryInfo) = 
+    let rec isSubfolderOf (dir2 : DirectoryInfo) (dir1 : DirectoryInfo) =
         if normalizeFileName dir1.FullName = normalizeFileName dir2.FullName then true
         else if dir1.Parent = null then false
         else dir1.Parent |> isSubfolderOf dir2
@@ -79,14 +79,14 @@ module FileIO =
     let directoryExists dir = Directory.Exists dir
 
     /// Ensure that directory chain exists. Create necessary directories if necessary.
-    let inline ensureDirExists (dir : DirectoryInfo) = 
+    let inline ensureDirExists (dir : DirectoryInfo) =
         if not dir.Exists then dir.Create()
 
     /// Checks if the given directory exists. If not then this functions creates the directory.
     let inline ensureDirectory dir = directoryInfo dir |> ensureDirExists
 
     /// Detects whether the given path is a directory.
-    let isDirectory path = 
+    let isDirectory path =
         let attr = File.GetAttributes path
         attr &&& FileAttributes.Directory = FileAttributes.Directory
 
@@ -101,39 +101,26 @@ module FileIO =
 
 
     /// Creates a directory if it does not exist.
-    let CreateDir path = 
+    let CreateDir path =
         let dir = directoryInfo path
-        if not dir.Exists then 
+        if not dir.Exists then
             dir.Create()
 
     /// Creates a file if it does not exist.
-    let CreateFile fileName = 
+    let CreateFile fileName =
         let file = fileInfo fileName
-        if not file.Exists then 
+        if not file.Exists then
             let newFile = file.Create()
             newFile.Close()
-        
+
     /// Deletes a file if it exists.
-    let DeleteFile fileName = 
+    let DeleteFile fileName =
         let file = fileInfo fileName
-        if file.Exists then 
+        if file.Exists then
             file.Delete()
-        
 
     /// Deletes the given files.
     let DeleteFiles files = Seq.iter DeleteFile files
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /// Reads a file as one text
@@ -142,27 +129,27 @@ module FileIO =
 
     /// Reads a file line by line
     /// Alternatively use FileEnumerator
-    let readFile (file:string) =   
+    let readFile (file:string) =
         seq {use textReader = new StreamReader(file, Encoding.Default)
              while not textReader.EndOfStream do
                  yield textReader.ReadLine()}
 
 
     /// This function builds an IEnumerable object that enumerates
-    /// lines of the given file on-demand     
-    let FileEnumerator (filePath) = 
-        use reader = File.OpenText(filePath) 
-        Seq.unfold(fun line -> 
-            if line = null then 
-                reader.Close() 
-                None 
-            else 
+    /// lines of the given file on-demand
+    let FileEnumerator (filePath) =
+        use reader = File.OpenText(filePath)
+        Seq.unfold(fun line ->
+            if line = null then
+                reader.Close()
+                None
+            else
                 Some(line,reader.ReadLine())) (reader.ReadLine())
 
 
     /// Reads a gZip file line by line without creating a tempory file
     /// Alternatively use FileEnumerator
-    let readFileGZip (filePath:string) =   
+    let readFileGZip (filePath:string) =
         seq {use reader     = File.OpenRead(filePath)
              use unzip      = new GZipStream(reader, CompressionMode.Decompress, true)
              unzip.Seek(0L,SeekOrigin.Begin) |> ignore
@@ -172,10 +159,10 @@ module FileIO =
 
 
     /// Writes a file line by line
-    let writeToFile append fileName (lines: seq<string>) =    
+    let writeToFile append fileName (lines: seq<string>) =
         let fi = fileInfo fileName
 
-        use writer = new StreamWriter(fileName,append && fi.Exists,Encoding.Default) 
+        use writer = new StreamWriter(fileName,append && fi.Exists,Encoding.Default)
         lines |> Seq.iter writer.WriteLine
 
 
@@ -197,10 +184,10 @@ module FileIO =
 
 
     /// Converts the given text from linux or mac linebreaks to windows line breaks
-    let convertTextToWindowsLineBreaks text = 
+    let convertTextToWindowsLineBreaks text =
         text
-        |> String.replace WindowsLineBreaks LinuxLineBreaks 
-        |> String.replace MacLineBreaks LinuxLineBreaks 
+        |> String.replace WindowsLineBreaks LinuxLineBreaks
+        |> String.replace MacLineBreaks LinuxLineBreaks
         |> String.replace LinuxLineBreaks WindowsLineBreaks
 
 
@@ -230,7 +217,7 @@ module FileIO =
 
     /// Appends all notnull fileNames
     let inline appendFileNamesIfNotNull fileNames (builder:StringBuilder) =
-        fileNames 
+        fileNames
           |> Seq.fold (fun builder file -> appendIfTrue (String.isNullOrEmpty file |> not) file builder) builder
 
 
