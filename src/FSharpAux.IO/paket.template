@@ -1,23 +1,29 @@
-type project
+type file
+id FSharpAux.IO
 title
-    FSharp.FGL
+    FSharpAux.IO
 owners
     Timo Mühlhaus
-authors
+authors 
     Timo Mühlhaus
 projectUrl
-    https://github.com/CSBiology/FSharp.FGL
+    FSharpAux/CSBiology/FSharpAux
 iconUrl
-    https://raw.githubusercontent.com/CSBiology/FSharp.FGL/master/docs/files/img/logo.png
+    https://raw.githubusercontent.com/CSBiology/CSBiology/FSharpAux/master/docs/files/img/logo.png
 licenseUrl
-    https://github.com/CSBiology/FSharp.FGL/blob/master/LICENSE.txt
+    FSharpAux/CSBiology/FSharpAux/blob/master/LICENSE.txt
 requireLicenseAcceptance
     false
+language
+    F#
 copyright
-    Copyright 2015
+    Copyright 2017
 tags
-    functional graph library F# FSharp bioinformatics
+    FSharp Utilities Auxiliaries
 summary
-    Functional graph library for F#
+    Auxiliary functions and data structures for F# programming language
 description
-    Functional graph library for F#
+    Auxiliary functions and data structures for F# programming language
+
+files
+	../../bin/FSharpAux.IO ==> lib
