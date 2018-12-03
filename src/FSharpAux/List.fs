@@ -155,6 +155,38 @@ module List =
         [
         for v in dict do yield v.Key |> Operators.id,!v.Value
         ]
+
+
+    ///TODO: add to seperate combinatorics module
+    /// Returns the power set of l (not including the empty set).
+    let powerSetOf l = 
+        let rec loop (l: list<'a>) = 
+            match l with
+            | [] -> [[]] 
+            | x::xs -> List.collect (fun subSet -> [subSet; x::subSet]) (loop xs)
+        match loop l with
+        | h::t -> t
+        | h    -> h
+
+    /// Treats l as a series of urns of which elements can be drawed from. Returns
+    /// a list including all combinations (different order is not considered) 
+    /// of elements if in one cycle one item is drawed of each urn. 
+    let drawExaustively (l:list<list<'a>>) =
+        let rec loop acc l =
+            match l with
+            | []    -> acc
+            | h::t  -> 
+                let tmp =
+                    h
+                    |> List.map (fun x -> acc |> List.map (fun y -> x::y)) 
+                    |> List.concat
+                loop tmp t
+        match l with 
+        | [] -> []
+        | h::[] -> h |> List.map (fun x -> [x])
+        | h::t ->
+            loop (h |> List.map (fun x -> [x])) t
+
 // ########################################
 // Static extensions
 
