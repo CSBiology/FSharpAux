@@ -16,6 +16,69 @@ open Fake.IO.Globbing.Operators
 open Fake.Tools
 open Fake.IO.Globbing
 
+
+// --------------------------------------------------------------------------------------
+// Temporary solution for building docs with custom fsi evaluators (custom build of FSharp.Formatting found at https://github.com/kMutagene/FSharp.Formatting)
+// Remove this module from the build script when FSharp.Formatting and Project Scaffold have fully migrated to Netcore
+// --------------------------------------------------------------------------------------
+[<AutoOpen>]
+module TemporaryDocumentationHelpers =
+
+    type LiterateArguments =
+        { ToolPath : string
+          Source : string
+          OutputDirectory : string 
+          Template : string
+          ProjectParameters : (string * string) list
+          LayoutRoots : string list 
+          FsiEval : bool }
+
+
+    let private run toolPath command = 
+        if 0 <> Process.execSimple ((fun info ->
+                { info with
+                    FileName = toolPath
+                    Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
+
+        then failwithf "FSharp.Formatting %s failed." command
+
+    let createDocs p =
+        let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib")
+        printfn "ToolPath : %s" toolPath
+
+        let defaultLiterateArguments =
+            { ToolPath = toolPath
+              Source = ""
+              OutputDirectory = ""
+              Template = ""
+              ProjectParameters = []
+              LayoutRoots = [] 
+              FsiEval = false }
+
+        let arguments = (p:LiterateArguments->LiterateArguments) defaultLiterateArguments
+        let layoutroots =
+            if arguments.LayoutRoots.IsEmpty then []
+            else [ "--layoutRoots" ] @ arguments.LayoutRoots
+        let source = arguments.Source
+        let template = arguments.Template
+        let outputDir = arguments.OutputDirectory
+        let fsiEval = if arguments.FsiEval then [ "--fsieval" ] else []
+
+        let command = 
+            arguments.ProjectParameters
+            |> Seq.map (fun (k, v) -> [ k; v ])
+            |> Seq.concat
+            |> Seq.append 
+                   (["literate"; "--processdirectory" ] @ layoutroots @ [ "--inputdirectory"; source; "--templatefile"; template; 
+                      "--outputDirectory"; outputDir] @ fsiEval @ [ "--replacements" ])
+            |> Seq.map (fun s -> 
+                   if s.StartsWith "\"" then s
+                   else sprintf "\"%s\"" s)
+            |> String.separated " "
+        run arguments.ToolPath command
+        printfn "Successfully generated docs for %s" source
+
+
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
 // --------------------------------------------------------------------------------------
@@ -284,59 +347,6 @@ let copyFiles () =
     Shell.copyRecursive (formatting @@ "styles") (output @@ "content") true
     |> Trace.logItems "Copying styles and scripts: "
 
-type LiterateArguments =
-    { ToolPath : string
-      Source : string
-      OutputDirectory : string 
-      Template : string
-      ProjectParameters : (string * string) list
-      LayoutRoots : string list 
-      FsiEval : bool }
-
-
-let private run toolPath command = 
-    if 0 <> Process.execSimple ((fun info ->
-            { info with
-                FileName = toolPath
-                Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
-
-    then failwithf "FSharp.Formatting %s failed." command
-
-let createDocs p =
-    let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib")
-    printfn "ToolPath : %s" toolPath
-
-    let defaultLiterateArguments =
-        { ToolPath = toolPath
-          Source = ""
-          OutputDirectory = ""
-          Template = ""
-          ProjectParameters = []
-          LayoutRoots = [] 
-          FsiEval = false }
-
-    let arguments = (p:LiterateArguments->LiterateArguments) defaultLiterateArguments
-    let layoutroots =
-        if arguments.LayoutRoots.IsEmpty then []
-        else [ "--layoutRoots" ] @ arguments.LayoutRoots
-    let source = arguments.Source
-    let template = arguments.Template
-    let outputDir = arguments.OutputDirectory
-    let fsiEval = if arguments.FsiEval then [ "--fsieval" ] else []
-
-    let command = 
-        arguments.ProjectParameters
-        |> Seq.map (fun (k, v) -> [ k; v ])
-        |> Seq.concat
-        |> Seq.append 
-               (["literate"; "--processdirectory" ] @ layoutroots @ [ "--inputdirectory"; source; "--templatefile"; template; 
-                  "--outputDirectory"; outputDir] @ fsiEval @ [ "--replacements" ])
-        |> Seq.map (fun s -> 
-               if s.StartsWith "\"" then s
-               else sprintf "\"%s\"" s)
-        |> String.separated " "
-    run arguments.ToolPath command
-    printfn "Successfully generated docs for %s" source
 
 Target.create "Docs" (fun _ ->
     File.delete "docsrc/content/release-notes.md"
@@ -384,6 +394,16 @@ Target.create "Docs" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Release Scripts
+
+Target.create "ReleaseDocs" (fun _ ->
+    let tempDocsDir = "temp/gh-pages"
+    Shell.cleanDir tempDocsDir
+    Git.Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+    Shell.copyRecursive "docs" tempDocsDir true |> Trace.logItems "Copying documentation for:"
+    Git.Staging.stageAll tempDocsDir
+    Git.Commit.exec tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
+    Git.Branches.push tempDocsDir
+)
 
 //#load "paket-files/fsharp/FAKE/modules/Octokit/Octokit.fsx"
 //open Octokit
@@ -480,5 +500,8 @@ Target.create "All" ignore
   ==> "RunTests"
   ==> "NuGet"
   ==> "GitReleaseNuget"
+
+"GenerateDocs"
+  ==> "ReleaseDocs"
 
 Target.runOrDefault "All"
