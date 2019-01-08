@@ -186,6 +186,35 @@ module Array =
             loop 0 (arr.Length-1) 
 
 
+    /// Iterates the data array beginning from the startIdx. 
+    /// The step size and direction are implied by magnitude and sign of stepSize. The function returns
+    /// the idx of the first value for which predicate returns true or the end/start of the collection
+    /// is reached (returning None). 
+    let iterUntil (predicate: 'T -> bool) stepSize startIdx (arr: 'T []) =
+        let rec loop  (arr: 'T []) currentIdx =
+            if currentIdx <= 0 then None
+            elif currentIdx >= arr.Length-1 then None
+            else                                              
+                match predicate arr.[currentIdx] with 
+                | true -> Some currentIdx   
+                | _               -> loop arr (currentIdx+stepSize) 
+        loop arr startIdx 
+
+    /// Iterates the data array beginning from the startIdx. 
+    /// The step size and direction are implied by magnitude and sign of stepSize. The function returns
+    /// the idx of the first value for which predicate returns true or the end/start of the collection
+    /// is reached (returning None). The predicate function takes the idx of the current value as an additional
+    /// parameter.
+    let iterUntili (predicate: int -> 'T -> bool) stepSize startIdx (arr: 'T []) =
+        let rec loop  (arr: 'T []) currentIdx =
+            if currentIdx <= 0 then None
+            elif currentIdx >= arr.Length-1 then None
+            else                                              
+                match predicate currentIdx arr.[currentIdx] with 
+                | true -> Some currentIdx   
+                | _               -> loop arr (currentIdx+stepSize) 
+        loop arr startIdx 
+
 // ########################################
 // Static extensions
 
