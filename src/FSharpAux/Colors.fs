@@ -144,7 +144,65 @@ module Colors =
         // From publication: Escaping RGBland: Selecting Colors for Statistical Graphics
         // http://epub.wu.ac.at/1692/1/document.pdf
         module StatisticalGraphics24 =
-            let a = 1
+        // 
+            let Blue1       = fromRgb   2  63 165
+            let Blue2       = fromRgb 125 135 185
+            let Blue3       = fromRgb 190 193 212
+            let Red1        = fromRgb 214 188 192
+            let Red2        = fromRgb 187 119 132
+            let Red3        = fromRgb 142   6  59
+            let LightBlue1  = fromRgb  74 111 227
+            let LightBlue2  = fromRgb 133 149 225
+            let LightBlue3  = fromRgb 181 187 227
+            let LightRed1   = fromRgb 230 175 185
+            let LightRed2   = fromRgb 224 123 145
+            let LightRed3   = fromRgb 211  63 106
+            let Green1      = fromRgb  17 198  56
+            let Green2      = fromRgb 141 213 147
+            let Green3      = fromRgb 198 222 199
+            let Orange1     = fromRgb 234 211 198
+            let Orange2     = fromRgb 240 185 141
+            let Orange3     = fromRgb 239 151   8
+            let Cyan1       = fromRgb  15 207 192
+            let Cyan2       = fromRgb 156 222 214
+            let Cyan3       = fromRgb 213 234 231
+            let Magenta1    = fromRgb 243 225 235
+            let Magenta2    = fromRgb 246 196 225
+            let Magenta3    = fromRgb 247 156 212
+
+            let private rand = new System.Random()
+
+            let private paletteArray =
+                [|
+                    Blue1     
+                    Blue2     
+                    Blue3     
+                    Red1      
+                    Red2      
+                    Red3      
+                    LightBlue1
+                    LightBlue2
+                    LightBlue3
+                    LightRed1 
+                    LightRed2 
+                    LightRed3 
+                    Green1    
+                    Green2    
+                    Green3    
+                    Orange1   
+                    Orange2   
+                    Orange3   
+                    Cyan1     
+                    Cyan2     
+                    Cyan3     
+                    Magenta1  
+                    Magenta2  
+                    Magenta3  
+                |]
+            
+            let getRandomColor() =
+                let index = rand.Next(0,23)
+                paletteArray.[index]
         //
         //{2,63,165},{125,135,185},{190,193,212},{214,188,192},{187,119,132},{142,6,59},{74,111,227},{133,149,225},{181,187,227},{230,175,185},{224,123,145},{211,63,106},{17,198,56},{141,213,147},{198,222,199},{234,211,198},{240,185,141},{239,151,8},{15,207,192},{156,222,214},{213,234,231},{243,225,235},{246,196,225},{247,156,212}
 
