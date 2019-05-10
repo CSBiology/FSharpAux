@@ -91,6 +91,18 @@ module Array =
             tmpArr.[i - 1] <- tmp
         tmpArr  
 
+    /// Shuffels the input array (method: Fisher-Yates) in place.
+    let shuffleInPlace (arr : _[]) =
+        let random = new System.Random()
+        for i = arr.Length downto 1 do
+            // Pick random element to swap.
+            let j = random.Next(i) // 0 <= j <= i-1
+            // Swap.
+            let tmp = arr.[j]
+            arr.[j] <- arr.[i - 1]
+            arr.[i - 1] <- tmp
+        arr  
+
 
     /// Look up an element in an array by index, returning a value if the index is in the domain of the array and default value if not
     let tryFindDefault  (arr : _[]) (zero : 'value) (index : int) =

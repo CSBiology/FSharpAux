@@ -256,6 +256,57 @@ module Array2D =
                 tmpArr.[ri - 1,ci - 1] <- tmp
         tmpArr
 
+    /// Shuffels each column of the input Array2D separately (method: Fisher-Yates) in place
+    let shuffleColumnWiseInPlace (arr:_[,]) =  
+        let random      = new System.Random()
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ci = columnCount - 1 downto 0 do 
+            for ri = rowCount downto  1 do
+                // Pick random element to swap.
+                let rj = random.Next(ri) // 0 <= j <= i-1
+                // Swap.
+                let tmp         =  arr.[rj,ci]
+                arr.[rj,ci]     <- arr.[ri - 1,ci]
+                arr.[ri - 1,ci] <- tmp
+        arr
+
+
+    /// Shuffels each row of the input Array2D separately (method: Fisher-Yates) in place
+    let shuffleRowWiseInPlace (arr:_[,]) =  
+        let random      = new System.Random()
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ri = rowCount - 1 downto  0 do
+            for ci = columnCount downto 1 do 
+                // Pick random element to swap.
+                let cj = random.Next(ci) // 0 <= j <= i-1
+                // Swap.
+                let tmp         =  arr.[ri,cj]
+                arr.[ri,cj]     <- arr.[ri,ci - 1]
+                arr.[ri,ci - 1] <- tmp
+        arr
+
+
+    /// Shuffels the input Array2D (method: Fisher-Yates) in place
+    let shuffleInPlace (arr:_[,]) =  
+        let random      = new System.Random()
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ri = rowCount downto 1 do
+            for ci = columnCount downto 1 do 
+                // Pick random element to swap.
+                let rj = random.Next(ri) // 0 <= j <= i-1
+                let cj = random.Next(ci)
+                // Swap.
+                let tmp             =  arr.[rj,cj]
+                arr.[rj,cj]         <- arr.[ri - 1,ci - 1]
+                arr.[ri - 1,ci - 1] <- tmp
+        arr
+
     ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
     let countDistinctBy (keyf : 'T -> 'Key) (arr: 'T [,]) =
         let dict = System.Collections.Generic.Dictionary<_, ref<int>> HashIdentity.Structural<'Key>
