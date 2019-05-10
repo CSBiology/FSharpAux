@@ -204,6 +204,7 @@ module Array2D =
 
     /// Shuffels each column of the input Array2D separately  (method: Fisher-Yates)
     let shuffleColumnWise (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
         let random      = new System.Random()
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
@@ -213,14 +214,15 @@ module Array2D =
                 // Pick random element to swap.
                 let rj = random.Next(ri) // 0 <= j <= i-1
                 // Swap.
-                let tmp         =  arr.[rj,ci]
-                arr.[rj,ci]     <- arr.[ri - 1,ci]
-                arr.[ri - 1,ci] <- tmp
-        arr
+                let tmp         =  tmpArr.[rj,ci]
+                tmpArr.[rj,ci]     <- tmpArr.[ri - 1,ci]
+                tmpArr.[ri - 1,ci] <- tmp
+        tmpArr
 
 
     /// Shuffels each row of the input Array2D separately  (method: Fisher-Yates)
     let shuffleRowWise (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
         let random      = new System.Random()
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
@@ -230,14 +232,15 @@ module Array2D =
                 // Pick random element to swap.
                 let cj = random.Next(ci) // 0 <= j <= i-1
                 // Swap.
-                let tmp         =  arr.[ri,cj]
-                arr.[ri,cj]     <- arr.[ri,ci - 1]
-                arr.[ri,ci - 1] <- tmp
-        arr
+                let tmp         =  tmpArr.[ri,cj]
+                tmpArr.[ri,cj]     <- tmpArr.[ri,ci - 1]
+                tmpArr.[ri,ci - 1] <- tmp
+        tmpArr
 
 
     /// Shuffels the input Array2D (method: Fisher-Yates)
     let shuffle (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
         let random      = new System.Random()
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
@@ -248,10 +251,10 @@ module Array2D =
                 let rj = random.Next(ri) // 0 <= j <= i-1
                 let cj = random.Next(ci)
                 // Swap.
-                let tmp             =  arr.[rj,cj]
-                arr.[rj,cj]         <- arr.[ri - 1,ci - 1]
-                arr.[ri - 1,ci - 1] <- tmp
-        arr
+                let tmp             =  tmpArr.[rj,cj]
+                tmpArr.[rj,cj]         <- tmpArr.[ri - 1,ci - 1]
+                tmpArr.[ri - 1,ci - 1] <- tmp
+        tmpArr
 
     ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
     let countDistinctBy (keyf : 'T -> 'Key) (arr: 'T [,]) =
