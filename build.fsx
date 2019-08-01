@@ -78,6 +78,25 @@ module TemporaryDocumentationHelpers =
         run arguments.ToolPath command
         printfn "Successfully generated docs for %s" source
 
+[<AutoOpen>]
+module MessagePrompts =
+
+    let prompt (msg:string) =
+      System.Console.Write(msg)
+      System.Console.ReadLine().Trim()
+      |> function | "" -> None | s -> Some s
+      |> Option.map (fun s -> s.Replace ("\"","\\\""))
+
+    let rec promptYesNo msg =
+      match prompt (sprintf "%s [Yn]: " msg) with
+      | Some "Y" | Some "y" -> true
+      | Some "N" | Some "n" -> false
+      | _ -> System.Console.WriteLine("Sorry, invalid answer"); promptYesNo msg
+
+    let releaseMsg = """This will stage all uncommitted changes, push them to the origin and bump the release version to the latest number in the RELEASE_NOTES.md file. 
+        Do you want to continue?"""
+
+    let releaseDocsMsg = """This will push the docs to gh-pages. Do you want to continue?"""
 
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
@@ -452,6 +471,9 @@ Target.create "Release" (fun _ ->
 Target.create "BuildPackage" ignore
 Target.create "GenerateDocs" ignore
 
+Target.create "ReleaseConfirmation" (fun _ -> match promptYesNo releaseMsg with | true -> () |_ -> failwith "Release canceled")
+Target.create "ReleaseDocsConfirmation" (fun _ -> match promptYesNo releaseDocsMsg with | true -> () |_ -> failwith "Release canceled")
+
 Target.create "GitReleaseNuget" (fun _ ->
     let tempNugetDir = "temp/nuget"
     Shell.cleanDir tempNugetDir |> ignore
@@ -468,6 +490,7 @@ Target.create "GitReleaseNuget" (fun _ ->
 // Run all targets by default. Invoke 'build <Target>' to override
 
 Target.create "All" ignore
+Target.create "BuildBinaries" ignore
 
 "Clean"
   ==> "AssemblyInfo"
@@ -489,7 +512,8 @@ Target.create "All" ignore
 "Clean"
   ==> "Release"
 
-"BuildPackage"
+"ReleaseConfirmation"
+  ==> "BuildPackage"
   ==> "PublishNuget"
   ==> "Release"
 
@@ -501,7 +525,15 @@ Target.create "All" ignore
   ==> "NuGet"
   ==> "GitReleaseNuget"
 
-"GenerateDocs"
+"All"
+  ==> "ReleaseDocsConfirmation"
   ==> "ReleaseDocs"
 
+"Clean"
+  ==> "AssemblyInfo"
+  ==> "Restore"
+  ==> "Build"
+  ==> "CopyBinaries"
+  ==> "RunTests"
+  ==> "BuildBinaries"
 Target.runOrDefault "All"
