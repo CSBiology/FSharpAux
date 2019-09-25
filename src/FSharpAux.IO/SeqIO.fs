@@ -151,7 +151,8 @@ module SeqIO =
             }
 
         static member inline toCSV (separator:string) (header:bool) (data:'a seq) =
-            
+            //function that returns this list when applied to record type?
+            //how to handle first entry?
             let formatFunc = 
                 let dataType = typeof<'a>
                 match dataType with
@@ -240,23 +241,5 @@ module SeqIO =
                         loop 0 []
                     stringFuncs
                 | _ -> [(fun a -> string a)]
-
-            let inline toPrettyString sep input =
-                let o = box input
-                match o with
-                | :? string as s -> sprintf "%s" s
-                | :? System.Enum as en -> string en
-                | :? System.Collections.IEnumerable as e -> seq { for i in e do yield sprintf "%A" i } |> String.concat sep
-                | _ -> sprintf "%A" input
-
-
-            let toPrettyHeaderString sep input fieldName  =
-                let o = box input
-                match o with
-                | :? string       -> fieldName
-                | :? System.Enum  -> fieldName
-                | :? System.Collections.IEnumerable as e -> let count = seq {for i in e do yield i.ToString() } |> Seq.length
-                                                            seq { for c = 1 to count do yield (sprintf "%s%i" fieldName c) } |> String.concat sep
-                | _               -> fieldName
 
             Seq.toCSVwith separator header data formatFunc
