@@ -90,8 +90,9 @@ module SeqIO =
                         // record type
                         | ty when FSharpType.IsRecord ty ->
                             let fields = Reflection.FSharpType.GetRecordFields(dataType)
+                                         |> Array.map (fun field -> FSharpValue.GetRecordField(firstElement, field), field.Name)
                             fields
-                            |> Seq.map(fun field -> toPrettyHeaderString separator (FSharpValue.GetRecordField(firstElement,field)) field.Name)
+                            |> Seq.map(fun (field,name) -> toPrettyHeaderString separator field name)
                             |> String.concat separator
                         // tuple type
                         | ty when FSharpType.IsTuple ty ->
@@ -105,7 +106,7 @@ module SeqIO =
 
                 let lines =
                     match dataType with
-                    // simple value type to string
+                    //simple value type to string
                     | ty when ty.IsValueType ->
                         data |> Seq.map (fun x -> sprintf "%A" x)
                     // string to string ::
@@ -121,13 +122,83 @@ module SeqIO =
                     // record type
                     | ty when FSharpType.IsRecord ty ->
                         let fields = Reflection.FSharpType.GetRecordFields(dataType)
+                                     |> Array.map (fun field -> Reflection.FSharpValue.PreComputeRecordFieldReader field)
+                                     |> Array.toList
+                        let stringBuilder = new System.Text.StringBuilder()
+                        let stringFuncs =
+                            let fstRecord = data |> Seq.head
+                            let fieldTypes = 
+                                fields 
+                                |> List.map (fun field -> field fstRecord)
+
+                            let inline funcPrecHead input =
+                                let o = box input
+                                match o with
+                                | :? string -> fun (x: obj) (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("{0}", x)
+                                | :? System.Enum -> fun x (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("{0}", x)
+                                //| :? System.Collections.IEnumerable -> fun x (sb:System.Text.StringBuilder) -> 
+                                //    let a = x :?> System.Collections.IEnumerable
+                                //    let mutable first = true
+                                //    for i in a do
+                                //        if first then 
+                                //            sb.AppendFormat("{0}", i) |> ignore
+                                //            first <- false
+                                //        else
+                                //            sb.AppendFormat("\t{0}", i) |> ignore
+                                      //sb
+                                | :? System.Collections.Generic.IEnumerable<'T> -> fun x (sb:System.Text.StringBuilder) -> 
+                                      let a = x :?>  System.Collections.Generic.IEnumerable<'T>
+                                      a
+                                      |> Seq.iteri (fun i x -> 
+                                          if i = 0 then 
+                                              sb.AppendFormat("{0}", x) |> ignore
+                                          else
+                                              sb.AppendFormat("\t{0}", x) |> ignore
+                                                   )
+                                      sb
+                                | _ -> fun x (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("{0}", x)
+
+                            let inline funcPrec input =
+                                let o = box input
+                                match o with
+                                | :? string -> fun (x: obj) (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("\t{0}", x)
+                                | :? System.Enum -> fun x (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("\t{0}", x)
+                                | :? System.Collections.IEnumerable -> fun x (sb:System.Text.StringBuilder) -> 
+                                    let a = x :?> System.Collections.IEnumerable
+                                    for i in a do
+                                        sb.AppendFormat("\t{0}", i) |> ignore
+                                    sb.AppendFormat("", "")
+                                | _ -> fun x (sb:System.Text.StringBuilder) -> 
+                                    sb.AppendFormat("\t{0}", x)
+                            //fieldTypes
+                            //|> List.map (fun x -> funcPrec x)
+                            let rec loop n list =
+                                if n = fieldTypes.Length then
+                                    list |> List.rev
+                                elif n = 0 then
+                                    loop (n + 1) ((funcPrecHead fieldTypes.[n])::list)
+                                else
+                                    loop (n + 1) ((funcPrec fieldTypes.[n])::list)
+                            loop 0 []
+
                         let elemToStr (elem:'record) =
                             //for each field get value
                             fields
-                            |> Seq.map(fun field -> toPrettyString separator (FSharpValue.GetRecordField(elem,field)) )
-                            |> String.concat separator
+                            |> Seq.fold2(fun (sb:System.Text.StringBuilder) stringFunc fieldFunc -> 
+                                (stringFunc (fieldFunc elem) sb)) stringBuilder stringFuncs |> ignore
+                            //stringBuilder.AppendLine() |> ignore
+                            let res = (*stringBuilder.Remove(0, 1) |> ignore*)
+                                      stringBuilder.ToString()
+                            stringBuilder.Clear() |> ignore
+                            res
+
                         data |> Seq.map elemToStr
-                    // tuple type
+                     //tuple type
                     | ty when FSharpType.IsTuple ty ->
                         data |> Seq.map FSharpValue.GetTupleFields |> Seq.map (toPrettyString separator)
                     // objects
