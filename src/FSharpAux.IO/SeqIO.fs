@@ -134,49 +134,67 @@ module SeqIO =
                             let inline funcPrecHead input =
                                 let o = box input
                                 match o with
-                                | :? string -> fun (x: obj) (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("{0}", x)
-                                | :? System.Enum -> fun x (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("{0}", x)
-                                //| :? System.Collections.IEnumerable -> fun x (sb:System.Text.StringBuilder) -> 
-                                //    let a = x :?> System.Collections.IEnumerable
-                                //    let mutable first = true
-                                //    for i in a do
-                                //        if first then 
-                                //            sb.AppendFormat("{0}", i) |> ignore
-                                //            first <- false
-                                //        else
-                                //            sb.AppendFormat("\t{0}", i) |> ignore
-                                      //sb
-                                | :? System.Collections.Generic.IEnumerable<'T> -> fun x (sb:System.Text.StringBuilder) -> 
-                                      let a = x :?>  System.Collections.Generic.IEnumerable<'T>
-                                      a
-                                      |> Seq.iteri (fun i x -> 
-                                          if i = 0 then 
-                                              sb.AppendFormat("{0}", x) |> ignore
-                                          else
-                                              sb.AppendFormat("\t{0}", x) |> ignore
-                                                   )
-                                      sb
-                                | _ -> fun x (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("{0}", x)
+                                | :? string -> fun (x: obj) -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | :? System.Enum -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | :? System.Collections.Generic.IEnumerable<'T> -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    let a = x :?>  System.Collections.Generic.IEnumerable<'T>
+                                    a
+                                    |> Seq.iteri (fun i x -> 
+                                        if i = 0 then 
+                                            sb.AppendFormat("{0}", x) |> ignore
+                                        else
+                                            sb.AppendFormat("\t{0}", x) |> ignore
+                                                )
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | _ -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
 
                             let inline funcPrec input =
                                 let o = box input
                                 match o with
-                                | :? string -> fun (x: obj) (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("\t{0}", x)
-                                | :? System.Enum -> fun x (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("\t{0}", x)
-                                | :? System.Collections.IEnumerable -> fun x (sb:System.Text.StringBuilder) -> 
+                                | :? string -> fun (x: obj) -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("\t{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | :? System.Enum -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("\t{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | :? System.Collections.IEnumerable -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
                                     let a = x :?> System.Collections.IEnumerable
                                     for i in a do
                                         sb.AppendFormat("\t{0}", i) |> ignore
-                                    sb.AppendFormat("", "")
-                                | _ -> fun x (sb:System.Text.StringBuilder) -> 
-                                    sb.AppendFormat("\t{0}", x)
-                            //fieldTypes
-                            //|> List.map (fun x -> funcPrec x)
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
+                                | _ -> fun x -> 
+                                    let sb = new System.Text.StringBuilder()
+                                    sb.AppendFormat("\t{0}", x) |> ignore
+                                    let res = sb.ToString()
+                                    sb.Clear() |> ignore
+                                    res
                             let rec loop n list =
                                 if n = fieldTypes.Length then
                                     list |> List.rev
@@ -189,11 +207,9 @@ module SeqIO =
                         let elemToStr (elem:'record) =
                             //for each field get value
                             fields
-                            |> Seq.fold2(fun (sb:System.Text.StringBuilder) stringFunc fieldFunc -> 
-                                (stringFunc (fieldFunc elem) sb)) stringBuilder stringFuncs |> ignore
-                            //stringBuilder.AppendLine() |> ignore
-                            let res = (*stringBuilder.Remove(0, 1) |> ignore*)
-                                      stringBuilder.ToString()
+                            |> Seq.fold2(fun (sb:System.Text.StringBuilder) (stringFunc:(obj -> string)) fieldFunc -> 
+                                sb.Append(stringFunc (fieldFunc elem))) stringBuilder stringFuncs |> ignore
+                            let res = stringBuilder.ToString()
                             stringBuilder.Clear() |> ignore
                             res
 
