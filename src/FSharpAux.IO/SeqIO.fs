@@ -49,31 +49,13 @@ module SeqIO =
         /// Convertes a generic sequence to a sequence of seperated string
         /// use write afterwards to save to file
 
-        static member inline toCSVwith (separator:string) (header:bool) (data:'a seq) (formatFunctionsFst: string -> 'b -> 'c -> string) (formatFunctionsRest: string -> 'b -> 'c -> string)=
-
-            let inline toPrettyString sep input =
-                let o = box input
-                match o with
-                | :? string as s -> sprintf "%s" s
-                | :? System.Enum as en -> string en
-                | :? System.Collections.IEnumerable as e -> seq { for i in e do yield sprintf "%A" i } |> String.concat sep
-                | _ -> sprintf "%A" input
-
-
-            let toPrettyHeaderString sep input fieldName  =
-                let o = box input
-                match o with
-                | :? string       -> fieldName
-                | :? System.Enum  -> fieldName
-                | :? System.Collections.IEnumerable as e -> let count = seq {for i in e do yield i.ToString() } |> Seq.length
-                                                            seq { for c = 1 to count do yield (sprintf "%s%i" fieldName c) } |> String.concat sep
-                | _               -> fieldName
+        static member inline toCSVwith (separator:string) (header:bool) (data:'a seq) (formatFunctionsFst: string -> 'b -> (obj -> string)) (formatFunctionsRest: string -> 'b -> (obj -> string)) (formatFunctionHeader: string -> 'b -> string -> string) =
 
             seq {
                 let dataType=typeof<'a>
 
                 if header && (Seq.length(data) > 0) then
-                    let firstElement = Seq.head data
+                    let (firstElement: 'a) = Seq.head data
                     let header =
                         match dataType with
                         // simple value type to string
@@ -84,7 +66,7 @@ module SeqIO =
                         | ty when ty = typeof<System.Enum> -> dataType.Name
                         // array type to string
                         | ty when ty.IsArray ->
-                            data |> Seq.map (fun x -> toPrettyHeaderString separator x dataType.Name) |> String.concat separator
+                            data |> Seq.map (fun x -> formatFunctionHeader separator (box x) dataType.Name) |> String.concat separator
                         | ty when ty = typeof<System.Enum> -> dataType.Name
                         // union type
                         | ty when FSharpType.IsUnion ty -> dataType.Name
@@ -93,7 +75,7 @@ module SeqIO =
                             let fields = Reflection.FSharpType.GetRecordFields(dataType)
                                          |> Array.map (fun field -> FSharpValue.GetRecordField(firstElement, field), field.Name)
                             fields
-                            |> Seq.map(fun (field,name) -> toPrettyHeaderString separator field name)
+                            |> Seq.map(fun (field,name) -> formatFunctionHeader separator field name)
                             |> String.concat separator
                         // tuple type
                         | ty when FSharpType.IsTuple ty ->
@@ -116,7 +98,16 @@ module SeqIO =
                     | ty when ty = typeof<System.Enum> -> data |> Seq.map (fun x -> x.ToString())
                     // array type to string
                     | ty when ty.IsArray ->
-                        data |> Seq.map (toPrettyString separator)
+                        let stringFunc = 
+                            let fstRecord = data |> Seq.head
+                            [|formatFunctionsFst separator fstRecord; formatFunctionsRest separator fstRecord|]
+                        data
+                        |> Seq.mapi (fun i value ->
+                                        if i = 0 then
+                                            stringFunc.[0] value
+                                        else
+                                            stringFunc.[1] value
+                                    )
                     | ty when ty = typeof<System.Enum> -> data |> Seq.map (fun x -> x.ToString())
                     // union type
                     | ty when FSharpType.IsUnion ty -> data |> Seq.map (fun x -> sprintf "%A" x)
@@ -154,20 +145,46 @@ module SeqIO =
                         data |> Seq.map elemToStr
                      //tuple type
                     | ty when FSharpType.IsTuple ty ->
-                        data |> Seq.map FSharpValue.GetTupleFields |> Seq.map (toPrettyString separator)
+                        data |> Seq.map FSharpValue.GetTupleFields 
+                        |> Seq.mapi (fun i value ->
+                                        if i = 0 then
+                                            (formatFunctionsFst separator value)value
+                                        else
+                                            (formatFunctionsRest separator value)value
+                                    )
                     // objects
                     | _ ->
                         let props = dataType.GetProperties()
+                                    |> List.ofArray
+                        let stringFunc = 
+                            let firstElememt = data |> Seq.head
+                            props |> List.map ( fun prop ->
+                                prop.GetValue(firstElememt, null) )
+                                |> List.mapi (fun i value ->
+                                    if i = 0 then
+                                        formatFunctionsFst separator value
+                                    else
+                                        formatFunctionsRest separator value
+                                        )
                         data |> Seq.map ( fun line ->
-                                    props |> Array.map ( fun prop ->
-                                    prop.GetValue(line, null) )) |> Seq.map (toPrettyString separator)
+                                    props |> List.map ( fun prop ->
+                                    prop.GetValue(line, null) ))
+                                    |> Seq.map2 (fun func value ->
+                                                     func value) stringFunc
 
                 yield! lines
             }
 
         static member inline toCSV (separator:string) (header:bool) (data:'a seq) =
-            //function that returns this list when applied to record type?
-            //how to handle first entry?
+            
+            let inline toPrettyHeaderString sep input fieldName  =
+                let o = box input
+                match o with
+                | :? string       -> fieldName
+                | :? System.Enum  -> fieldName
+                | :? System.Collections.IEnumerable as e -> let count = seq {for i in e do yield i.ToString() } |> Seq.length
+                                                            seq { for c = 1 to count do yield (sprintf "%s%i" fieldName c) } |> String.concat sep
+                | _               -> fieldName
 
             let inline funcPrecHead sep input =
                 let o = box input
@@ -234,4 +251,4 @@ module SeqIO =
                     sb.Clear() |> ignore
                     res
 
-            Seq.toCSVwith separator header data funcPrecHead funcPrec
+            Seq.toCSVwith separator header data funcPrecHead funcPrec toPrettyHeaderString
