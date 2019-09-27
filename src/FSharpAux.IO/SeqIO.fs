@@ -49,7 +49,7 @@ module SeqIO =
         /// Convertes a generic sequence to a sequence of seperated string
         /// use write afterwards to save to file
 
-        static member inline toCSVwith (separator:string) (header:bool) (data:'a seq) (formatFunctions: (obj -> string)list) =
+        static member inline toCSVwith (separator:string) (header:bool) (data:'a seq) (formatFunctionsFst: string -> 'b -> 'c -> string) (formatFunctionsRest: string -> 'b -> 'c -> string)=
 
             let inline toPrettyString sep input =
                 let o = box input
@@ -127,11 +127,26 @@ module SeqIO =
                                      |> Array.toList
                         let stringBuilder = new System.Text.StringBuilder()
 
+                        let stringFuncs =
+                            let fstRecord = data |> Seq.head
+                            let fieldTypes = 
+                                fields 
+                                |> List.map (fun field -> field fstRecord)
+
+                            let rec loop n list =
+                                if n = fieldTypes.Length then
+                                    list |> List.rev
+                                elif n = 0 then
+                                    loop (n + 1) ((formatFunctionsFst separator fieldTypes.[n])::list)
+                                else
+                                    loop (n + 1) ((formatFunctionsRest separator fieldTypes.[n])::list)
+                            loop 0 []
+
                         let elemToStr (elem:'record) =
                             //for each field get value
                             fields
                             |> Seq.fold2(fun (sb:System.Text.StringBuilder) (stringFunc:(obj -> string)) fieldFunc -> 
-                                sb.Append(stringFunc (fieldFunc elem))) stringBuilder formatFunctions |> ignore
+                                sb.Append(stringFunc (fieldFunc elem))) stringBuilder stringFuncs |> ignore
                             let res = stringBuilder.ToString()
                             stringBuilder.Clear() |> ignore
                             res
@@ -153,93 +168,70 @@ module SeqIO =
         static member inline toCSV (separator:string) (header:bool) (data:'a seq) =
             //function that returns this list when applied to record type?
             //how to handle first entry?
-            let formatFunc = 
-                let dataType = typeof<'a>
-                match dataType with
-                | ty when FSharpType.IsRecord ty ->
-                    let fields = Reflection.FSharpType.GetRecordFields(dataType)
-                                 |> Array.map (fun field -> Reflection.FSharpValue.PreComputeRecordFieldReader field)
-                                 |> Array.toList
-                    let stringBuilder = new System.Text.StringBuilder()
-                    let stringFuncs =
-                        let fstRecord = data |> Seq.head
-                        let fieldTypes = 
-                            fields 
-                            |> List.map (fun field -> field fstRecord)
 
-                        let inline funcPrecHead input =
-                            let o = box input
-                            match o with
-                            | :? string -> fun (x: obj) -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | :? System.Enum -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | :? System.Collections.Generic.IEnumerable<'T> -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                let a = x :?>  System.Collections.Generic.IEnumerable<'T>
-                                a
-                                |> Seq.iteri (fun i x -> 
-                                    if i = 0 then 
-                                        sb.AppendFormat("{0}", x) |> ignore
-                                    else
-                                        sb.AppendFormat("\t{0}", x) |> ignore
-                                            )
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | _ -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
+            let inline funcPrecHead sep input =
+                let o = box input
+                match o with
+                | :? string -> fun (x: obj) -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat("{0}", x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | :? System.Enum -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat("{0}", x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | :? System.Collections.Generic.IEnumerable<'T> -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    let a = x :?>  System.Collections.Generic.IEnumerable<'T>
+                    a
+                    |> Seq.iteri (fun i x -> 
+                        if i = 0 then 
+                            sb.AppendFormat("{0}", x) |> ignore
+                        else
+                            sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
+                                )
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | _ -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat("{0}", x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
 
-                        let inline funcPrec input =
-                            let o = box input
-                            match o with
-                            | :? string -> fun (x: obj) -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("\t{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | :? System.Enum -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("\t{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | :? System.Collections.IEnumerable -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                let a = x :?> System.Collections.IEnumerable
-                                for i in a do
-                                    sb.AppendFormat("\t{0}", i) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                            | _ -> fun x -> 
-                                let sb = new System.Text.StringBuilder()
-                                sb.AppendFormat("\t{0}", x) |> ignore
-                                let res = sb.ToString()
-                                sb.Clear() |> ignore
-                                res
-                        let rec loop n list =
-                            if n = fieldTypes.Length then
-                                list |> List.rev
-                            elif n = 0 then
-                                loop (n + 1) ((funcPrecHead fieldTypes.[n])::list)
-                            else
-                                loop (n + 1) ((funcPrec fieldTypes.[n])::list)
-                        loop 0 []
-                    stringFuncs
-                | _ -> [(fun a -> string a)]
+            let inline funcPrec sep input =
+                let o = box input
+                match o with
+                | :? string -> fun (x: obj) -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | :? System.Enum -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | :? System.Collections.IEnumerable -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    let a = x :?> System.Collections.IEnumerable
+                    for i in a do
+                        sb.AppendFormat(sprintf "%s{0}"sep, i) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
+                | _ -> fun x -> 
+                    let sb = new System.Text.StringBuilder()
+                    sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
 
-            Seq.toCSVwith separator header data formatFunc
+            Seq.toCSVwith separator header data funcPrecHead funcPrec
