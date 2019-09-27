@@ -8,11 +8,9 @@ module SeqIO =
 
    type Seq =
 
-
         /// Reads a file line by line
         static member fromFile (filePath)  =
             FileIO.readFile filePath
-
 
         /// This function builds an IEnumerable object that enumerates the file
         /// and splits lines of the given file on-demand
@@ -23,7 +21,6 @@ module SeqIO =
                         let line = sr.ReadLine()
                         let words = line.Split separator//[|',';' ';'\t'|]
                         yield words }
-
 
         /// Reads a file following a given type record schema
         /// Uses SchemaReader.Csv.CsvReader<'schema>()
@@ -83,9 +80,8 @@ module SeqIO =
                             |> Seq.mapi (fun idx info -> (sprintf "%s_%i" info.Name idx) ) |> String.concat separator
                         // objects
                         | _ -> dataType.GetProperties()
-                                |> Seq.map (fun info -> info.Name) |> String.concat separator
+                               |> Seq.map (fun info -> info.Name) |> String.concat separator
                     yield header
-
 
                 let lines =
                     match dataType with
@@ -98,7 +94,7 @@ module SeqIO =
                     | ty when ty = typeof<System.Enum> -> data |> Seq.map (fun x -> x.ToString())
                     // array type to string
                     | ty when ty.IsArray ->
-                        let stringFunc = 
+                        let stringFunc =
                             let fstRecord = data |> Seq.head
                             [|formatFunctionsFst separator fstRecord; formatFunctionsRest separator fstRecord|]
                         data
@@ -120,8 +116,8 @@ module SeqIO =
 
                         let stringFuncs =
                             let fstRecord = data |> Seq.head
-                            let fieldTypes = 
-                                fields 
+                            let fieldTypes =
+                                fields
                                 |> List.map (fun field -> field fstRecord)
 
                             let rec loop n list =
@@ -136,7 +132,7 @@ module SeqIO =
                         let elemToStr (elem:'record) =
                             //for each field get value
                             fields
-                            |> Seq.fold2(fun (sb:System.Text.StringBuilder) (stringFunc:(obj -> string)) fieldFunc -> 
+                            |> Seq.fold2(fun (sb:System.Text.StringBuilder) (stringFunc:(obj -> string)) fieldFunc ->
                                 sb.Append(stringFunc (fieldFunc elem))) stringBuilder stringFuncs |> ignore
                             let res = stringBuilder.ToString()
                             stringBuilder.Clear() |> ignore
@@ -145,7 +141,7 @@ module SeqIO =
                         data |> Seq.map elemToStr
                      //tuple type
                     | ty when FSharpType.IsTuple ty ->
-                        data |> Seq.map FSharpValue.GetTupleFields 
+                        data |> Seq.map FSharpValue.GetTupleFields
                         |> Seq.mapi (fun i value ->
                                         if i = 0 then
                                             (formatFunctionsFst separator value)value
@@ -156,27 +152,29 @@ module SeqIO =
                     | _ ->
                         let props = dataType.GetProperties()
                                     |> List.ofArray
-                        let stringFunc = 
+                        let stringFunc =
                             let firstElememt = data |> Seq.head
                             props |> List.map ( fun prop ->
-                                prop.GetValue(firstElememt, null) )
+                                prop.GetValue(firstElememt, null)
+                                              )
                                 |> List.mapi (fun i value ->
                                     if i = 0 then
                                         formatFunctionsFst separator value
                                     else
                                         formatFunctionsRest separator value
-                                        )
+                                             )
                         data |> Seq.map ( fun line ->
                                     props |> List.map ( fun prop ->
                                     prop.GetValue(line, null) ))
                                     |> Seq.map2 (fun func value ->
-                                                     func value) stringFunc
+                                                     func value
+                                                ) stringFunc
 
                 yield! lines
             }
 
         static member inline toCSV (separator:string) (header:bool) (data:'a seq) =
-            
+
             let inline toPrettyHeaderString sep input fieldName  =
                 let o = box input
                 match o with
@@ -189,32 +187,32 @@ module SeqIO =
             let inline funcPrecHead sep input =
                 let o = box input
                 match o with
-                | :? string -> fun (x: obj) -> 
+                | :? string -> fun (x: obj) ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat("{0}", x) |> ignore
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | :? System.Enum -> fun x -> 
+                | :? System.Enum -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat("{0}", x) |> ignore
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | :? System.Collections.Generic.IEnumerable<'T> -> fun x -> 
+                | :? System.Collections.Generic.IEnumerable<'T> -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     let a = x :?>  System.Collections.Generic.IEnumerable<'T>
                     a
-                    |> Seq.iteri (fun i x -> 
-                        if i = 0 then 
+                    |> Seq.iteri (fun i x ->
+                        if i = 0 then
                             sb.AppendFormat("{0}", x) |> ignore
                         else
                             sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
-                                )
+                                 )
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | _ -> fun x -> 
+                | _ -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat("{0}", x) |> ignore
                     let res = sb.ToString()
@@ -224,19 +222,19 @@ module SeqIO =
             let inline funcPrec sep input =
                 let o = box input
                 match o with
-                | :? string -> fun (x: obj) -> 
+                | :? string -> fun (x: obj) ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | :? System.Enum -> fun x -> 
+                | :? System.Enum -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | :? System.Collections.IEnumerable -> fun x -> 
+                | :? System.Collections.IEnumerable -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     let a = x :?> System.Collections.IEnumerable
                     for i in a do
@@ -244,7 +242,7 @@ module SeqIO =
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-                | _ -> fun x -> 
+                | _ -> fun x ->
                     let sb = new System.Text.StringBuilder()
                     sb.AppendFormat(sprintf "%s{0}"sep, x) |> ignore
                     let res = sb.ToString()
