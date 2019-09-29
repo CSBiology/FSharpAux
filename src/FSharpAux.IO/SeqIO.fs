@@ -250,3 +250,26 @@ module SeqIO =
                     res
 
             Seq.toCSVwith separator header data funcPrecHead funcPrec toPrettyHeaderString
+
+
+        static member inline getValueFuncs (dataEntry: 'a) =
+    
+            let dataType = typeof<'a>
+
+            match dataType with
+            |ty when ty.IsValueType             -> [|fun entry -> entry|]
+            |ty when ty = typeof<string>        -> [|fun entry -> entry|]
+            |ty when ty = typeof<System.Enum>   -> [|fun entry -> entry|]
+            |ty when ty.IsArray                 -> [|fun entry -> entry|]
+            |ty when FSharpType.IsUnion ty      -> [|fun entry -> entry|]
+            |ty when FSharpType.IsTuple ty      -> [|fun entry -> box (FSharpValue.GetTupleFields entry)|]
+            |ty when FSharpType.IsRecord ty     ->
+                Reflection.FSharpType.GetRecordFields(dataType)
+                |> Array.map (fun field -> Reflection.FSharpValue.PreComputeRecordFieldReader field)
+            |_ ->
+                [|fun entry ->
+                    let a = 
+                        dataType.GetProperties()
+                        |> Array.map (fun prop ->
+                                                prop.GetValue(box entry, null))
+                    box a|]
