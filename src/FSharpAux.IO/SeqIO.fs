@@ -282,14 +282,14 @@ module SeqIO =
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
-            | :? System.Collections.IEnumerable as tmp ->
+            | :? System.Collections.IEnumerable ->
                 if flatten then
                     fun x ->
                         let sb = new System.Text.StringBuilder()
+                        let a = x :?> System.Collections.IEnumerable
                         //iterates over Collections.IEnumerable to get entries as objects for the string builder
-                        let a =
-                            [for i in tmp do yield box i]
-                        a
+                        let b = [for i in a do yield box i]
+                        b
                         |> Seq.iteri (fun i x ->
                             if i = 0 then
                                 sb.AppendFormat("{0}", x) |> ignore
