@@ -46,7 +46,7 @@ module SeqIO =
         /// Convertes a generic sequence to a sequence of seperated string
         /// use write afterwards to save to file
 
-        static member inline CSVwith (separator: string) (valFunc: 'a -> ('a -> obj)[]) (strFunc:string -> bool -> obj -> (obj -> string)) (header: bool) (flatten: bool) (data: seq<'a>)=
+        static member inline CSVwith (valFunc: 'a -> ('a -> obj)[]) (strFunc:string -> bool -> obj -> (obj -> string)) (separator: string) (header: bool) (flatten: bool) (data: seq<'a>)=
             
             let inline toPrettyHeaderString sep input fieldName flatten =
                 let o = box input
@@ -139,7 +139,7 @@ module SeqIO =
             }
 
         
-        static member valueFunction (dataEntry: 'a) =
+        static member inline valueFunction (dataEntry: 'a) =
         
             let dataType = typeof<'a>
         
@@ -163,7 +163,7 @@ module SeqIO =
                     box a|]
         
         
-        static member stringFunction (separator: string) (flatten: bool) (input: 'a) =
+        static member inline stringFunction (separator: string) (flatten: bool) (input: 'a) =
             let o = box input
             match o with
             | :? System.Collections.IEnumerable as tmp ->
@@ -191,3 +191,7 @@ module SeqIO =
                     let res = sb.ToString()
                     sb.Clear() |> ignore
                     res
+
+        static member inline CSV (separator: string) (header: bool) (flatten: bool) (data: seq<'a>) =
+
+            Seq.CSVwith Seq.valueFunction Seq.stringFunction separator header flatten data
