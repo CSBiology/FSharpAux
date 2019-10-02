@@ -137,3 +137,57 @@ module SeqIO =
                         )
                 yield! strings
             }
+
+        
+        static member valueFunction (dataEntry: 'a) =
+        
+            let dataType = typeof<'a>
+        
+            match dataType with
+            |ty when ty.IsValueType             -> [|box|]
+            |ty when ty = typeof<string>        -> [|box|]
+            |ty when ty = typeof<System.Enum>   -> [|box|]
+            |ty when ty.IsArray                 -> [|box|]
+            |ty when FSharpType.IsUnion ty      -> [|box|]
+            |ty when FSharpType.IsTuple ty      -> [|fun (entry: 'a) -> box (FSharpValue.GetTupleFields entry)|]
+            |ty when FSharpType.IsRecord ty     ->
+        
+                Reflection.FSharpType.GetRecordFields(dataType)
+                |> Array.map (fun field -> (box >> Reflection.FSharpValue.PreComputeRecordFieldReader field))
+            |_ ->
+                [|fun entry ->
+                    let a =
+                        dataType.GetProperties()
+                        |> Array.map (fun prop ->
+                                                prop.GetValue(box entry, null))
+                    box a|]
+        
+        
+        static member stringFunction (separator: string) (flatten: bool) (input: 'a) =
+            let o = box input
+            match o with
+            | :? System.Collections.IEnumerable as tmp ->
+                if flatten then
+                    fun x ->
+                        let sb = new System.Text.StringBuilder()
+                        let a =
+                            [for i in tmp do yield box i]
+                        a
+                        |> Seq.iteri (fun i x ->
+                            if i = 0 then
+                                sb.AppendFormat("{0}", x) |> ignore
+                            else
+                                sb.AppendFormat(sprintf "%s{0}" separator, x) |> ignore
+                            )
+                        let res = sb.ToString()
+                        sb.Clear() |> ignore
+                        res
+                else
+                    fun x -> sprintf "%A" x
+            | _ -> 
+                fun (x: obj) ->
+                    let sb = new System.Text.StringBuilder()
+                    sb.Append x |> ignore
+                    let res = sb.ToString()
+                    sb.Clear() |> ignore
+                    res
