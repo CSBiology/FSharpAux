@@ -57,7 +57,6 @@ module SeqIO =
                 | :? System.Collections.IEnumerable as e -> seq { for i in e do yield sprintf "%A" i } |> String.concat sep
                 | _ -> sprintf "%A" input
 
-
             let toPrettyHeaderString sep input fieldName  =
                 let o = box input
                 match o with
@@ -101,7 +100,6 @@ module SeqIO =
                                 |> Seq.map (fun info -> info.Name) |> String.concat separator
                     yield header
 
-
                 let lines =
                     match dataType with
                     // simple value type to string
@@ -142,26 +140,26 @@ module SeqIO =
         /// Convertes a generic sequence to a sequence of seperated string
         /// use write afterwards to save to file
         static member inline CSVwith (valFunc: 'a -> ('a -> obj)[]) (strFunc:string -> bool -> obj -> (obj -> string)) (separator: string) (header: bool) (flatten: bool) (data: seq<'a>)=
-            
+
             let inline toPrettyHeaderString sep input fieldName flatten =
                 let o = box input
                 match o with
                 | :? string       -> fieldName
                 | :? System.Enum  -> fieldName
-                | :? System.Collections.IEnumerable as e -> 
+                | :? System.Collections.IEnumerable as e ->
                     if flatten then
                         let count = seq {for i in e do yield i.ToString() } |> Seq.length
                         seq { for c = 1 to count do yield (sprintf "%s%i" fieldName c) } |> String.concat sep
                     else
                         fieldName
                 | _               -> fieldName
-        
+
             //array of functions to extract values
             let valFuncs =
                 //first element of data taken as sample to be "analyzed"
                 let firstElement = data |> Seq.head
                 valFunc firstElement
-        
+
             //values returned by valFuncs
             let values =
                 data
@@ -176,10 +174,10 @@ module SeqIO =
                 let firstElement = values |> Seq.head
                 firstElement
                 |> Seq.map (fun x -> strFunc separator flatten x)
-            
+
             seq {
                 let dataType=typeof<'a>
-        
+
                 if header && (Seq.length(data) > 0) then
                     let (firstElement: 'a) = Seq.head data
                     //let ty2 = firstElement.GetType()
@@ -221,8 +219,7 @@ module SeqIO =
                         | _ -> dataType.GetProperties()
                                |> Seq.map (fun info -> info.Name) |> String.concat separator
                     yield header
-        
-        
+
                 let strings =
                     values
                     |> Seq.map (fun x ->
@@ -235,7 +232,7 @@ module SeqIO =
                             |> Seq.fold2 (fun (sb: System.Text.StringBuilder) (func: obj -> string) value ->
                                 sb.AppendFormat (sprintf "%s{0}" separator, (func value))
                                 ) stringBuilder (Seq.tail strFuncs)
-        
+
                         let res = sb.ToString()
                         sb.Clear() |> ignore
                         res
@@ -247,7 +244,7 @@ module SeqIO =
         static member inline valueFunction (dataEntry: 'a) =
             //giving the datatype as parameter returns an error
             let dataType = typeof<'a>
-        
+
             match dataType with
             |ty when ty.IsValueType             -> [|box|]
             |ty when ty = typeof<string>        -> [|box|]
@@ -258,7 +255,7 @@ module SeqIO =
             //except when they are in record types
             |ty when FSharpType.IsTuple ty      -> [|fun (entry: 'a) -> box (FSharpValue.GetTupleFields entry)|]
             |ty when FSharpType.IsRecord ty     ->
-        
+
                 Reflection.FSharpType.GetRecordFields(dataType)
                 |> Array.map (fun field -> (box >> Reflection.FSharpValue.PreComputeRecordFieldReader field))
             //lists also match with this case
@@ -269,13 +266,13 @@ module SeqIO =
                         |> Array.map (fun prop ->
                                                 prop.GetValue(box entry, null))
                     box a|]
-        
+
         ///Returns a function to format a given value as string
         static member inline stringFunction (separator: string) (flatten: bool) (input: 'a) =
             let o = box input
             match o with
             //match string first so that it doesn't get treated as a char array
-            | :? string -> 
+            | :? string ->
                 fun (x: obj) ->
                     let sb = new System.Text.StringBuilder()
                     sb.Append x |> ignore
@@ -301,7 +298,7 @@ module SeqIO =
                         res
                 else
                     fun x -> sprintf "%A" x
-            | _ -> 
+            | _ ->
                 fun (x: obj) ->
                     let sb = new System.Text.StringBuilder()
                     sb.Append x |> ignore
