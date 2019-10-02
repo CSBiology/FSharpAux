@@ -1,5 +1,6 @@
 ﻿namespace FSharpAux.IO
 
+open System
 open System.IO
 open Microsoft.FSharp.Reflection
 
@@ -45,7 +46,101 @@ module SeqIO =
 
         /// Convertes a generic sequence to a sequence of seperated string
         /// use write afterwards to save to file
+        [<Obsolete("This function is deprecated. Use Seq.CSV instead")>]
+        static member inline toCSV (separator:string) (header:bool) (data:'a seq) =
 
+            let inline toPrettyString sep input =
+                let o = box input
+                match o with
+                | :? string as s -> sprintf "%s" s
+                | :? System.Enum as en -> string en
+                | :? System.Collections.IEnumerable as e -> seq { for i in e do yield sprintf "%A" i } |> String.concat sep
+                | _ -> sprintf "%A" input
+
+
+            let toPrettyHeaderString sep input fieldName  =
+                let o = box input
+                match o with
+                | :? string       -> fieldName
+                | :? System.Enum  -> fieldName
+                | :? System.Collections.IEnumerable as e -> let count = seq {for i in e do yield i.ToString() } |> Seq.length
+                                                            seq { for c = 1 to count do yield (sprintf "%s%i" fieldName c) } |> String.concat sep
+                | _               -> fieldName
+
+            seq {
+                let dataType=typeof<'a>
+
+                if header && (Seq.length(data) > 0) then
+                    let firstElement = Seq.head data
+                    let header =
+                        match dataType with
+                        // simple value type to string
+                        | ty when ty.IsValueType -> dataType.Name
+                        // string to string ::
+                        | ty when ty = typeof<string>      -> dataType.Name
+                        // enum type
+                        | ty when ty = typeof<System.Enum> -> dataType.Name
+                        // array type to string
+                        | ty when ty.IsArray ->
+                            data |> Seq.map (fun x -> toPrettyHeaderString separator x dataType.Name) |> String.concat separator
+                        | ty when ty = typeof<System.Enum> -> dataType.Name
+                        // union type
+                        | ty when FSharpType.IsUnion ty -> dataType.Name
+                        // record type
+                        | ty when FSharpType.IsRecord ty ->
+                            let fields = Reflection.FSharpType.GetRecordFields(dataType)
+                            fields
+                            |> Seq.map(fun field -> toPrettyHeaderString separator (FSharpValue.GetRecordField(firstElement,field)) field.Name)
+                            |> String.concat separator
+                        // tuple type
+                        | ty when FSharpType.IsTuple ty ->
+                            FSharpType.GetTupleElements dataType
+                            |> Seq.mapi (fun idx info -> (sprintf "%s_%i" info.Name idx) ) |> String.concat separator
+                        // objects
+                        | _ -> dataType.GetProperties()
+                                |> Seq.map (fun info -> info.Name) |> String.concat separator
+                    yield header
+
+
+                let lines =
+                    match dataType with
+                    // simple value type to string
+                    | ty when ty.IsValueType ->
+                        data |> Seq.map (fun x -> sprintf "%A" x)
+                    // string to string ::
+                    | ty when ty = typeof<string>      -> data |> Seq.map (fun x -> x.ToString())
+                    // enum type
+                    | ty when ty = typeof<System.Enum> -> data |> Seq.map (fun x -> x.ToString())
+                    // array type to string
+                    | ty when ty.IsArray ->
+                        data |> Seq.map (toPrettyString separator)
+                    | ty when ty = typeof<System.Enum> -> data |> Seq.map (fun x -> x.ToString())
+                    // union type
+                    | ty when FSharpType.IsUnion ty -> data |> Seq.map (fun x -> sprintf "%A" x)
+                    // record type
+                    | ty when FSharpType.IsRecord ty ->
+                        let fields = Reflection.FSharpType.GetRecordFields(dataType)
+                        let elemToStr (elem:'record) =
+                            //for each field get value
+                            fields
+                            |> Seq.map(fun field -> toPrettyString separator (FSharpValue.GetRecordField(elem,field)) )
+                            |> String.concat separator
+                        data |> Seq.map elemToStr
+                    // tuple type
+                    | ty when FSharpType.IsTuple ty ->
+                        data |> Seq.map FSharpValue.GetTupleFields |> Seq.map (toPrettyString separator)
+                    // objects
+                    | _ ->
+                        let props = dataType.GetProperties()
+                        data |> Seq.map ( fun line ->
+                                    props |> Array.map ( fun prop ->
+                                    prop.GetValue(line, null) )) |> Seq.map (toPrettyString separator)
+
+                yield! lines
+            }
+
+        /// Convertes a generic sequence to a sequence of seperated string
+        /// use write afterwards to save to file
         static member inline CSVwith (valFunc: 'a -> ('a -> obj)[]) (strFunc:string -> bool -> obj -> (obj -> string)) (separator: string) (header: bool) (flatten: bool) (data: seq<'a>)=
             
             let inline toPrettyHeaderString sep input fieldName flatten =
