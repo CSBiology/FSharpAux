@@ -1,3 +1,6 @@
+#### 0.0.15 - Wednesday, October 2, 2019
+* add an improved Seq to CSV formatter (Seq.CSV)
+* mark the old CSV formatter as deprecated
 #### 0.0.14 - Friday, August 30, 2019
 * add colors to Color table
 * fix shuffle functions
