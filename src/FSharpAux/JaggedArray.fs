@@ -2,7 +2,7 @@
 
 [<AutoOpen>]
 module JaggedArray =
-    
+
     /// Transposes a jagged array
     let transpose (arr: 'T [][]) =
         if arr.Length > 0 then 
@@ -81,19 +81,18 @@ module JaggedArray =
     let innerChoose (chooser: 'T -> 'U option) (jArray: 'T[][]) =
         jArray
         |> Array.map (fun x -> x |> Array.choose chooser)
-
-    /// Shuffles each column of a jagged array separately  (method: Fisher-Yates)
-    let shuffleColumnWise (arr: 'T [][]) =
+    
+    /// Shuffles each column of a jagged array separately  (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffleColumnWise (rnd:System.Random) (arr: 'T [][]) =
         let tmpArr = copy arr
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             
             for ci = columnCount - 1 downto 0 do 
                 for ri = rowCount downto  1 do
                     // Pick random element to swap.
-                    let rj = random.Next(ri) // 0 <= j <= i-1
+                    let rj = rnd.Next(ri) // 0 <= j <= i-1
                     // Swap.
                     let tmp         =  tmpArr.[rj].[ci]
                     tmpArr.[rj].[ci]     <- tmpArr.[ri - 1].[ci]
@@ -103,20 +102,17 @@ module JaggedArray =
         else
             tmpArr
 
-
-   
-   /// Shuffles each row of a jagged array separately  (method: Fisher-Yates)
-    let shuffleRowWise (arr: 'T [][]) =
+    /// Shuffles each row of a jagged array separately  (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffleRowWise (rnd:System.Random) (arr: 'T [][]) =
         let tmpArr = copy arr
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             
             for ri = rowCount - 1 downto  0 do
                 for ci = columnCount downto 1 do 
                     // Pick random element to swap.
-                    let cj = random.Next(ci) // 0 <= j <= i-1
+                    let cj = rnd.Next(ci) // 0 <= j <= i-1
                     // Swap.
                     let tmp           =  tmpArr.[ri].[cj]
                     tmpArr.[ri].[cj]     <- tmpArr.[ri].[ci - 1]
@@ -127,18 +123,17 @@ module JaggedArray =
             tmpArr
 
 
-    /// Shuffels a jagged array (method: Fisher-Yates)
-    let shuffle (arr: 'T [][]) =
+    /// Shuffels a jagged array (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffle (rnd:System.Random) (arr: 'T [][]) =
         let tmpArr = copy arr
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             for ri = rowCount downto 1 do
                 for ci = columnCount downto 1 do 
                     // Pick random element to swap.
-                    let rj = random.Next(ri) // 0 <= j <= i-1
-                    let cj = random.Next(ci)
+                    let rj = rnd.Next(ri) // 0 <= j <= i-1
+                    let cj = rnd.Next(ci)
                     // Swap.
                     let tmp               =  tmpArr.[rj].[cj]
                     tmpArr.[rj].[cj]         <- tmpArr.[ri - 1].[ci - 1]
@@ -148,17 +143,16 @@ module JaggedArray =
         else
             tmpArr
 
-    /// Shuffles each column of a jagged array separately (method: Fisher-Yates) in place
-    let shuffleColumnWiseInPlace (arr: 'T [][]) =
+    /// Shuffles each column of a jagged array separately (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleColumnWiseInPlace (rnd:System.Random) (arr: 'T [][]) =
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             
             for ci = columnCount - 1 downto 0 do 
                 for ri = rowCount downto  1 do
                     // Pick random element to swap.
-                    let rj = random.Next(ri) // 0 <= j <= i-1
+                    let rj = rnd.Next(ri) // 0 <= j <= i-1
                     // Swap.
                     let tmp         =  arr.[rj].[ci]
                     arr.[rj].[ci]     <- arr.[ri - 1].[ci]
@@ -167,19 +161,17 @@ module JaggedArray =
 
         else
             arr
-
-
-    /// Shuffles each row of a jagged array separately (method: Fisher-Yates) in place
-    let shuffleRowWiseInPlace (arr: 'T [][]) =
+            
+    /// Shuffles each row of a jagged array separately (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleRowWiseInPlace (rnd:System.Random) (arr: 'T [][]) =
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             
             for ri = rowCount - 1 downto  0 do
                 for ci = columnCount downto 1 do 
                     // Pick random element to swap.
-                    let cj = random.Next(ci) // 0 <= j <= i-1
+                    let cj = rnd.Next(ci) // 0 <= j <= i-1
                     // Swap.
                     let tmp           =  arr.[ri].[cj]
                     arr.[ri].[cj]     <- arr.[ri].[ci - 1]
@@ -188,19 +180,17 @@ module JaggedArray =
 
         else
             arr
-
-
-    /// Shuffels a jagged array (method: Fisher-Yates) in place
-    let shuffleInPlace (arr: 'T [][]) =
+            
+    /// Shuffels a jagged array (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleInPlace (rnd:System.Random) (arr: 'T [][]) =
         if arr.Length > 0 then 
-            let random      = new System.Random()
             let rowCount    = arr.Length
             let columnCount = arr.[0].Length
             for ri = rowCount downto 1 do
                 for ci = columnCount downto 1 do 
                     // Pick random element to swap.
-                    let rj = random.Next(ri) // 0 <= j <= i-1
-                    let cj = random.Next(ci)
+                    let rj = rnd.Next(ri) // 0 <= j <= i-1
+                    let cj = rnd.Next(ci)
                     // Swap.
                     let tmp               =  arr.[rj].[cj]
                     arr.[rj].[cj]         <- arr.[ri - 1].[ci - 1]

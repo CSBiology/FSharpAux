@@ -170,8 +170,6 @@ module Colors =
             let Magenta2    = fromRgb 246 196 225
             let Magenta3    = fromRgb 247 156 212
 
-            let private rand = new System.Random()
-
             let private paletteArray =
                 [|
                     Blue1     
@@ -199,9 +197,9 @@ module Colors =
                     Magenta2  
                     Magenta3  
                 |]
-            
-            let getRandomColor() =
-                let index = rand.Next(0,23)
+            /// Define the random number generator outside of a potential loop.
+            let getRandomColor (rnd: System.Random) =
+                let index = rnd.Next(0,23)
                 paletteArray.[index]
         //
         //{2,63,165},{125,135,185},{190,193,212},{214,188,192},{187,119,132},{142,6,59},{74,111,227},{133,149,225},{181,187,227},{230,175,185},{224,123,145},{211,63,106},{17,198,56},{141,213,147},{198,222,199},{234,211,198},{240,185,141},{239,151,8},{15,207,192},{156,222,214},{213,234,231},{243,225,235},{246,196,225},{247,156,212}

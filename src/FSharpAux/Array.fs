@@ -76,27 +76,25 @@ module Array =
             Array2D.init aMinlength arrs.Length (fun i ii -> arrs.[ii].[i])
         else
         invalidArg "arr" "the input arrays are of different length"
-
-
-    /// Shuffels the input array (method: Fisher-Yates)
-    let shuffleFisherYates (arr : _[]) =
+  
+  
+    /// Shuffels the input array (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffleFisherYates (rnd: System.Random) (arr : _[]) =
         let tmpArr = Array.copy arr
-        let random = new System.Random()
         for i = arr.Length downto 1 do
             // Pick random element to swap.
-            let j = random.Next(i) // 0 <= j <= i-1
+            let j = rnd.Next(i) // 0 <= j <= i-1
             // Swap.
             let tmp = tmpArr.[j]
             tmpArr.[j] <- tmpArr.[i - 1]
             tmpArr.[i - 1] <- tmp
         tmpArr  
-
-    /// Shuffels the input array (method: Fisher-Yates) in place.
-    let shuffleInPlace (arr : _[]) =
-        let random = new System.Random()
+        
+    /// Shuffels the input array (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleInPlace (rnd: System.Random) (arr : _[]) =
         for i = arr.Length downto 1 do
             // Pick random element to swap.
-            let j = random.Next(i) // 0 <= j <= i-1
+            let j = rnd.Next(i) // 0 <= j <= i-1
             // Swap.
             let tmp = arr.[j]
             arr.[j] <- arr.[i - 1]
