@@ -38,6 +38,7 @@
     <Compile Include="Regex.fs" />
     <Compile Include="ResizeArray.fs" />
     <Compile Include="Seq.fs" />
+    <Compile Include="Set.fs" />
     <Compile Include="String.fs" />
     <Compile Include="Tree.fs" />
     <None Include="paket.references" />
