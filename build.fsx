@@ -2,19 +2,32 @@
 // FAKE build script
 // --------------------------------------------------------------------------------------
 
-#r "paket: groupref FakeBuild //"
+#r "paket:
+nuget Fake.Core.Target
+nuget Fake.Core.Process
+nuget Fake.Core.ReleaseNotes
+nuget Fake.IO.FileSystem
+nuget Fake.DotNet.Cli
+nuget Fake.DotNet.MSBuild
+nuget Fake.DotNet.AssemblyInfoFile
+nuget Fake.DotNet.Paket
+nuget Fake.DotNet.FSFormatting
+nuget Fake.DotNet.Fsi
+nuget Fake.DotNet.NuGet
+nuget Fake.DotNet.Testing.Expecto"
 
-#load "./.fake/build.fsx/intellisense.fsx"
-
-open System.IO
+#load ".fake/build.fsx/intellisense.fsx"
 open Fake.Core
-open Fake.Core.TargetOperators
 open Fake.DotNet
 open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
+open Fake.Core.TargetOperators
+open System.IO
 open Fake.Tools
 open Fake.IO.Globbing
+
+Target.initEnvironment ()
 
 
 // --------------------------------------------------------------------------------------
@@ -34,17 +47,25 @@ module TemporaryDocumentationHelpers =
           FsiEval : bool }
 
 
-    let private run toolPath command = 
-        if 0 <> Process.execSimple ((fun info ->
-                { info with
-                    FileName = toolPath
-                    Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
+    let private run toolPath arguments = 
+        Command.RawCommand
+            (
+                toolPath,
+                arguments
+            )
+        |> CreateProcess.fromCommand
+        |> CreateProcess.withFramework
+        |> CreateProcess.ensureExitCode
+        |> Proc.run
+        |> ignore
 
-        then failwithf "FSharp.Formatting %s failed." command
 
     let createDocs p =
-        let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib")
-        printfn "ToolPath : %s" toolPath
+        let toolPath = 
+            match ProcessUtils.tryFindLocalTool "" "fsformatting.exe"  [(Directory.GetCurrentDirectory() @@ "/lib")] with
+            |Some tool -> tool
+            | _ -> failwith "FSFormatting executable not found"
+        //let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib/Formatting")
 
         let defaultLiterateArguments =
             { ToolPath = toolPath
@@ -71,13 +92,29 @@ module TemporaryDocumentationHelpers =
             |> Seq.append 
                    (["literate"; "--processdirectory" ] @ layoutroots @ [ "--inputdirectory"; source; "--templatefile"; template; 
                       "--outputDirectory"; outputDir] @ fsiEval @ [ "--replacements" ])
-            |> Seq.map (fun s -> 
-                   if s.StartsWith "\"" then s
-                   else sprintf "\"%s\"" s)
-            |> String.separated " "
+            |> Arguments.OfArgs
         run arguments.ToolPath command
         printfn "Successfully generated docs for %s" source
 
+[<AutoOpen>]
+module MessagePrompts =
+
+    let prompt (msg:string) =
+      System.Console.Write(msg)
+      System.Console.ReadLine().Trim()
+      |> function | "" -> None | s -> Some s
+      |> Option.map (fun s -> s.Replace ("\"","\\\""))
+
+    let rec promptYesNo msg =
+      match prompt (sprintf "%s [Yn]: " msg) with
+      | Some "Y" | Some "y" -> true
+      | Some "N" | Some "n" -> false
+      | _ -> System.Console.WriteLine("Sorry, invalid answer"); promptYesNo msg
+
+    let releaseMsg = """This will stage all uncommitted changes, push them to the origin and bump the release version to the latest number in the RELEASE_NOTES.md file. 
+        Do you want to continue?"""
+
+    let releaseDocsMsg = """This will push the docs to gh-pages. Do you want to continue?"""
 
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
@@ -129,6 +166,9 @@ let gitRaw = Environment.environVarOrDefault "gitRaw" "https://raw.githubusercon
 
 let website = "/FSharpAux"
 
+let pkgDir = "pkg"
+
+let buildConfiguration = DotNet.Custom <| Environment.environVarOrDefault "configuration" configuration
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
@@ -186,9 +226,6 @@ Target.create "CopyBinaries" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Clean build results
-
-let buildConfiguration = DotNet.Custom <| Environment.environVarOrDefault "configuration" configuration
-
 Target.create "Clean" (fun _ ->
     Shell.cleanDirs ["bin"; "temp"]
 )
@@ -199,30 +236,31 @@ Target.create "CleanDocs" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Build library & test project
-
 Target.create "Restore" (fun _ ->
     solutionFile
     |> DotNet.restore id
 )
-
 Target.create "Build" (fun _ ->
-    (*solutionFile
-    |> DotNet.build (fun p ->
+    solutionFile 
+    |> DotNet.build (fun p -> 
         { p with
-            Configuration = buildConfiguration })*)
-    let setParams (defaults:MSBuildParams) =
-        { defaults with
-            Verbosity = Some(Quiet)
-            Targets = ["Build"]
-            Properties =
-                [
-                    "Optimize", "True"
-                    "DebugSymbols", "True"
-                    "Configuration", configuration
-                ]
-         }
-    MSBuild.build setParams solutionFile
+            Configuration = buildConfiguration })
 )
+//Target.create "Build" (fun _ ->
+
+//    let setParams (defaults:MSBuildParams) =
+//        { defaults with
+//            Verbosity = Some(Quiet)
+//            Targets = ["Build"]
+//            Properties =
+//                [
+//                    "Optimize", "True"
+//                    "DebugSymbols", "True"
+//                    "Configuration", configuration
+//                ]
+//         }
+//    MSBuild.build setParams solutionFile
+//)
 
 // --------------------------------------------------------------------------------------
 // Run the unit tests using test runner
@@ -230,23 +268,18 @@ Target.create "Build" (fun _ ->
 Target.create "RunTests" (fun _ ->
     let assemblies = !! testAssemblies
 
-    let setParams f =
-        match Environment.isWindows with
-        | true ->
-            fun p ->
-                { p with
-                    FileName = f}
-        | false ->
-            fun p ->
-                { p with
-                    FileName = "mono"
-                    Arguments = f }
     assemblies
-    |> Seq.map (fun f ->
-        Process.execSimple (setParams f) System.TimeSpan.MaxValue
+    |> Seq.iter (fun f ->
+        Command.RawCommand (
+            f,
+            Arguments.OfArgs []
+        )
+        |> CreateProcess.fromCommand
+        |> CreateProcess.withFramework
+        |> CreateProcess.ensureExitCode
+        |> Proc.run
+        |> ignore
     )
-    |>Seq.reduce (+)
-    |> (fun i -> if i > 0 then failwith "")
 )
 
 // --------------------------------------------------------------------------------------
@@ -255,17 +288,20 @@ Target.create "RunTests" (fun _ ->
 Target.create "NuGet" (fun _ ->
     Paket.pack(fun p ->
         { p with
-            OutputPath = "bin"
+            ToolType = ToolType.CreateLocalTool()
+            OutputPath = pkgDir
             Version = release.NugetVersion
-            ReleaseNotes = String.toLines release.Notes})
-)
+            ReleaseNotes = release.Notes |> String.toLines })
+        )
 
 Target.create "PublishNuget" (fun _ ->
     Paket.push(fun p ->
         { p with
-            PublishUrl = "https://www.nuget.org"
-            WorkingDir = "bin" })
+            WorkingDir = pkgDir
+            ToolType = ToolType.CreateLocalTool()
+            ApiKey = Environment.environVarOrDefault "NuGet-key" "" })
 )
+
 
 
 // --------------------------------------------------------------------------------------
@@ -354,8 +390,8 @@ Target.create "Docs" (fun _ ->
     Shell.rename "docsrc/content/release-notes.md" "docsrc/content/RELEASE_NOTES.md"
 
     File.delete "docsrc/content/license.md"
-    Shell.copyFile "docsrc/content/" "LICENSE.txt"
-    Shell.rename "docsrc/content/license.md" "docsrc/content/LICENSE.txt"
+    Shell.copyFile "docsrc/content/" "LICENSE"
+    Shell.rename "docsrc/content/license.md" "docsrc/content/LICENSE"
     //to do : copy formatting exe to bin folder, add plotly to project dependencies
     
     
@@ -452,6 +488,9 @@ Target.create "Release" (fun _ ->
 Target.create "BuildPackage" ignore
 Target.create "GenerateDocs" ignore
 
+Target.create "ReleaseConfirmation" (fun _ -> match promptYesNo releaseMsg with | true -> () |_ -> failwith "Release canceled")
+Target.create "ReleaseDocsConfirmation" (fun _ -> match promptYesNo releaseDocsMsg with | true -> () |_ -> failwith "Release canceled")
+
 Target.create "GitReleaseNuget" (fun _ ->
     let tempNugetDir = "temp/nuget"
     Shell.cleanDir tempNugetDir |> ignore
@@ -468,6 +507,7 @@ Target.create "GitReleaseNuget" (fun _ ->
 // Run all targets by default. Invoke 'build <Target>' to override
 
 Target.create "All" ignore
+Target.create "BuildBinaries" ignore
 
 "Clean"
   ==> "AssemblyInfo"
@@ -489,7 +529,8 @@ Target.create "All" ignore
 "Clean"
   ==> "Release"
 
-"BuildPackage"
+"ReleaseConfirmation"
+  ==> "BuildPackage"
   ==> "PublishNuget"
   ==> "Release"
 
@@ -501,7 +542,16 @@ Target.create "All" ignore
   ==> "NuGet"
   ==> "GitReleaseNuget"
 
-"GenerateDocs"
+"All"
+  ==> "ReleaseDocsConfirmation"
   ==> "ReleaseDocs"
 
-Target.runOrDefault "All"
+"Clean"
+  ==> "AssemblyInfo"
+  ==> "Restore"
+  ==> "Build"
+  ==> "CopyBinaries"
+  ==> "RunTests"
+  ==> "BuildBinaries"
+
+Target.runOrDefaultWithArguments "All"

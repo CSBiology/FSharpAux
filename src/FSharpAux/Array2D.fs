@@ -203,15 +203,65 @@ module Array2D =
 
 
     /// Shuffels each column of the input Array2D separately  (method: Fisher-Yates)
-    let shuffleColumnWise (arr:_[,]) =  
-        let random      = new System.Random()
+    let shuffleColumnWise (rnd: System.Random) (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
 
         for ci = columnCount - 1 downto 0 do 
             for ri = rowCount downto  1 do
                 // Pick random element to swap.
-                let rj = random.Next(ri) // 0 <= j <= i-1
+                let rj = rnd.Next(ri) // 0 <= j <= i-1
+                // Swap.
+                let tmp         =  tmpArr.[rj,ci]
+                tmpArr.[rj,ci]     <- tmpArr.[ri - 1,ci]
+                tmpArr.[ri - 1,ci] <- tmp
+        tmpArr
+
+
+    /// Shuffels each row of the input Array2D separately  (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffleRowWise (rnd: System.Random) (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ri = rowCount - 1 downto  0 do
+            for ci = columnCount downto 1 do 
+                // Pick random element to swap.
+                let cj = rnd.Next(ci) // 0 <= j <= i-1
+                // Swap.
+                let tmp         =  tmpArr.[ri,cj]
+                tmpArr.[ri,cj]     <- tmpArr.[ri,ci - 1]
+                tmpArr.[ri,ci - 1] <- tmp
+        tmpArr
+
+
+    /// Shuffels the input Array2D (method: Fisher-Yates). Define the random number generator outside of a potential loop.
+    let shuffle (rnd: System.Random) (arr:_[,]) =  
+        let tmpArr = Array2D.copy arr
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ri = rowCount downto 1 do
+            for ci = columnCount downto 1 do 
+                // Pick random element to swap.
+                let rj = rnd.Next(ri) // 0 <= j <= i-1
+                let cj = rnd.Next(ci)
+                // Swap.
+                let tmp             =  tmpArr.[rj,cj]
+                tmpArr.[rj,cj]         <- tmpArr.[ri - 1,ci - 1]
+                tmpArr.[ri - 1,ci - 1] <- tmp
+        tmpArr
+
+    /// Shuffels each column of the input Array2D separately (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleColumnWiseInPlace (rnd: System.Random) (arr:_[,]) =  
+        let rowCount    = arr |> Array2D.length1
+        let columnCount = arr |> Array2D.length2
+
+        for ci = columnCount - 1 downto 0 do 
+            for ri = rowCount downto  1 do
+                // Pick random element to swap.
+                let rj = rnd.Next(ri) // 0 <= j <= i-1
                 // Swap.
                 let tmp         =  arr.[rj,ci]
                 arr.[rj,ci]     <- arr.[ri - 1,ci]
@@ -219,16 +269,15 @@ module Array2D =
         arr
 
 
-    /// Shuffels each row of the input Array2D separately  (method: Fisher-Yates)
-    let shuffleRowWise (arr:_[,]) =  
-        let random      = new System.Random()
+    /// Shuffels each row of the input Array2D separately (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleRowWiseInPlace (rnd: System.Random) (arr:_[,]) =  
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
 
         for ri = rowCount - 1 downto  0 do
             for ci = columnCount downto 1 do 
                 // Pick random element to swap.
-                let cj = random.Next(ci) // 0 <= j <= i-1
+                let cj = rnd.Next(ci) // 0 <= j <= i-1
                 // Swap.
                 let tmp         =  arr.[ri,cj]
                 arr.[ri,cj]     <- arr.[ri,ci - 1]
@@ -236,17 +285,16 @@ module Array2D =
         arr
 
 
-    /// Shuffels the input Array2D (method: Fisher-Yates)
-    let shuffle (arr:_[,]) =  
-        let random      = new System.Random()
+    /// Shuffels the input Array2D (method: Fisher-Yates) in place. Define the random number generator outside of a potential loop.
+    let shuffleInPlace (rnd: System.Random) (arr:_[,]) =  
         let rowCount    = arr |> Array2D.length1
         let columnCount = arr |> Array2D.length2
 
         for ri = rowCount downto 1 do
             for ci = columnCount downto 1 do 
                 // Pick random element to swap.
-                let rj = random.Next(ri) // 0 <= j <= i-1
-                let cj = random.Next(ci)
+                let rj = rnd.Next(ri) // 0 <= j <= i-1
+                let cj = rnd.Next(ci)
                 // Swap.
                 let tmp             =  arr.[rj,cj]
                 arr.[rj,cj]         <- arr.[ri - 1,ci - 1]

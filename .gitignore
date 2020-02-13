@@ -194,3 +194,4 @@ docs/content/release-notes.md
 .fake
 docs/tools/FSharp.Formatting.svclog
 /docs
+/pkg
