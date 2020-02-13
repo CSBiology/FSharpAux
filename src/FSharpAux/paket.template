@@ -1,29 +1,33 @@
-type file
+type project
 id FSharpAux
 title
     FSharpAux
 owners
-    Timo Mühlhaus
+    Timo Mühlhaus, Kevin Schneider
 authors 
-    Timo Mühlhaus
+    Timo Mühlhaus, Kevin Schneider
 projectUrl
-    FSharpAux/CSBiology/FSharpAux
+    https://github.com/CSBiology/FSharpAux
 iconUrl
     https://raw.githubusercontent.com/CSBiology/CSBiology/FSharpAux/master/docs/files/img/logo.png
 licenseUrl
-    FSharpAux/CSBiology/FSharpAux/blob/master/LICENSE.txt
+    https://github.com/CSBiology/FSharpAux/blob/master/LICENSE
 requireLicenseAcceptance
     false
 language
     F#
 copyright
-    Copyright 2017
+    Copyright 2017-2020
 tags
     FSharp Utilities Auxiliaries
 summary
-    Auxiliary functions and data structures for F# programming language
+    Auxiliary functions and data structures for F#
 description
-    Auxiliary functions and data structures for F# programming language
-
-files
-	../../bin/FSharpAux ==> lib
+    Auxiliary functions and data structures for the F# programming language
+#files
+#   ../../bin/FSharpAux ==> lib
+repositoryType
+    git
+repositoryUrl
+    https://github.com/CSBiology/FSharpAux
+include-pdbs true
