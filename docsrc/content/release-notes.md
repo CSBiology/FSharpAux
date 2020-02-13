@@ -1,3 +1,11 @@
+#### 1.0.0 - Thursday, February 13, 2019
+First nuget release package.
+
+**FSharpAux:**
+ * Add symmetric difference function for Sets
+ 
+**FSharpAux.IO**: no changes
+
 #### 0.0.15 - Wednesday, October 2, 2019
 * add an improved Seq to CSV formatter (Seq.CSV)
 * mark the old CSV formatter as deprecated

@@ -5,8 +5,8 @@ open System.Reflection
 [<assembly: AssemblyTitleAttribute("FSharpAux")>]
 [<assembly: AssemblyProductAttribute("FSharpAux")>]
 [<assembly: AssemblyDescriptionAttribute("Auxiliary functions and data structures for F# programming language")>]
-[<assembly: AssemblyVersionAttribute("0.0.15")>]
-[<assembly: AssemblyFileVersionAttribute("0.0.15")>]
+[<assembly: AssemblyVersionAttribute("1.0.0")>]
+[<assembly: AssemblyFileVersionAttribute("1.0.0")>]
 [<assembly: AssemblyConfigurationAttribute("Release")>]
 do ()
 
@@ -14,6 +14,6 @@ module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "FSharpAux"
     let [<Literal>] AssemblyProduct = "FSharpAux"
     let [<Literal>] AssemblyDescription = "Auxiliary functions and data structures for F# programming language"
-    let [<Literal>] AssemblyVersion = "0.0.15"
-    let [<Literal>] AssemblyFileVersion = "0.0.15"
+    let [<Literal>] AssemblyVersion = "1.0.0"
+    let [<Literal>] AssemblyFileVersion = "1.0.0"
     let [<Literal>] AssemblyConfiguration = "Release"
