@@ -1,7 +1,7 @@
 type project
-id FSharpAux
+id FSharpAux.IO
 title
-    FSharpAux
+    FSharpAux.IO
 owners
     Timo Mühlhaus, Kevin Schneider
 authors 
