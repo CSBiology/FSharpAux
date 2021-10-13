@@ -187,6 +187,71 @@ module List =
         | h::t ->
             loop (h |> List.map (fun x -> [x])) t
 
+    /// Returns a new list containing only the elements of the list for which the given predicate returns true.
+    let filteri (predicate : int -> 'T -> bool) (list : 'T list) =
+        let mutable i = -1
+        List.filter (
+            fun x ->
+                i <- i + 1
+                predicate i x
+        ) list
+    
+    /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
+    let filterLength (predicate : 'T -> bool) (list : 'T list) =
+        let mutable counter = 0
+        let rec loop predicate' list' =
+            match list' with
+            | [] -> ()
+            | h :: t -> 
+                if predicate' h then counter <- counter + 1; loop predicate' t 
+                else loop predicate' t
+        loop predicate list; counter
+    
+    /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
+    let filteriLength (predicate : int -> 'T -> bool) (list : 'T list) =
+        let mutable counter = 0
+        let mutable i = 0
+        let rec loop predicate' list' =
+            i <- i + 1
+            match list' with
+            | [] -> ()
+            | h :: t -> 
+                if predicate' i h then counter <- counter + 1; loop predicate' t
+                else loop predicate' t
+        loop predicate list; counter
+    
+    /// Applies the given function to each element of the list. Returns the list comprised of the results x for each element where the function returns Some x.
+    let choosei (predicate : int -> 'T -> 'U option) (list : 'T list) =
+        let mutable i = -1
+        let rec loop predicate' list' outputList =
+            match list' with
+            | [] -> outputList
+            | h :: t -> 
+                i <- i + 1
+                match predicate' i h with
+                | Some b -> loop predicate' t (b :: outputList)
+                | None ->   loop predicate' t outputList
+        loop predicate list [] |> List.rev
+    
+    /// Returns a reversed array with the indeces of the elements in the input array that satisfy the given predicate.
+    let findIndecesBack (predicate : 'T -> bool) (list : 'T list) =
+        let mutable i = -1
+        let rec loop predicate' list' outputList =
+            match list' with
+            | [] -> outputList
+            | h :: t -> 
+                i <- i + 1
+                if predicate' h then loop predicate' t (i :: outputList)
+                else loop predicate' t outputList
+        loop predicate list []
+    let findIndeces (predicate: 'T -> bool) (list: 'T list) = findIndecesBack predicate list |> List.rev
+    
+    /// Returns a list comprised of every nth element of the input list.
+    let takeNth (n : int) (list : 'T list) = filteri (fun i _ -> (i + 1) % n = 0) list
+    
+    /// Returns a list without every nth element of the input list.
+    let skipNth (n : int) (list : 'T list) = filteri (fun i _ -> (i + 1) % n <> 0) list
+
 // ########################################
 // Static extensions
 

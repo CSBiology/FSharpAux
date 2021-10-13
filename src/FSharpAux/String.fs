@@ -249,6 +249,43 @@ module String =
 //    /// Abrivates StringMaker
 //    let string = new StringBuilderCE ()
 
+    /// Returns the first char of a string.
+    let first (str : string) = str.Chars 0
+    
+    /// Returns the last char of a string.
+    let last (str : string) = str.Chars (str.Length - 1)
+    
+    /// Splits an input string at a given delimiter (substring).
+    let splitS (delimiter : string) (str : string) = str.Split ([|delimiter|],System.StringSplitOptions.None)
+    
+    /// Returns the last index of a char in a string.
+    let findIndexBack (ch : char) (str : string) = str.ToCharArray () |> Array.findIndexBack (fun c -> c = ch)
+    
+    /// Returns the first index of a char in a string.
+    let findIndex (ch : char) (str : string) = str.ToCharArray () |> Array.findIndex (fun c -> c = ch)
+    
+    /// Returns the indeces of a char in a string.
+    let findIndeces (ch : char) (str : string) = str.ToCharArray () |> Array.findIndeces (fun c -> c = ch)
+    
+    /// Returns the indeces of a char in a string sorted backwards.
+    let findIndecesBack (ch : char) (str : string) = str.ToCharArray () |> Array.findIndecesBack (fun c -> c = ch)
+    
+    /// Iterates through the string and returns a string with the chars of the input until the predicate returned false the first time.
+    let takeWhile (predicate : char -> bool) (str : string) = 
+        if String.IsNullOrEmpty str then str
+        else
+            let mutable i = 0
+            while i < str.Length && predicate str.[i] do i <- i + 1
+            take i str
+    
+    /// Iterates through the string and returns a string that starts at the char of the input where the predicate returned false the first time.
+    let skipWhile (predicate : char -> bool) (str : string) =
+        if String.IsNullOrEmpty str then str
+        else
+            let mutable i = 0
+            while i < str.Length && predicate str.[i] do i <- i + 1
+            skip i str
+
 // ########################################
 // Static extensions
 
