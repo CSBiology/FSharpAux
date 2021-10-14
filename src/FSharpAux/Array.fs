@@ -3,6 +3,8 @@
 [<AutoOpen>]
 module Array = 
 
+    open System
+
     let inline checkNonNull argName arg = 
         match box arg with 
         | null -> nullArg argName 
@@ -225,6 +227,106 @@ module Array =
                 | true -> Some currentIdx   
                 | _               -> loop arr (currentIdx+stepSize) 
         loop arr startIdx 
+
+    /// Returns a new array containing only the elements of the input array for which the given predicate returns true.
+    let filteri (predicate : int -> 'T -> bool) (array : 'T []) =
+        let mutable i = -1
+        Array.filter (
+            fun x ->
+                i <- i + 1
+                predicate i x
+        ) array
+
+    /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
+    let countByPredicate (predicate : 'T -> bool) (array : 'T []) =
+        let mutable counter = 0
+        for i = 0 to array.Length - 1 do 
+            if predicate array.[i] then counter <- counter + 1
+        counter
+    
+    /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
+    let countiByPredicate (predicate : int -> 'T -> bool) (array : 'T []) =
+        let mutable counter = 0
+        for i = 0 to array.Length - 1 do 
+            if predicate i array.[i] then counter <- counter + 1
+        counter
+    
+    /// Applies the given function to each element of the array. Returns the array comprised of the results x for each element where the function returns Some x.
+    let choosei (chooser: int -> 'T -> 'U Option) (array : 'T []) =
+        checkNonNull "array" array    
+        let inline subUnchecked startIndex count (array : _ []) =
+            let res = Array.zeroCreate count
+            if count < 64 then 
+                for i = 0 to res.Length - 1 do res.[i] <- array.[startIndex + i]
+            else Array.Copy (array, startIndex, res, 0, count)
+            res
+        let mutable i = 0
+        let mutable first = Unchecked.defaultof<'U>
+        let mutable found = false
+        while i < array.Length && not found do
+            let element = array.[i]
+            match chooser i element with 
+            | None -> i <- i + 1
+            | Some b -> 
+                first <- b
+                found <- true                            
+        if i <> array.Length then
+            let chunk1 : 'U [] = Array.zeroCreate ((array.Length >>> 2) + 1)
+            chunk1.[0] <- first
+            let mutable count = 1            
+            i <- i + 1                                
+            while count < chunk1.Length && i < array.Length do
+                let element = array.[i]                                
+                match chooser i element with
+                | None -> ()
+                | Some b -> 
+                    chunk1.[count] <- b
+                    count <- count + 1                            
+                i <- i + 1
+            if i < array.Length then                            
+                let chunk2 : 'U [] = Array.zeroCreate (array.Length-i)                        
+                count <- 0
+                while i < array.Length do
+                    let element = array.[i]                                
+                    match chooser i element with
+                    | None -> ()
+                    | Some b -> 
+                        chunk2.[count] <- b
+                        count <- count + 1                            
+                    i <- i + 1
+                let res : 'U [] = Array.zeroCreate (chunk1.Length + count)
+                Array.Copy (chunk1, res, chunk1.Length)
+                Array.Copy (chunk2, 0, res, chunk1.Length, count)
+                res
+            else subUnchecked 0 count chunk1                
+        else Array.empty
+    
+    /// Returns an array with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndices (predicate : 'T -> bool) (array : 'T []) =
+        let mutable counter = 0
+        for i = 0 to array.Length - 1 do if predicate array.[i] then counter <- counter + 1
+        let mutable outputArr = Array.zeroCreate counter
+        counter <- 0
+        for i = 0 to array.Length - 1 do if predicate array.[i] then outputArr.[counter] <- i; counter <- counter + 1
+        outputArr
+    
+    /// Returns a reversed array with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndicesBack (predicate : 'T -> bool) (array : 'T []) =
+        let mutable counter = 0
+        for i = 0 to array.Length - 1 do if predicate array.[i] then counter <- counter + 1
+        let mutable outputArr = Array.zeroCreate counter
+        counter <- 0
+        for i = array.Length - 1 downto 0 do
+            if predicate array.[i] then 
+                outputArr.[counter] <- i
+                counter <- counter + 1
+        outputArr
+    
+    /// Returns an array comprised of every nth element of the input array.
+    let takeNth (n : int) (array : 'T []) = filteri (fun i _ -> (i + 1) % n = 0) array
+    
+    /// Returns an array without every nth element of the input array.
+    let skipNth (n : int) (array : 'T []) = filteri (fun i _ -> (i + 1) % n <> 0) array
 
 // ########################################
 // Static extensions

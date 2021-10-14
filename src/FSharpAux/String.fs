@@ -27,21 +27,21 @@ module String =
         text.Substring(startIndex,length)
 
     /// Converts a sequence of strings to a single string separated with the delimiters
-    [<System.Obsolete("Function 'separatedBy' obsolete. Use 'String.concat' from 'Microsoft.FSharp.Core' instead.")>]
+    [<Obsolete("Function 'separatedBy' obsolete. Use 'String.concat' from 'Microsoft.FSharp.Core' instead.")>]
     let inline separatedBy delimiter (items: string seq) = String.Join(delimiter, items)
 
     /// Converts an string to a array of characters
     let inline toCharArray (str:string) = str.ToCharArray()
 
     /// Converts an array of characters to a string
-    let inline fromCharArray (input:char[]) = new System.String (input)
+    let inline fromCharArray (input:char[]) = new String (input)
 
     let isNewline c = c = '\r' || c = '\n'
             
     /// Returns a sequence of strings split by the predicate    
     let splitBy (isDelimiter:char -> bool) (str:string) = 
         seq{
-            let result = new System.Text.StringBuilder()
+            let result = new Text.StringBuilder()
             for char in str do
                 if not (isDelimiter char) then 
                     result.Append char |> ignore
@@ -70,7 +70,7 @@ module String =
 
      /// Converts a list of characters into a string.
     let implode (xs:char seq) =
-        let sb = System.Text.StringBuilder()
+        let sb = Text.StringBuilder()
         xs |> Seq.iter (sb.Append >> ignore)
         sb.ToString()
 
@@ -136,37 +136,37 @@ module String =
     
     /// Try to parse bool else return default value    
     let tryParseBoolDefault defaultValue str =
-        match System.Boolean.TryParse(str) with
+        match Boolean.TryParse(str) with
         | (true,bool) -> bool
         | _ -> defaultValue
 
     /// Try to parse int else return default value    
     let tryParseIntDefault defaultValue str =
-        match System.Int32.TryParse(str) with
+        match Int32.TryParse(str) with
         | (true,i) -> i
         | _ -> defaultValue
 
     /// Try to parse int64 else return default value    
     let tryParseInt64Default defaultValue str =
-        match System.Int64.TryParse(str) with
+        match Int64.TryParse(str) with
         | (true,i) -> i
         | _ -> defaultValue
 
     /// Try to parse float else return default value    
     let tryParseFloatDefault defaultValue str =
-        match System.Double.TryParse(str) with
+        match Double.TryParse(str) with
         | (true,double) -> double
         | _ -> defaultValue
 
     /// Try to parse GUID else return default value    
     let tryParseGuidDefault defaultValue str =
-        match System.Guid.TryParse(str) with
+        match Guid.TryParse(str) with
         | (true,guid) -> guid
         | _ -> defaultValue
 
     /// Try to parse char else return default value    
     let tryParseCharDefault defaultValue str =
-        match System.Char.TryParse(str) with
+        match Char.TryParse(str) with
         | (true,c) -> c
         | _ -> defaultValue
 
@@ -249,6 +249,43 @@ module String =
 //    /// Abrivates StringMaker
 //    let string = new StringBuilderCE ()
 
+    /// Returns the first char of a string.
+    let first (str : string) = str.Chars 0
+    
+    /// Returns the last char of a string.
+    let last (str : string) = str.Chars (str.Length - 1)
+    
+    /// Splits an input string at a given delimiter (substring).
+    let splitS (delimiter : string) (str : string) = str.Split ([|delimiter|], StringSplitOptions.None)
+    
+    /// Returns the last index of a char in a string.
+    let findIndexBack (ch : char) (str : string) = str.ToCharArray () |> Array.findIndexBack (fun c -> c = ch)
+    
+    /// Returns the first index of a char in a string.
+    let findIndex (ch : char) (str : string) = str.ToCharArray () |> Array.findIndex (fun c -> c = ch)
+    
+    /// Returns the indices of a char in a string.
+    let findIndices (ch : char) (str : string) = str.ToCharArray () |> Array.findIndices (fun c -> c = ch)
+    
+    /// Returns the indices of a char in a string sorted backwards.
+    let findIndicesBack (ch : char) (str : string) = str.ToCharArray () |> Array.findIndicesBack (fun c -> c = ch)
+    
+    /// Iterates through the string and returns a string with the chars of the input until the predicate returned false the first time.
+    let takeWhile (predicate : char -> bool) (str : string) = 
+        if String.IsNullOrEmpty str then str
+        else
+            let mutable i = 0
+            while i < str.Length && predicate str.[i] do i <- i + 1
+            take i str
+    
+    /// Iterates through the string and returns a string that starts at the char of the input where the predicate returned false the first time.
+    let skipWhile (predicate : char -> bool) (str : string) =
+        if String.IsNullOrEmpty str then str
+        else
+            let mutable i = 0
+            while i < str.Length && predicate str.[i] do i <- i + 1
+            skip i str
+
 // ########################################
 // Static extensions
 
@@ -256,8 +293,6 @@ module String =
 [<AutoOpen>]
 module FsharpStringExtensions =
 
-    open System
-    
     //-------------->
     //String extensions
 

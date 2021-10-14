@@ -200,6 +200,15 @@ module JaggedArray =
         else
             arr
 
+    /// Transforms a jagged array to an array where each position is indexed (first index: prior rows, second index: prior columns).
+    let toIndexedArray (jArr : 'T [] []) =
+        jArr
+        |> Array.map Array.indexed
+        |> Array.indexed
+        |> Array.collect (fun (i,x : (int * 'T) []) -> Array.map (fun (j,y) -> i,j,y) x)
+
+    let ofArray2D (arr2d : 'T [,]) = Array2D.toJaggedArray arr2d
+
 
 [<AutoOpen>]
 module JaggedList =

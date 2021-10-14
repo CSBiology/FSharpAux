@@ -42,7 +42,8 @@ module Math =
 //        | Odd  -> false
 
 
-
+    /// Returns the nth root of x.
+    let inline nthRoot n x = x ** (1. / float n)
 
     /// Returns the logarithm of x to base 2
     let log2 x = System.Math.Log(x,2.0)

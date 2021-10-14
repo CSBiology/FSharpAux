@@ -318,4 +318,40 @@ module Array2D =
         for v in dict do yield v.Key |> Operators.id,!v.Value
         |]
 
+    /// Rotates a 2D-array by 90° clockwise.
+    let rotate90DegClockwise (arr2D : 'a [,]) =
+        let nRows = arr2D.GetLength 0
+        let nColumns = arr2D.GetLength 1
+        Array2D.init nColumns nRows (fun i j -> arr2D.[nRows - 1 - j, i])
+    
+    /// Rotates a 2D-array by 90° counter-clickwise.
+    let rotate90DegCounterClockwise (arr2D : 'a [,]) =
+        let nRows = arr2D.GetLength 0
+        let nCols = arr2D.GetLength 1
+        Array2D.init nCols nRows (fun i j -> arr2D.[j, nCols - 1 - i])
+    
+    /// Rotates a 2D-array by 180°.
+    let rotate180Deg (arr2D : 'a [,]) =
+        let nRows = arr2D.GetLength 0
+        let nCols = arr2D.GetLength 1
+        Array2D.init nRows nCols (fun i j -> arr2D.[nRows - 1 - i, nCols - 1 - j])
+    
+    /// Inverses the order of the rows of an 2D-array.
+    let flipHorizontally (arr2D : 'a [,]) =
+        let nRows = arr2D.GetLength 0
+        let nCols = arr2D.GetLength 1
+        Array2D.init nRows nCols (fun i j -> arr2D.[nRows - 1 - i, j])
+    
+    /// Inverses the order of the columns of an 2D-array.
+    let flipVertically (arr2D : 'a [,]) = 
+        let nRows = arr2D.GetLength 0
+        let nCols = arr2D.GetLength 1
+        Array2D.init nRows nCols (fun i j -> arr2D.[i, nCols - 1 - j])
+    
+    /// Transforms a 2D-array to an array where each position is indexed (first index: prior rows, second index: prior columns).
+    let toIndexedArray (arr2D : 'T [,]) =
+        toJaggedArray arr2D
+        |> Array.map Array.indexed
+        |> Array.indexed
+        |> Array.collect (fun (i,x : (int * 'T) []) -> Array.map (fun (j,y) -> i,j,y) x)
 
