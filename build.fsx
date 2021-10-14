@@ -80,6 +80,8 @@ module ProjectInfo =
     let project = "FSharpAux"
 
     let testProjects = [
+        "tests/FSharpAux.Tests/FSharpAux.Tests.fsproj"
+        "tests/FSharpAux.IO.Tests/FSharpAux.IO.Tests.fsproj"
     ]
 
     let summary = "A F# interactive charting library using plotly.js"
