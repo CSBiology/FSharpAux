@@ -17,7 +17,7 @@ module String =
     let inline replace (pattern:string) replacement (text:string) = text.Replace(pattern,replacement)
 
     /// Returns a value indicating whether the specified substring occurs within this string
-    let inline contains substr (t: string) = t.Contains substr
+    let inline contains (substr:string) (t: string) = t.Contains(substr)
     
     /// Splits the given string at the given delimiter
     let inline split (delimiter:char) (text:string) = text.Split [|delimiter|]
@@ -135,37 +135,37 @@ module String =
 //        | _ -> None
     
     /// Try to parse bool else return default value    
-    let tryParseBoolDefault defaultValue str =
+    let tryParseBoolDefault defaultValue (str:string) =
         match Boolean.TryParse(str) with
         | (true,bool) -> bool
         | _ -> defaultValue
 
     /// Try to parse int else return default value    
-    let tryParseIntDefault defaultValue str =
+    let tryParseIntDefault defaultValue (str:string) =
         match Int32.TryParse(str) with
         | (true,i) -> i
         | _ -> defaultValue
 
     /// Try to parse int64 else return default value    
-    let tryParseInt64Default defaultValue str =
+    let tryParseInt64Default defaultValue (str:string) =
         match Int64.TryParse(str) with
         | (true,i) -> i
         | _ -> defaultValue
 
     /// Try to parse float else return default value    
-    let tryParseFloatDefault defaultValue str =
+    let tryParseFloatDefault defaultValue (str:string) =
         match Double.TryParse(str) with
         | (true,double) -> double
         | _ -> defaultValue
 
     /// Try to parse GUID else return default value    
-    let tryParseGuidDefault defaultValue str =
+    let tryParseGuidDefault defaultValue (str:string) =
         match Guid.TryParse(str) with
         | (true,guid) -> guid
         | _ -> defaultValue
 
     /// Try to parse char else return default value    
-    let tryParseCharDefault defaultValue str =
+    let tryParseCharDefault defaultValue (str:string) =
         match Char.TryParse(str) with
         | (true,c) -> c
         | _ -> defaultValue
