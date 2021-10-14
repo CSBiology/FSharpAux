@@ -197,7 +197,7 @@ module List =
         ) list
     
     /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
-    let filterLength (predicate : 'T -> bool) (list : 'T list) =
+    let countByPredicate (predicate : 'T -> bool) (list : 'T list) =
         let mutable counter = 0
         let rec loop predicate' list' =
             match list' with
@@ -208,7 +208,7 @@ module List =
         loop predicate list; counter
     
     /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
-    let filteriLength (predicate : int -> 'T -> bool) (list : 'T list) =
+    let countiByPredicate (predicate : int -> 'T -> bool) (list : 'T list) =
         let mutable counter = 0
         let mutable i = 0
         let rec loop predicate' list' =
@@ -233,8 +233,8 @@ module List =
                 | None ->   loop predicate' t outputList
         loop predicate list [] |> List.rev
     
-    /// Returns a reversed array with the indeces of the elements in the input array that satisfy the given predicate.
-    let findIndecesBack (predicate : 'T -> bool) (list : 'T list) =
+    /// Returns a reversed list with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndicesBack (predicate : 'T -> bool) (list : 'T list) =
         let mutable i = -1
         let rec loop predicate' list' outputList =
             match list' with
@@ -244,7 +244,9 @@ module List =
                 if predicate' h then loop predicate' t (i :: outputList)
                 else loop predicate' t outputList
         loop predicate list []
-    let findIndeces (predicate: 'T -> bool) (list: 'T list) = findIndecesBack predicate list |> List.rev
+    
+    /// Returns a list with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndices (predicate: 'T -> bool) (list: 'T list) = findIndicesBack predicate list |> List.rev
     
     /// Returns a list comprised of every nth element of the input list.
     let takeNth (n : int) (list : 'T list) = filteri (fun i _ -> (i + 1) % n = 0) list

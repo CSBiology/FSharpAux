@@ -238,14 +238,14 @@ module Array =
         ) array
 
     /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
-    let filterLength (predicate : 'T -> bool) (array : 'T []) =
+    let countByPredicate (predicate : 'T -> bool) (array : 'T []) =
         let mutable counter = 0
         for i = 0 to array.Length - 1 do 
             if predicate array.[i] then counter <- counter + 1
         counter
     
     /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
-    let filteriLength (predicate : int -> 'T -> bool) (array : 'T []) =
+    let countiByPredicate (predicate : int -> 'T -> bool) (array : 'T []) =
         let mutable counter = 0
         for i = 0 to array.Length - 1 do 
             if predicate i array.[i] then counter <- counter + 1
@@ -301,8 +301,8 @@ module Array =
             else subUnchecked 0 count chunk1                
         else Array.empty
     
-    /// Returns an array with the indeces of the elements in the input array that satisfy the given predicate.
-    let findIndeces (predicate : 'T -> bool) (array : 'T []) =
+    /// Returns an array with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndices (predicate : 'T -> bool) (array : 'T []) =
         let mutable counter = 0
         for i = 0 to array.Length - 1 do if predicate array.[i] then counter <- counter + 1
         let mutable outputArr = Array.zeroCreate counter
@@ -310,8 +310,8 @@ module Array =
         for i = 0 to array.Length - 1 do if predicate array.[i] then outputArr.[counter] <- i; counter <- counter + 1
         outputArr
     
-    /// Returns a reversed array with the indeces of the elements in the input array that satisfy the given predicate.
-    let findIndecesBack (predicate : 'T -> bool) (array : 'T []) =
+    /// Returns a reversed array with the indices of the elements in the input array that satisfy the given predicate.
+    let findIndicesBack (predicate : 'T -> bool) (array : 'T []) =
         let mutable counter = 0
         for i = 0 to array.Length - 1 do if predicate array.[i] then counter <- counter + 1
         let mutable outputArr = Array.zeroCreate counter
