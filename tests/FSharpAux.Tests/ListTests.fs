@@ -79,10 +79,10 @@ let listTests =
         ]
         testList "List.skipNth" [
             testCase "returns correct list" (fun _ ->
-                Expect.equal (testList1 |> List.skipNth 3) testList1_takeNth_Equal "List.skipNth did return correct List"
+                Expect.equal (testList1 |> List.skipNth 3) testList1_skipNth_Equal "List.skipNth did return correct List"
             )
             testCase "returns incorrect list" (fun _ ->
-                Expect.notEqual (testList1 |> List.skipNth 3) testList1_takeNth_NotEqual "List.skipNth did not return incorrect List"
+                Expect.notEqual (testList1 |> List.skipNth 3) testList1_skipNth_NotEqual "List.skipNth did not return incorrect List"
             )
         ]
     ]
