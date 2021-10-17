@@ -18,6 +18,16 @@ let testJaggArr1 =
         [|"No"; " you"; "are"; "not"|]
     |]
 
+let testJaggArr1_init_Equal = [|
+    [|(0, 0); (0, 3); (0, 6); (0, 9); (0, 12); (0, 15); (0, 18)|];
+    [|(2, 0); (2, 3); (2, 6); (2, 9); (2, 12); (2, 15); (2, 18)|];
+    [|(4, 0); (4, 3); (4, 6); (4, 9); (4, 12); (4, 15); (4, 18)|]
+|]
+let testJaggArr1_init_NotEqual = [|
+    [|(2, 0); (2, 3); (2, 6); (2, 9); (2, 12); (2, 15); (2, 18)|];
+    [|(0, 0); (0, 3); (0, 6); (0, 9); (0, 12); (0, 15); (0, 18)|];
+    [|(4, 0); (4, 3); (4, 6); (4, 9); (4, 12); (4, 15); (4, 18)|]
+|]
 let testJaggArr1_toIndexedArray_Equal = 
     [|(0, 0, "I "); (0, 1, "am "); (0, 2, "Jesus!"); (1, 0, "No"); (1, 1, " you"); (1, 2, "are"); (1, 3, "not")|]
 let testJaggArr1_toIndexedArray_NotEqual = 
@@ -40,6 +50,39 @@ let jaggedArrayTests =
             )
             testCase "returns incorrect jagged array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> JaggedArray.ofArray2D) testArr2d1_ofArray2D_NotEqual "JaggedArray.ofArray2D did not return incorrect jagged array"
+            )
+        ]
+        testList "JaggedArray.init" [
+            testCase "returns correct jagged array" (fun _ ->
+                Expect.equal (JaggedArray.init 3 7 (fun i j -> i * 2, j * 3)) testJaggArr1_init_Equal "JaggedArray.init did return correct jagged array"
+            )
+            testCase "returns incorrect jagged array" (fun _ ->
+                Expect.notEqual (JaggedArray.init 3 7 (fun i j -> i * 2, j * 3)) testJaggArr1_init_NotEqual "JaggedArray.init did not return incorrect jagged array"
+            )
+        ]
+    ]
+
+
+let testJaggList1_init_Equal = [
+    [(0, 0); (0, 3); (0, 6); (0, 9); (0, 12); (0, 15); (0, 18)];
+    [(2, 0); (2, 3); (2, 6); (2, 9); (2, 12); (2, 15); (2, 18)];
+    [(4, 0); (4, 3); (4, 6); (4, 9); (4, 12); (4, 15); (4, 18)]
+]
+let testJaggList1_init_NotEqual = [
+    [(2, 0); (2, 3); (2, 6); (2, 9); (2, 12); (2, 15); (2, 18)];
+    [(0, 0); (0, 3); (0, 6); (0, 9); (0, 12); (0, 15); (0, 18)];
+    [(4, 0); (4, 3); (4, 6); (4, 9); (4, 12); (4, 15); (4, 18)]
+]
+
+[<Tests>]
+let jaggedListTests =
+    testList "JaggedListTests" [
+        testList "JaggedList.init" [
+            testCase "returns correct list" (fun _ ->
+                Expect.equal (JaggedList.init 3 7 (fun i j -> i * 2, j * 3)) testJaggList1_init_Equal "JaggedList.init did return correct list"
+            )
+            testCase "returns incorrect list" (fun _ ->
+                Expect.notEqual (JaggedList.init 3 7 (fun i j -> i * 2, j * 3)) testJaggList1_init_NotEqual "JaggedList.init did not return incorrect list"
             )
         ]
     ]
