@@ -200,6 +200,15 @@ module JaggedArray =
         else
             arr
 
+    /// Creates a jagged array given the dimensions and a generator function to compute the elements.
+    let init count1 count2 (initializer : int -> int -> 'T) =
+        Array.init count1 (
+            fun i -> 
+                Array.init count2 (
+                    fun j -> initializer i j
+                )
+        )
+
     /// Transforms a jagged array to an array where each position is indexed (first index: prior rows, second index: prior columns).
     let toIndexedArray (jArr : 'T [] []) =
         jArr
@@ -289,4 +298,11 @@ module JaggedList =
         jlist
         |> List.map (fun x -> x |> List.choose chooser)
 
-
+    /// Creates a jagged list given the dimensions and a generator function to compute the elements.
+    let init count1 count2 (initializer : int -> int -> 'T) =
+        List.init count1 (
+            fun i -> 
+                List.init count2 (
+                    fun j -> initializer i j
+                )
+        )
