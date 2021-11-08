@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ArrayTests.fs" />
+    <Compile Include="Array2DTests.fs" />
+    <Compile Include="JaggedArrayTest.fs" />
+    <Compile Include="ListTests.fs" />
+    <Compile Include="MathTests.fs" />
     <Compile Include="StringTests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>

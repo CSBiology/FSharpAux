@@ -210,7 +210,7 @@ module List =
     /// Returns the length of an array containing only the elements of the input array for which the given predicate returns true.
     let countiByPredicate (predicate : int -> 'T -> bool) (list : 'T list) =
         let mutable counter = 0
-        let mutable i = 0
+        let mutable i = -1
         let rec loop predicate' list' =
             i <- i + 1
             match list' with
