@@ -45,9 +45,6 @@
     * takeWhile: Iterates through the string and returns a string with the chars of the input until the predicate returned false the first time.
     * skipWhile: Iterates through the string and returns a string that starts at the char of the input where the predicate returned false the first time.
 
-**FSharpAux.Tests**
-* Add Unit Tests to all aforementioned new functions
-
 ---
 
 #### 1.0.0 - Thursday, February 13, 2019
