@@ -48,7 +48,7 @@ module Seq =
     ///    Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
     let groupWhen f (input:seq<'a>) =
         use en = input.GetEnumerator()
-
+    
         let rec loop cont =
             if en.MoveNext() then
                 if (f en.Current) then
@@ -56,9 +56,9 @@ module Seq =
                     loop (fun y -> 
                         cont 
                             (   match y with
-                                | h::t -> []::(temp::h)::t
+                                | h :: t    -> [] :: (temp :: h) :: t
                                 //| h::t -> [temp]::(h)::t
-                                | [] -> [[temp]]
+                                | []        -> [[temp]]
                             )
                          )
                 else
@@ -66,8 +66,9 @@ module Seq =
                     loop (fun y -> 
                         cont 
                             (   match y with
-                                | h::t -> (temp::h)::t
-                                | []   -> [[temp]]
+                                | h :: t when t.Length = 0  -> [temp] :: h :: t
+                                | h :: t                    -> (temp :: h) :: t
+                                | []                        -> [[temp]]
                             )
                          )
             else
@@ -80,7 +81,7 @@ module Seq =
                       | _  -> h::t
             | [] -> []
             |> Seq.cast
-
+    
         tmp
 
 
