@@ -1,44 +1,45 @@
 ﻿namespace FSharpAux
 
+open System.Collections.Generic
 
 [<AutoOpen>]
 module Seq =    
     
-    ///Adds a value to the back of a sequence
-    let appendSingleton (s:seq<'T>) (value: 'T) =
+    ///Adds a value to the back of a sequence.
+    let appendSingleton (s : seq<'T>) (value : 'T) =
         Seq.append s (Seq.singleton value)
 
-    ///Adds a value to the front of a sequence
-    let consSingleton (s:seq<'T>) (value: 'T) =
+    ///Adds a value to the front of a sequence.
+    let consSingleton (s : seq<'T>) (value : 'T) =
         Seq.append (Seq.singleton value) s
 
-    /// Initialize a sequence of length and repeated value (like R! repeat : but swapped input)
+    /// Initialize a sequence of length and repeated value (like R! repeat : but swapped input).
     let initRepeatValue length value =
-        Seq.initInfinite ( fun _ -> value) |> Seq.take (length)
+        Seq.initInfinite (fun _ -> value) |> Seq.take length
 
-    /// Initialize a sequence of length and repeated values (like R! repeat: but swapped input)
+    /// Initialize a sequence of length and repeated values (like R! repeat: but swapped input).
     let initRepeatValues length values =
-        Seq.initInfinite ( fun _ -> values) |> Seq.take (length) |> Seq.concat
+        Seq.initInfinite (fun _ -> values) |> Seq.take length |> Seq.concat
 
-    /// Sorts sequence in descending order
-    let sortByDesc f s =
-        System.Linq.Enumerable.OrderByDescending(s, new System.Func<'a,'b>(f) )
+    /// Sorts sequence in descending order.
+    let sortByDesc f s = System.Linq.Enumerable.OrderByDescending(s, new System.Func<'a,'b>(f))
 
     /// Iterates over the elements of the input sequence and groups adjacent
     /// elements. A new group is started after the specified predicate holds 
     /// about the element of the sequence (and at the beginning of the iteration).
-    // with tail recursion and contionious passing 
+    // with tail recursion and continuous passing 
     // [3;3;2;4;1;2] |> Seq.groupAfter (fun n -> n%2 = 1);;
-    let groupAfter f (input:seq<_>) =     
-        let rec group (en:System.Collections.Generic.IEnumerator<_>) cont acc c  =            
-                if not(f en.Current) && en.MoveNext() then
-                    group en (fun l -> cont <| c::l) acc en.Current
+    let groupAfter f (input : seq<_>) =     
+        let rec group (en : IEnumerator<_>) cont acc c  =            
+                if not (f en.Current) && en.MoveNext() then
+                    group en (fun l -> cont <| c :: l) acc en.Current
                 else
-                    (fun l -> cont <| c::l) []
-        seq{
+                    (fun l -> cont <| c :: l) []
+        seq {
             use en = input.GetEnumerator()
             while en.MoveNext() do
-                yield group en id [] en.Current }
+                yield group en id [] en.Current
+        }
 
     /// Iterates over elements of the input sequence and groups adjacent elements.
     /// A new group is started when the specified predicate holds about the element
@@ -46,7 +47,7 @@ module Seq =
     ///
     /// For example: 
     ///    Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
-    let groupWhen f (input:seq<'a>) =
+    let groupWhen f (input : seq<'a>) =
         use en = input.GetEnumerator()
     
         let rec loop cont =
@@ -56,9 +57,9 @@ module Seq =
                     loop (fun y -> 
                         cont 
                             (   match y with
-                                | h :: t    -> [] :: (temp :: h) :: t
-                                //| h::t -> [temp]::(h)::t
-                                | []        -> [[temp]]
+                                //| h :: t    -> [temp] :: h :: t
+                                | h :: t    -> [] :: (temp :: h) :: t   // remaining elements
+                                | []        -> [[temp]]                 // first element
                             )
                          )
                 else
@@ -66,20 +67,22 @@ module Seq =
                     loop (fun y -> 
                         cont 
                             (   match y with
-                                | h :: t when t.Length = 0  -> [temp] :: h :: t
-                                | h :: t                    -> (temp :: h) :: t
-                                | []                        -> [[temp]]
+                                | h :: t when t.Length = 0  -> [temp] :: h :: t // last element
+                                | h :: t                    -> (temp :: h) :: t // elements in between
+                                | []                        -> [[temp]]         // first element
                             )
                          )
             else
                 cont []
-        // Remove when first element is empty due to "[]::(temp::h)::t"
-        let tmp:seq<seq<'a>> = 
+        // Remove when first element is empty due to "[] :: (temp :: h) :: t"
+        let tmp : seq<seq<'a>> = 
             match (loop id) with
-            | h::t -> match h with
-                      | [] -> t
-                      | _  -> h::t
-            | [] -> []
+            | h :: t -> 
+                match h with
+                | [] -> t
+                | _  -> h :: t
+            | [] -> 
+                []
             |> Seq.cast
     
         tmp
@@ -109,18 +112,18 @@ module Seq =
 
 
     
-    /// Break sequence into n-element subsequences
-    let groupsOfAtMost (size: int) (s: seq<'v>) : seq<list<'v>> =
+    /// Break sequence into n-element subsequences.
+    let groupsOfAtMost (size : int) (s : seq<'v>) : seq<list<'v>> =
         seq {
-            let en = s.GetEnumerator ()
+            let en = s.GetEnumerator()
             let more = ref true
             while !more do
             let group =
                 [
-                let i = ref 0
-                while !i < size && en.MoveNext () do
-                    yield en.Current
-                    i := !i + 1
+                    let i = ref 0
+                    while !i < size && en.MoveNext() do
+                        yield en.Current
+                        i := !i + 1
                 ]
             if List.isEmpty group then
                 more := false
@@ -130,10 +133,10 @@ module Seq =
 
 
     /// Iterates over elements of the input sequence and increase the counter
-    /// if the function returens true
+    /// if the function returens true.
     let countIf f (input:seq<_>) =         
         let en = input.GetEnumerator()
-        let rec loop (en:System.Collections.Generic.IEnumerator<_>) (counter:int) =
+        let rec loop (en: IEnumerator<_>) (counter:int) =
             if en.MoveNext() then
                 if (f en.Current) then
                     loop en (counter + 1)
@@ -146,16 +149,20 @@ module Seq =
 
     let pivotize (aggregation:seq<'T> -> 'A) (defaultValue:'A) (keyList:seq<'key>) (valueList:seq<'key*seq<'T>>) =
         let m = valueList |> Map.ofSeq
-        keyList |> Seq.map (fun k -> if m.ContainsKey(k) then
-                                        aggregation m.[k]
-                                     else
-                                        defaultValue )
+        keyList 
+        |> Seq.map (
+            fun k -> 
+                if m.ContainsKey(k) then
+                    aggregation m.[k]
+                else
+                    defaultValue 
+        )
 
 
-    // /// Combines two sequences according to key generating functions
+    // /// Combines two sequences according to key generating functions.
     //let joinBy (keyf1: 'a -> 'key) (keyf2: 'b -> 'key) (s1:seq<'a>) (s2:seq<'b>) =
     //    // Wrap a StructBox(_) around all keys in case the key type is itself a type using null as a representation
-    //        let dict = new System.Collections.Generic.Dictionary<'key,'a option*'b option>()
+    //        let dict = new Dictionary<'key,'a option*'b option>()
 
     //        let insertLeft key lValue =    
     //            let ok,refV = dict.TryGetValue(key)
@@ -184,40 +191,40 @@ module Seq =
 
    
     
-    /// Returns head of a seq as option or None if seq is empty
+    /// Returns head of a seq as option or None if seq is empty.
     let tryHead s = Seq.tryPick Some s
     
-    /// Returns head of a seq or default value if seq is empty
-    let headOrDefault defaultValue s  =         
+    /// Returns head of a seq or default value if seq is empty.
+    let headOrDefault defaultValue s =
         match (tryHead s) with
-        | Some(x) -> x
-        | None    -> defaultValue
+        | Some x    -> x
+        | None      -> defaultValue
 
-    /// Splits a sequence of pairs into two sequences
-    let unzip (input:seq<_>) =
+    /// Splits a sequence of pairs into two sequences.
+    let unzip (input : seq<_>) =
         let (lstA, lstB) = 
             Seq.foldBack (fun (a,b) (accA, accB) -> 
-                a::accA, b::accB) input ([],[])
+                a :: accA, b :: accB) input ([], [])
         (Seq.ofList lstA, Seq.ofList lstB)    
 
-    /// Splits a sequence of triples into three sequences
-    let unzip3 (input:seq<_>) =
+    /// Splits a sequence of triples into three sequences.
+    let unzip3 (input : seq<_>) =
         let (lstA, lstB, lstC) = 
             Seq.foldBack (fun (a,b,c) (accA, accB, accC) -> 
-                a::accA, b::accB, c::accC) input ([],[],[])
+                a :: accA, b :: accB, c :: accC) input ([],[],[])
         (Seq.ofList lstA, Seq.ofList lstB, Seq.ofList lstC)
 
-    let foldi (f : int -> 'State -> 'T -> 'State) (acc: 'State) (sequence:seq<'T>) =
+    let foldi (f : int -> 'State -> 'T -> 'State) (acc : 'State) (sequence : seq<'T>) =
         let en = sequence.GetEnumerator()
         let rec loop i acc = 
             match en.MoveNext() with
             | false -> acc
-            | true -> loop (i+1) (f i acc en.Current)
+            | true -> loop (i + 1) (f i acc en.Current)
         loop 0 acc
 
-    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
-    let countDistinctBy (keyf : 'T -> 'Key) (sequence:seq<'T>) =
-        let dict = System.Collections.Generic.Dictionary<_, int> HashIdentity.Structural<'Key>
+    /// Applies a keyfunction to each element and counts the amount of each distinct resulting key.
+    let countDistinctBy (keyf : 'T -> 'Key) (sequence : seq<'T>) =
+        let dict = Dictionary<_, int> HashIdentity.Structural<'Key>
         let en = sequence.GetEnumerator()
         // Build the distinct-key dictionary with count
         do 
@@ -225,55 +232,63 @@ module Seq =
                 let key = keyf en.Current
                 match dict.TryGetValue(key) with
                 | true, count ->
-                        dict.[key] <- count + 1 //If it matches a key in the dictionary increment by one
+                        dict.[key] <- count + 1 // If it matches a key in the dictionary increment by one
                 | _ -> 
-                        dict.[key] <- 1 //If it doesnt match create a new count for this key  
-        //Write to Sequence
-        seq {for v in dict do yield v.Key |> Operators.id,v.Value}
+                        dict.[key] <- 1 // If it doesn't match create a new count for this key
+        // Write to Sequence
+        seq {for v in dict do yield v.Key |> Operators.id, v.Value}
     
     
-    type JoinOption<'a,'b, 'c> = seq<'a option*'b option> -> seq<'c>
+    type JoinOption<'a, 'b, 'c> = seq<'a option * 'b option> -> seq<'c>
 
-    let joinCross (s:seq<'a option*'b option>) =
+    let joinCross (s : seq<'a option * 'b option>) =
         s
-        |> Seq.choose (fun v -> match v with
-                                | (Some left,Some right) -> Some (left,right)                            
-                                | _,_ -> None
-                                )
-    let joinLeft (s:seq<'a option*'b option>) =
-        s
-        |> Seq.choose (fun v -> match v with
-                                | (Some left,Some right) -> Some (left,right)                            
-                                | _,_ -> None
-                                )
+        |> Seq.choose (
+            fun v -> 
+                match v with
+                | (Some left, Some right)   -> Some (left,right)
+                | _,_                       -> None
+        )
 
-    let joinRight (s:seq<'a option*'b option>) =
+    let joinLeft (s : seq<'a option * 'b option>) =
         s
-        |> Seq.choose (fun v -> match v with
-                                | (Some left,Some right) -> Some (left,right)                            
-                                | _,_ -> None
-                                )
-    // Combines two sequences according to key generating functions
+        |> Seq.choose (
+            fun v -> 
+                match v with
+                | (Some left, Some right)   -> Some (left,right)
+                | _,_                       -> None
+        )
+
+    let joinRight (s : seq<'a option * 'b option>) =
+        s
+        |> Seq.choose (
+            fun v -> 
+                match v with
+                | (Some left, Some right)   -> Some (left,right)
+                | _,_                       -> None
+        )
+
+    // Combines two sequences according to key generating functions.
     let joinBy (joinOption:JoinOption<'a,'b, 'c>) (keyf1: 'a -> 'key) (keyf2: 'b -> 'key) (s1:seq<'a>) (s2:seq<'b>) =
         // Wrap a StructBox(_) around all keys in case the key type is itself a type using null as a representation
-            let dict = new System.Collections.Generic.Dictionary<'key,'a option*'b option>()
+            let dict = new Dictionary<'key, 'a option * 'b option>()
 
             let insertLeft key lValue =    
                 let ok,refV = dict.TryGetValue(key)
                 if ok then 
                     let _,b = refV
-                    dict.[key] <- (Some lValue,b)            
+                    dict.[key] <- (Some lValue, b)            
                 else             
-                    dict.Add(key,(Some lValue,None))
+                    dict.Add(key, (Some lValue, None))
             
             
             let insertRight key rValue =    
                 let ok,refV = dict.TryGetValue(key)
                 if ok then 
                     let a,_ = refV
-                    dict.[key] <- (a,Some rValue) 
+                    dict.[key] <- (a, Some rValue) 
                 else             
-                    dict.Add(key,(None,Some rValue))
+                    dict.Add(key, (None, Some rValue))
             
 
             s1 |> Seq.iter (fun l -> insertLeft  (keyf1 l) l)                                         
@@ -284,46 +299,56 @@ module Seq =
             |> joinOption           
 
 
-    //#region seq double extension
+    // #region seq double extension
     
-    /// Seq module extensions specialized for seq<float>
+    /// Seq module extensions specialized for seq<float>.
     module Double = 
 
-        /// Generates sequence (like R! seq.int)
-        let seqInit (from:float) (tto:float) (length:float) =
+        /// Generates a sequence (like R! seq.int).
+        let seqInit (from : float) (tto : float) (length : float) =
             let stepWidth = (tto - from) / (length - 1.)
-            Seq.init (int(length)) ( fun x -> (float(x) * stepWidth) + from)    
+            Seq.init (int length) ( fun x -> (float x * stepWidth) + from)    
 
-        /// Generates sequence given step width (like R! seq)
-        let seqInitStepWidth (from:float) (tto:float) (stepWidth:float) =
+        /// Generates sequence given step width (like R! seq).
+        let seqInitStepWidth (from : float) (tto : float) (stepWidth : float) =
             seq { from .. stepWidth .. tto }
 
+        /// Returns the copy of an input sequence where nans were filtered out.
+        let filterNaN (sq : seq<float>) =
+            sq |> Seq.filter (fun x -> not (System.Double.IsNaN(x)))
 
-        let filterNaN (sq:seq<float>) =
-            sq |> Seq.filter ( fun x -> not(System.Double.IsNaN(x)) )
+        /// Returns the copy of an input sequence where nans were filtered out after applying f to every element.
+        let filterNanBy (f : 'a -> float) (sq : seq<'a>) =
+            sq |> Seq.filter (fun x -> not (System.Double.IsNaN(f x)))
 
-        let filterNanBy (f:'a -> float) (sq:seq<'a>) =
-            sq |> Seq.filter ( fun x -> not(System.Double.IsNaN(f x)) )
-
-        let filterInfinity (sq:seq<float>) =
-            sq |> Seq.filter ( fun x -> not(System.Double.IsInfinity(x)) )
+        /// Returns the copy of an input sequence where infinitys were filtered out.
+        let filterInfinity (sq : seq<float>) =
+            sq |> Seq.filter (fun x -> not (System.Double.IsInfinity(x)))
     
-        let filterInfinityBy (f:'a -> float) (sq:seq<'a>) =
-            sq |> Seq.filter ( fun x -> not(System.Double.IsInfinity(f x)) )
+        /// /// Returns the copy of an input sequence where infinitys were filtered out after applying f to every element.
+        let filterInfinityBy (f : 'a -> float) (sq : seq<'a>) =
+            sq |> Seq.filter (fun x -> not (System.Double.IsInfinity(f x)))
 
-        let filterNanAndInfinity (sq:seq<float>) =
-            sq |> Seq.filter ( fun x -> not(System.Double.IsNaN(x) || System.Double.IsInfinity(x)) )
+        /// Returns the copy of an input sequence where nans and infinitys were filtered out.
+        let filterNanAndInfinity (sq : seq<float>) =
+            sq |> Seq.filter (fun x -> not (System.Double.IsNaN(x) || System.Double.IsInfinity(x)))
 
-        let filterNanAndInfinityBy (f:'a -> float) (sq:seq<'a>) =
-            sq |> Seq.filter ( fun v -> let x = f v
-                                        not(System.Double.IsNaN(x) || System.Double.IsInfinity(x)) )
+        /// Returns the copy of an input sequence where nans and infinitys were filtered out after applying f to every element.
+        let filterNanAndInfinityBy (f : 'a -> float) (sq : seq<'a>) =
+            sq 
+            |> Seq.filter (
+                fun v ->
+                    let x = f v
+                    not (System.Double.IsNaN(x) || System.Double.IsInfinity(x))
+            )
 
-        /// Returns true if sequence contains nan
-        let existsNaN (sq:seq<float>) =
-            sq |> Seq.exists ( fun x -> System.Double.IsNaN(x) )
+        /// Returns true if the input sequence contains nan.
+        let existsNaN (sq : seq<float>) =
+            sq |> Seq.exists (fun x -> System.Double.IsNaN(x))
 
-        let existsNanBy (f:'a -> float) (sq:seq<'a>) =
-            sq |> Seq.exists ( fun x -> System.Double.IsNaN(f x) )
+        /// Returns true if the input sequence contains nan after applying f to every element.
+        let existsNanBy (f : 'a -> float) (sq : seq<'a>) =
+            sq |> Seq.exists (fun x -> System.Double.IsNaN(f x))
 
 
     //#endregion seq double extension
