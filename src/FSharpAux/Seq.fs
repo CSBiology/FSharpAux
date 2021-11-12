@@ -49,7 +49,12 @@ module Seq =
     ///    Seq.groupWhen isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
     let groupWhen f (input : seq<'a>) =
         use en = input.GetEnumerator()
+        // in older commits, if the first case returned true, the first element (i.e., the last element of the input seq) was concatinated to the next element instead of standing alone.
+        // this is not the most elegant solution, but the only working one I came up with.
+        let mutable firstCase = false 
     
+        // this function matches the cases and iterats from the last to the first element of the input sequence (tested via print debugging), 
+        // concatinating elements if false and concatinating the element with an empty list if true.
         let rec loop cont =
             if en.MoveNext() then
                 if (f en.Current) then
@@ -57,10 +62,15 @@ module Seq =
                     loop (fun y ->
                         cont
                             (
-                                match y with
-                                //| h :: t    -> [temp] :: h :: t
-                                | h :: t    -> [] :: (temp :: h) :: t   // remaining elements
-                                | []        -> [[temp]]                 // first element
+                                match y, firstCase with
+                                | _ :: _, true ->
+                                    firstCase <- false
+                                    [] :: [temp] :: y 
+                                | h :: t, false ->
+                                    [] :: (temp :: h) :: t 
+                                | [], _ -> 
+                                    firstCase <- true
+                                    [[temp]]
                             )
                     )
                 else
@@ -68,10 +78,14 @@ module Seq =
                     loop (fun y ->
                         cont
                             (
-                                match y with
-                                | h :: t when t.Length = 0  -> [temp] :: h :: t // last element
-                                | h :: t                    -> (temp :: h) :: t // elements in between
-                                | []                        -> [[temp]]         // first element
+                                match y, firstCase with
+                                | _ :: _, true ->
+                                    firstCase <- false
+                                    [temp] :: y 
+                                | h :: t, false ->
+                                    (temp :: h) :: t
+                                | [], _ -> 
+                                    [[temp]]
                             )
                     )
             else
