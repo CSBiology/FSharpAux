@@ -5,6 +5,7 @@ module Array =
 
     open System
 
+    /// Checks if a give argument is not null and fails if it is.
     let inline checkNonNull argName arg = 
         match box arg with 
         | null  -> nullArg argName 
@@ -22,6 +23,7 @@ module Array =
                 i <- i + 1
         found
     
+    /// Builds a new array that contains every element of the input array except for that on position index.
     let removeIndex index (arr : 'T []) =
         if index < arr.Length then
             //Array.init (arr.Length - 2) (fun i -> if i <> index then arr.[i])
@@ -29,6 +31,7 @@ module Array =
         else
             invalidArg "index" "index not present in array"
 
+    /// Applies a function to each element of the array in between inclusively start and fin indices of the array, going backwards (from the end to the start), threading an accumulator argument through the computation. If the input function is f and the elements are i(start)...i(fin) then computes f i(start) (...(f i(fin)-1 i(fin))).
     let scanSubRight f (arr : _ []) start fin initState = 
         let mutable state = initState 
         let res = Array.create (2 + fin - start) initState 
@@ -38,7 +41,8 @@ module Array =
         done;
         res
 
-    let scanSubLeft f  initState (arr : _ []) start fin = 
+    /// Applies a function to each element in between inclusively start and fin indices of the array, threading an accumulator argument through the computation. If the input function is f and the elements are i(start)...i(fin) then computes f (... (f i(start) i(start + 1))...) i(fin). Raises ArgumentException if the array has size zero.
+    let scanSubLeft f initState (arr : _ []) start fin = 
         let mutable state = initState 
         let res = Array.create (2 + fin - start) initState 
         for i = start to fin do
@@ -47,12 +51,13 @@ module Array =
         done;
         res
 
-
+    /// Applies a function to each element of the array, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN then computes f (... (f i0 i1)...) iN and returns the intermediary and final results. Raises ArgumentException if the array has size zero.
     let scanReduce f (arr : _ []) = 
         let arrn = arr.Length
         if arrn = 0 then invalidArg "arr" "the input array is empty"
         else scanSubLeft f arr.[0] arr 1 (arrn - 1)
 
+    /// Applies a function to each element of the array, starting from the end, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN then computes f i0 (...(f iN-1 iN)) and returns the intermediary and final results.
     let scanReduceBack f (arr : _ [])  = 
         let arrn = arr.Length
         if arrn = 0 then invalidArg "arr" "the input array is empty"
