@@ -17,6 +17,8 @@ let testArray1_takeNth_Equal            = [|23; 1; 1000|]
 let testArray1_takeNth_NotEqual         = [|5; 6; 7; 10|]
 let testArray1_skipNth_Equal            = [|1337; 14; 23; 69; 2; 3; 9001; 23|]
 let testArray1_skipNth_NotEqual         = [|5; 6; 7; 10|]
+let testArray1_groupWhen_Equal          = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001|]; [|23|]|]
+let testArray1_groupWhen_NotEqual       = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001; 23|]|]
 
 [<Tests>]
 let arrayTests =
@@ -83,6 +85,15 @@ let arrayTests =
             )
             testCase "returns incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.skipNth 3) testArray1_skipNth_NotEqual "Array.skipNth did not return incorrect array"
+            )
+        ]
+        testList "Array.groupWhen" [
+            let isOdd n = n % 2 <> 0
+            testCase "returns correct jagged array" (fun _ ->
+                Expect.equal (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_Equal "Array.groupWhen did return correct jagged array"
+            )
+            testCase "returns incorrect jagged array" (fun _ ->
+                Expect.notEqual (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_NotEqual "Array.groupWhen did not return incorrect jagged array"
             )
         ]
     ]

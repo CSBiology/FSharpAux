@@ -3,20 +3,22 @@
 open FSharpAux
 open Expecto
 
-let testList1                          = [1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23]
-
-let testList1_filteri_Equal            = [14; 23; 23; 69]
-let testList1_filteri_NotEqual         = [1337; 14; 23;]
-let testList1_choosei_Equal            = [14.; 23.; 23.; 69.]
-let testList1_choosei_NotEqual         = [1337.; 14.; 23.;]
-let testList1_findIndices_Equal        = [1; 2; 3; 4; 5; 6; 7; 10]
-let testList1_findIndices_NotEqual     = [5; 6; 7; 10]
-let testList1_findIndicesBack_Equal    = [10; 7; 6; 5; 4; 3; 2; 1]
-let testList1_findIndicesBack_NotEqual = [5; 6; 7; 10]
-let testList1_takeNth_Equal            = [23; 1; 1000]
-let testList1_takeNth_NotEqual         = [5; 6; 7; 10]
-let testList1_skipNth_Equal            = [1337; 14; 23; 69; 2; 3; 9001; 23]
-let testList1_skipNth_NotEqual         = [5; 6; 7; 10]
+let testList1                           = [1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23]
+                                        
+let testList1_filteri_Equal             = [14; 23; 23; 69]
+let testList1_filteri_NotEqual          = [1337; 14; 23;]
+let testList1_choosei_Equal             = [14.; 23.; 23.; 69.]
+let testList1_choosei_NotEqual          = [1337.; 14.; 23.;]
+let testList1_findIndices_Equal         = [1; 2; 3; 4; 5; 6; 7; 10]
+let testList1_findIndices_NotEqual      = [5; 6; 7; 10]
+let testList1_findIndicesBack_Equal     = [10; 7; 6; 5; 4; 3; 2; 1]
+let testList1_findIndicesBack_NotEqual  = [5; 6; 7; 10]
+let testList1_takeNth_Equal             = [23; 1; 1000]
+let testList1_takeNth_NotEqual          = [5; 6; 7; 10]
+let testList1_skipNth_Equal             = [1337; 14; 23; 69; 2; 3; 9001; 23]
+let testList1_skipNth_NotEqual          = [5; 6; 7; 10]
+let testList1_groupWhen_Equal           = [[1337; 14]; [23]; [23]; [69]; [1; 2]; [3; 1000]; [9001]; [23]]
+let testList1_groupWhen_NotEuqal        = [[1337; 14]; [23]; [23]; [69]; [1; 2]; [3; 1000]; [9001; 23]]
 
 [<Tests>]
 let listTests =
@@ -83,6 +85,15 @@ let listTests =
             )
             testCase "returns incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.skipNth 3) testList1_skipNth_NotEqual "List.skipNth did not return incorrect List"
+            )
+        ]
+        testList "List.groupWhen" [
+            let isOdd n = n % 2 <> 0
+            testCase "returns correct jagged list" (fun _ ->
+                Expect.equal (testList1 |> List.groupWhen isOdd) testList1_groupWhen_Equal "List.groupWhen did return correct JaggedList"
+            )
+            testCase "returns incorrect jagged list" (fun _ ->
+                Expect.notEqual (testList1 |> List.groupWhen isOdd) testList1_groupWhen_NotEuqal "List.groupWhen did not return incorrect JaggedList"
             )
         ]
     ]
