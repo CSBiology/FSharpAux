@@ -10,7 +10,7 @@ module List =
         | [] -> invalidArg "l" "the input list is empty"
         | (h::t) -> List.scan f h t
 
-    let scanArraySubRight<'T,'State> (f:FSharpFunc<'T,'State,'State>) (arr:_[]) start fin initState = 
+    let scanArraySubRight<'T,'State> (f : FSharpFunc<'T,'State,'State>) (arr : _ []) start fin initState = 
         let mutable state = initState  
         let mutable res = [state]  
         for i = fin downto start do
@@ -20,19 +20,19 @@ module List =
 
     let scanReduceBack f l = 
         match l with 
-        | [] -> invalidArg "l" "the input list is empty"
-        | _ -> 
+        | []    -> invalidArg "l" "the input list is empty"
+        | _     -> 
             let f = FSharpFunc<_,_,_>.Adapt(f)
             let arr = Array.ofList l 
             let arrn = Array.length arr 
             scanArraySubRight f arr 0 (arrn - 2) arr.[arrn - 1]
 
     
-    /// Cuts a list after N and returns both parts
+    /// Cuts a list after N and returns both parts.
     let cutAfterN n input = // Tail-recursive
         let rec gencut cur acc = function
-            | hd::tl when cur < n ->
-                gencut (cur+1) (hd::acc) tl
+            | hd :: tl when cur < n ->
+                gencut (cur + 1) (hd :: acc) tl
             | rest -> (List.rev acc), rest //need to reverse accumulator!
         gencut 0 [] input
 
@@ -52,63 +52,59 @@ module List =
 
 
 
-    /// Groups elements in list that are b function f
-    let groupEquals f (input:'a list) =
-        let rec groupLoop (first) (heap:'a list) (stack:'a list) (groupStack:'a list) =
+    /// Groups elements in the input list according to function f.
+    let groupEquals f (input : 'a list) =
+        let rec groupLoop (first) (heap : 'a list) (stack : 'a list) (groupStack : 'a list) =
             match heap with 
-            | head::rest -> if (f first head) then
-                                groupLoop first rest stack (head::groupStack)
-                            else
-                                groupLoop first rest (head::stack) groupStack
-                        
-            | []         -> stack,groupStack
-    
+            | head :: rest -> 
+                if (f first head) then
+                    groupLoop first rest stack (head :: groupStack)
+                else
+                    groupLoop first rest (head :: stack) groupStack
+            | [] -> stack,groupStack
 
-
-
-        let rec outerLoop (heap:'a list) (stack:list<'a list>) =
+        let rec outerLoop (heap : 'a list) (stack : list<'a list>) =
             match heap with 
-            | head::rest -> let filteredStack,groupStack = groupLoop head rest [] [head]
-                            outerLoop filteredStack (groupStack::stack)
-            | []         -> stack
-
-    
+            | head :: rest -> 
+                let filteredStack,groupStack = groupLoop head rest [] [head]
+                outerLoop filteredStack (groupStack :: stack)
+            | [] -> stack
 
         outerLoop input []
 
     
     // Example:
     // applyEachPairwise (+) ["A";"B";"C";"D";] --> ["AB"; "AC"; "AD"; "BC"; "BD"; "CD"]
-    /// Applies function f two each unique compination of items in list 
-    let applyEachPairwise (f: 'a -> 'a -> 'b ) (l : 'a list) =
+    /// Applies function f to each unique compination of items in the input list.
+    let applyEachPairwise (f : 'a -> 'a -> 'b) (l : 'a list) =
         let rec innerLoop hh ll acc =
             match ll with
-            | h::ll -> innerLoop hh ll ((f hh h)::acc)
-            | []    -> acc 
+            | h :: ll   -> innerLoop hh ll ((f hh h) :: acc)
+            | []        -> acc 
         let rec loop l' acc =
             match l' with
-            | h::tail -> loop tail (innerLoop h tail acc)
-            | []      -> acc |> List.rev
+            | h :: tail -> loop tail (innerLoop h tail acc)
+            | []        -> acc |> List.rev
         loop l []
 
 
     // Example:
     // applyEachPairwiseWith (+) ["A";"B";"C";"D";] --> ["AA"; "AB"; "AC"; "AD"; "BB"; "BC"; "BD"; "CC"; "CD"; "DD"]
-    /// Applies function f two each unique compination of items in list 
-    let applyEachPairwiseWith (f: 'a -> 'a -> 'b ) (l : 'a list) =
+    /// Applies function f two each unique compination of items in the input list.
+    let applyEachPairwiseWith (f : 'a -> 'a -> 'b) (l : 'a list) =
         let rec innerLoop hh ll acc =
             match ll with
-            | h::ll -> innerLoop hh ll ((f hh h)::acc)
-            | []    -> acc 
+            | h :: ll   -> innerLoop hh ll ((f hh h) :: acc)
+            | []        -> acc 
         let rec loop l' acc =
             match l' with
-            | h::tail -> loop tail (innerLoop h l' acc)
-            | []      -> acc |> List.rev
+            | h :: tail -> loop tail (innerLoop h l' acc)
+            | []        -> acc |> List.rev
         loop l []
 
     
-    /// Removes an element from a list at a given index
-    /// (Not recommended list opperation)
+    /// Removes an element from a list at a given index.
+    /// (Not recommended list operation)
     let removeAt index input =
       input 
       // Associate each element with a boolean flag specifying whether 
@@ -118,8 +114,8 @@ module List =
       |> List.filter fst |> List.map snd
 
 
-    /// Inserts an element into a list at a given index
-    /// (Not recommended list opperation)
+    /// Inserts an element into a list at a given index.
+    /// (Not recommended list operation)
     let insertAt index newEl input =
       // For each element, we generate a list of elements that should
       // replace the original one - either singleton list or two elements
@@ -127,15 +123,15 @@ module List =
       input |> List.mapi (fun i el -> if i = index then [newEl; el] else [el])
             |> List.concat
 
-    ///Applies a function to each element and its index of the list, threading an accumulator argument through the computation
-    let foldi (f : int -> 'State -> 'T -> 'State) (acc: 'State) (l:'T list) =
+    /// Applies a function to each element and its index of the list, threading an accumulator argument through the computation.
+    let foldi (f : int -> 'State -> 'T -> 'State) (acc : 'State) (l : 'T list) =
         let rec loop i acc l = 
             match l with
             | [] -> acc
-            | h :: t -> loop (i+1) (f i acc h) t
+            | h :: t -> loop (i + 1) (f i acc h) t
         loop 0 acc l
 
-    ///Applies a keyfunction to each element and counts the amount of each distinct resulting key
+    /// Applies a keyfunction to each element and counts the amount of each distinct resulting key.
     let countDistinctBy (keyf : 'T -> 'Key) (list: 'T list) =
         let dict = System.Collections.Generic.Dictionary<_, int ref> HashIdentity.Structural<'Key>
         // Build the distinct-key list with count
@@ -145,47 +141,44 @@ module List =
                 let key = keyf v
                 match dict.TryGetValue(key) with
                 | true, count ->
-                        count := !count + 1 //If it matches a key in the dictionary increment by one
+                    count := !count + 1 // If it matches a key in the dictionary increment by one
                 | _ -> 
-                    dict.[key] <- ref 1 //If it doesnt match create a new count for this key
+                    dict.[key] <- ref 1 // If it doesn't match create a new count for this key
                 loop t
             | _ -> ()
         loop list
         //Write to list
-        [
-        for v in dict do yield v.Key |> Operators.id,!v.Value
-        ]
+        [for v in dict do yield v.Key |> Operators.id, !v.Value]
 
 
-    ///TODO: add to seperate combinatorics module
+    // TODO: add to seperate combinatorics module
     /// Returns the power set of l (not including the empty set).
     let powerSetOf l = 
-        let rec loop (l: list<'a>) = 
+        let rec loop (l : list<'a>) = 
             match l with
-            | [] -> [[]] 
-            | x::xs -> List.collect (fun subSet -> [subSet; x::subSet]) (loop xs)
+            | []        -> [[]]
+            | x :: xs   -> List.collect (fun subSet -> [subSet; x :: subSet]) (loop xs)
         match loop l with
-        | h::t -> t
-        | h    -> h
+        | h :: t    -> t
+        | h         -> h
 
-    /// Treats l as a series of urns of which elements can be drawed from. Returns
+    /// Treats l as a series of turns of which elements can be drawed from. Returns
     /// a list including all combinations (different order is not considered) 
-    /// of elements if in one cycle one item is drawed of each urn. 
-    let drawExaustively (l:list<list<'a>>) =
+    /// of elements if in one cycle one item is drawed of each turn.
+    let drawExaustively (l : list<list<'a>>) =
         let rec loop acc l =
             match l with
-            | []    -> acc
-            | h::t  -> 
+            | []        -> acc
+            | h :: t    -> 
                 let tmp =
                     h
                     |> List.map (fun x -> acc |> List.map (fun y -> x::y)) 
                     |> List.concat
                 loop tmp t
         match l with 
-        | [] -> []
-        | h::[] -> h |> List.map (fun x -> [x])
-        | h::t ->
-            loop (h |> List.map (fun x -> [x])) t
+        | []        -> []
+        | h :: []   -> h |> List.map (fun x -> [x])
+        | h :: t    -> loop (h |> List.map (fun x -> [x])) t
 
     /// Returns a new list containing only the elements of the list for which the given predicate returns true.
     let filteri (predicate : int -> 'T -> bool) (list : 'T list) =
@@ -268,7 +261,7 @@ module FsharpListExtensions =
     type Microsoft.FSharp.Collections.List<'a > with //when 'a : equality
     
         //
-        static member iterWhile (f:'a -> bool) (ls:'a list) = 
+        static member iterWhile (f : 'a -> bool) (ls : 'a list) = 
             let rec iterLoop f ls = 
                 match ls with
                 | head :: tail -> if f head then iterLoop f tail
