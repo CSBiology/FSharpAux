@@ -54,24 +54,26 @@ module Seq =
             if en.MoveNext() then
                 if (f en.Current) then
                     let temp = en.Current
-                    loop (fun y -> 
-                        cont 
-                            (   match y with
+                    loop (fun y ->
+                        cont
+                            (
+                                match y with
                                 //| h :: t    -> [temp] :: h :: t
                                 | h :: t    -> [] :: (temp :: h) :: t   // remaining elements
                                 | []        -> [[temp]]                 // first element
                             )
-                         )
+                    )
                 else
-                    let temp = en.Current                    
-                    loop (fun y -> 
-                        cont 
-                            (   match y with
+                    let temp = en.Current
+                    loop (fun y ->
+                        cont
+                            (
+                                match y with
                                 | h :: t when t.Length = 0  -> [temp] :: h :: t // last element
                                 | h :: t                    -> (temp :: h) :: t // elements in between
                                 | []                        -> [[temp]]         // first element
                             )
-                         )
+                    )
             else
                 cont []
         // Remove when first element is empty due to "[] :: (temp :: h) :: t"
