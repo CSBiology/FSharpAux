@@ -5,11 +5,13 @@ open Microsoft.FSharp.Core.OptimizedClosures
 [<AutoOpen>]
 module List = 
     
+    /// Applies a function to each element of the list, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN then computes f (... (f i0 i1)...) iN and returns the intermediary and final results. Raises ArgumentException if the list has size zero.
     let scanReduce f l = 
         match l with 
         | [] -> invalidArg "l" "the input list is empty"
         | (h::t) -> List.scan f h t
 
+    /// Applies a function to each element of the array in between (inclusively) start and fin indices of the array, going backwards (from the end to the start), threading an accumulator argument through the computation. If the input function is f and the elements are i(start)...i(fin) then computes f i(start) (...(f i(fin)-1 i(fin))). Returns the result as a list.
     let scanArraySubRight<'T,'State> (f : FSharpFunc<'T,'State,'State>) (arr : _ []) start fin initState = 
         let mutable state = initState  
         let mutable res = [state]  
@@ -18,6 +20,7 @@ module List =
             res <- state :: res
         res
 
+    /// Applies a function to each element of the list, starting from the end, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN then computes f i0 (...(f iN-1 iN)) and returns the intermediary and final results.
     let scanReduceBack f l = 
         match l with 
         | []    -> invalidArg "l" "the input list is empty"
