@@ -11,17 +11,17 @@ module Array =
         | null  -> nullArg argName 
         | _     -> ()
     
-    let inline contains x (arr : 'T []) =
-        let mutable found = false
-        let mutable i = 0
-        let eq = LanguagePrimitives.FastGenericEqualityComparer
+    //let inline contains x (arr : 'T []) =
+    //    let mutable found = false
+    //    let mutable i = 0
+    //    let eq = LanguagePrimitives.FastGenericEqualityComparer
 
-        while not found && i < arr.Length do
-            if eq.Equals(x, arr.[i]) then
-                found <- true
-            else
-                i <- i + 1
-        found
+    //    while not found && i < arr.Length do
+    //        if eq.Equals(x, arr.[i]) then
+    //            found <- true
+    //        else
+    //            i <- i + 1
+    //    found
     
     /// Builds a new array that contains every element of the input array except for that on position index.
     let removeIndex index (arr : 'T []) =
