@@ -250,6 +250,24 @@ module List =
     /// Returns a list without every nth element of the input list.
     let skipNth (n : int) (list : 'T list) = filteri (fun i _ -> (i + 1) % n <> 0) list
 
+    /// Iterates over elements of the input list and groups adjacent elements.
+    /// A new group is started when the specified predicate holds about the element
+    /// of the list (and at the beginning of the iteration).
+    ///
+    /// For example: 
+    ///    List.groupWhen isOdd [3;3;2;4;1;2] = [[3]; [3; 2; 4]; [1; 2]]
+    let groupWhen f list =
+        list
+        |> List.fold (
+            fun acc e ->
+                match f e, acc with
+                | true  , _         -> [e] :: acc       // true case
+                | false , h :: t    -> (e :: h) :: t    // false case, non-empty acc list
+                | false , _         -> [[e]]            // false case, empty acc list
+        ) []
+        |> List.map List.rev
+        |> List.rev
+
 // ########################################
 // Static extensions
 
