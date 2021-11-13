@@ -30,25 +30,25 @@ let seqTests =
             testCase "returns correct jagged list, case1: [3; 3; 2; 4; 1; 2]" (fun _ ->
                 Expect.equal (testSeq2 |> Seq.groupWhen isOdd |> list2) (testSeq2_groupWhen_Equal |> list2) "Seq.groupWhen did return correct jagged list"
             )
-            testCase "returns incorrect jagged list, case1: [3; 3; 2; 4; 1; 2]" (fun _ ->
+            testCase "does not return incorrect jagged list, case1: [3; 3; 2; 4; 1; 2]" (fun _ ->
                 Expect.notEqual (testSeq2 |> Seq.groupWhen isOdd |> list2) (testSeq2_groupWhen_NotEqual |> list2) "Seq.groupWhen did not return incorrect jagged list"
             )
             testCase "returns correct jagged list, case2: [3; 3; 2; 4; 1; 1]" (fun _ ->
                 Expect.equal (testSeq3 |> Seq.groupWhen isOdd |> list2) (testSeq3_groupWhen_Equal |> list2) "Seq.groupWhen did return correct jagged list"
             )
-            testCase "returns incorrect jagged list, case2: [3; 3; 2; 4; 1; 1]" (fun _ ->
+            testCase "does not return incorrect jagged list, case2: [3; 3; 2; 4; 1; 1]" (fun _ ->
                 Expect.notEqual (testSeq3 |> Seq.groupWhen isOdd |> list2) (testSeq3_groupWhen_NotEqual |> list2) "Seq.groupWhen did not return incorrect jagged list"
             )
             testCase "returns correct jagged list, case3: [3; 3; 2; 4; 2; 2]" (fun _ ->
                 Expect.equal (testSeq4 |> Seq.groupWhen isOdd |> list2) (testSeq4_groupWhen_Equal |> list2) "Seq.groupWhen did return correct jagged list"
             )
-            testCase "returns incorrect jagged list, case3: [3; 3; 2; 4; 2; 2]" (fun _ ->
+            testCase "does not return incorrect jagged list, case3: [3; 3; 2; 4; 2; 2]" (fun _ ->
                 Expect.notEqual (testSeq4 |> Seq.groupWhen isOdd |> list2) (testSeq4_groupWhen_NotEqual |> list2) "Seq.groupWhen did not return incorrect jagged list"
             )
             testCase "returns correct jagged list, case4: [3; 3; 2; 4; 2; 1]" (fun _ ->
                 Expect.equal (testSeq5 |> Seq.groupWhen isOdd |> list2) (testSeq5_groupWhen_Equal |> list2) "Seq.groupWhen did return correct jagged list"
             )
-            testCase "returns incorrect jagged list, case4: [3; 3; 2; 4; 2; 1]" (fun _ ->
+            testCase "does not return incorrect jagged list, case4: [3; 3; 2; 4; 2; 1]" (fun _ ->
                 Expect.notEqual (testSeq5 |> Seq.groupWhen isOdd |> list2) (testSeq5_groupWhen_NotEqual |> list2) "Seq.groupWhen did not return incorrect jagged list"
             )
         ]

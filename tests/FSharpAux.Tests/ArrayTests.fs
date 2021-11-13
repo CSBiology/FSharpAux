@@ -27,7 +27,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.filteri (fun i t -> i < 5 && t < 100)) testArray1_filteri_Equal "Array.filteri did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.filteri (fun i t -> i < 5 && t < 100)) testArray1_filteri_NotEqual "Array.filteri did not return incorrect array"
             )
         ]
@@ -35,7 +35,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.countByPredicate (fun t -> t < 100)) 8 "Array.countByPredicate did return correct integer"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.countByPredicate (fun t -> t < 100)) 5 "Array.countByPredicate did not return incorrect integer"
             )
         ]
@@ -43,7 +43,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.countiByPredicate (fun i t -> i < 5 && t < 100)) 4 "Array.countiByPredicate did return correct integer"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.countiByPredicate (fun i t -> i < 5 && t < 100)) 1 "Array.countiByPredicate did not return incorrect integer"
             )
         ]
@@ -51,7 +51,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.choosei (fun i t -> if i < 5 && t < 100 then Some (float t) else None)) testArray1_choosei_Equal "Array.choosei did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.choosei (fun i t -> if i < 5 && t < 100 then Some (float t) else None)) testArray1_choosei_NotEqual "Array.choosei did not return incorrect array"
             )
         ]
@@ -59,7 +59,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.findIndices (fun t -> t < 100)) testArray1_findIndices_Equal "Array.findIndices did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.findIndices (fun t -> t < 100)) testArray1_findIndices_NotEqual "Array.findIndices did not return incorrect array"
             )
         ]
@@ -67,7 +67,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.findIndicesBack (fun t -> t < 100)) testArray1_findIndicesBack_Equal "Array.findIndicesBack did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.findIndicesBack (fun t -> t < 100)) testArray1_findIndicesBack_NotEqual "Array.findIndicesBack did not return incorrect array"
             )
         ]
@@ -75,7 +75,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.takeNth 3) testArray1_takeNth_Equal "Array.takeNth did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.takeNth 3) testArray1_takeNth_NotEqual "Array.takeNth did not return incorrect array"
             )
         ]
@@ -83,7 +83,7 @@ let arrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.skipNth 3) testArray1_skipNth_Equal "Array.skipNth did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.skipNth 3) testArray1_skipNth_NotEqual "Array.skipNth did not return incorrect array"
             )
         ]
@@ -92,7 +92,7 @@ let arrayTests =
             testCase "returns correct jagged array" (fun _ ->
                 Expect.equal (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_Equal "Array.groupWhen did return correct jagged array"
             )
-            testCase "returns incorrect jagged array" (fun _ ->
+            testCase "does not return incorrect jagged array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_NotEqual "Array.groupWhen did not return incorrect jagged array"
             )
         ]

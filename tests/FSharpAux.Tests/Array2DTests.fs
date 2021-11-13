@@ -119,7 +119,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.rotate90DegClockwise) testArr2d_rotate90DegClockwise_Equal "Array2D.rotate90DegClockwise did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.rotate90DegClockwise) testArr2d_rotate90DegClockwise_NotEqual "Array2D.rotate90DegClockwise did not return incorrect array"
             )
         ]
@@ -127,7 +127,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.rotate90DegCounterClockwise) testArr2d_rotate90DegCounterClockwise_Equal "Array2D.rotate90DegCounterClockwise did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.rotate90DegCounterClockwise) testArr2d_rotate90DegCounterClockwise_NotEqual "Array2D.rotate90DegCounterClockwise did not return incorrect array"
             )
         ]
@@ -135,7 +135,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.rotate180Deg) testArr2d_rotate180Deg_Equal "Array2D.rotate180Deg did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.rotate180Deg) testArr2d_rotate180Deg_NotEqual "Array2D.rotate180Deg did not return incorrect array"
             )
         ]
@@ -143,7 +143,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.flipHorizontally) testArr2d_flipHorizontally_Equal "Array2D.flipHorizontally did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.flipHorizontally) testArr2d_flipHorizontally_NotEqual "Array2D.flipHorizontally did not return incorrect array"
             )
         ]
@@ -151,7 +151,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.flipVertically) testArr2d_flipVertically_Equal "Array2D.flipVertically did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.flipVertically) testArr2d_flipVertically_NotEqual "Array2D.flipVertically did not return incorrect array"
             )
         ]
@@ -159,7 +159,7 @@ let array2dTests =
             testCase "returns correct 2D array" (fun _ ->
                 Expect.equal (testArr2d1 |> Array2D.toIndexedArray) testArr2d_toIndexedArray_Equal "Array2D.toIndexedArray did return correct array"
             )
-            testCase "returns incorrect 2D array" (fun _ ->
+            testCase "does not return incorrect 2D array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> Array2D.toIndexedArray) testArr2d_toIndexedArray_NotEqual "Array2D.toIndexedArray did not return incorrect array"
             )
         ]

@@ -27,7 +27,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.filteri (fun i t -> i < 5 && t < 100)) testList1_filteri_Equal "List.filteri did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.filteri (fun i t -> i < 5 && t < 100)) testList1_filteri_NotEqual "List.filteri did not return incorrect List"
             )
         ]
@@ -35,7 +35,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.countByPredicate (fun t -> t < 100)) 8 "List.countByPredicate did return correct integer"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.countByPredicate (fun t -> t < 100)) 5 "List.countByPredicate did not return incorrect integer"
             )
         ]
@@ -43,7 +43,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.countiByPredicate (fun i t -> i < 5 && t < 100)) 4 "List.countiByPredicate did return correct integer"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.countiByPredicate (fun i t -> i < 5 && t < 100)) 1 "List.countiByPredicate did not return incorrect integer"
             )
         ]
@@ -51,7 +51,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.choosei (fun i t -> if i < 5 && t < 100 then Some (float t) else None)) testList1_choosei_Equal "List.choosei did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.choosei (fun i t -> if i < 5 && t < 100 then Some (float t) else None)) testList1_choosei_NotEqual "List.choosei did not return incorrect List"
             )
         ]
@@ -59,7 +59,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.findIndices (fun t -> t < 100)) testList1_findIndices_Equal "List.findIndices did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.findIndices (fun t -> t < 100)) testList1_findIndices_NotEqual "List.findIndices did not return incorrect List"
             )
         ]
@@ -67,7 +67,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.findIndicesBack (fun t -> t < 100)) testList1_findIndicesBack_Equal "List.findIndicesBack did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.findIndicesBack (fun t -> t < 100)) testList1_findIndicesBack_NotEqual "List.findIndicesBack did not return incorrect List"
             )
         ]
@@ -75,7 +75,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.takeNth 3) testList1_takeNth_Equal "List.takeNth did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.takeNth 3) testList1_takeNth_NotEqual "List.takeNth did not return incorrect List"
             )
         ]
@@ -83,7 +83,7 @@ let listTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.skipNth 3) testList1_skipNth_Equal "List.skipNth did return correct List"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (testList1 |> List.skipNth 3) testList1_skipNth_NotEqual "List.skipNth did not return incorrect List"
             )
         ]
@@ -92,7 +92,7 @@ let listTests =
             testCase "returns correct jagged list" (fun _ ->
                 Expect.equal (testList1 |> List.groupWhen isOdd) testList1_groupWhen_Equal "List.groupWhen did return correct JaggedList"
             )
-            testCase "returns incorrect jagged list" (fun _ ->
+            testCase "does not return incorrect jagged list" (fun _ ->
                 Expect.notEqual (testList1 |> List.groupWhen isOdd) testList1_groupWhen_NotEuqal "List.groupWhen did not return incorrect JaggedList"
             )
         ]
