@@ -40,7 +40,7 @@ let jaggedArrayTests =
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testJaggArr1 |> JaggedArray.toIndexedArray) testJaggArr1_toIndexedArray_Equal "JaggedArray.toIndexedArray did return correct array"
             )
-            testCase "returns incorrect array" (fun _ ->
+            testCase "does not return incorrect array" (fun _ ->
                 Expect.notEqual (testJaggArr1 |> JaggedArray.toIndexedArray) testJaggArr1_toIndexedArray_NotEqual "JaggedArray.toIndexedArray did not return incorrect array"
             )
         ]
@@ -48,7 +48,7 @@ let jaggedArrayTests =
             testCase "returns correct jagged array" (fun _ ->
                 Expect.equal (testArr2d1 |> JaggedArray.ofArray2D) testArr2d1_ofArray2D_Equal "JaggedArray.ofArray2D did return correct jagged array"
             )
-            testCase "returns incorrect jagged array" (fun _ ->
+            testCase "does not return incorrect jagged array" (fun _ ->
                 Expect.notEqual (testArr2d1 |> JaggedArray.ofArray2D) testArr2d1_ofArray2D_NotEqual "JaggedArray.ofArray2D did not return incorrect jagged array"
             )
         ]
@@ -56,7 +56,7 @@ let jaggedArrayTests =
             testCase "returns correct jagged array" (fun _ ->
                 Expect.equal (JaggedArray.init 3 7 (fun i j -> i * 2, j * 3)) testJaggArr1_init_Equal "JaggedArray.init did return correct jagged array"
             )
-            testCase "returns incorrect jagged array" (fun _ ->
+            testCase "does not return incorrect jagged array" (fun _ ->
                 Expect.notEqual (JaggedArray.init 3 7 (fun i j -> i * 2, j * 3)) testJaggArr1_init_NotEqual "JaggedArray.init did not return incorrect jagged array"
             )
         ]
@@ -81,7 +81,7 @@ let jaggedListTests =
             testCase "returns correct list" (fun _ ->
                 Expect.equal (JaggedList.init 3 7 (fun i j -> i * 2, j * 3)) testJaggList1_init_Equal "JaggedList.init did return correct list"
             )
-            testCase "returns incorrect list" (fun _ ->
+            testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (JaggedList.init 3 7 (fun i j -> i * 2, j * 3)) testJaggList1_init_NotEqual "JaggedList.init did not return incorrect list"
             )
         ]
