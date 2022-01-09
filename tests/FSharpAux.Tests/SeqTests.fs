@@ -8,6 +8,7 @@ let testSeq2                            = seq {3; 3; 2; 4; 1; 2}
 let testSeq3                            = seq {3; 3; 2; 4; 1; 1}
 let testSeq4                            = seq {3; 3; 2; 4; 2; 2}
 let testSeq5                            = seq {3; 3; 2; 4; 2; 1}
+let testSeq6                            = seq {6; 6; 2; 4; 2; 8}
 
 let testSeq2_groupWhen_Equal            = seq {seq {3}; seq {3; 2; 4}; seq {1; 2}}
 let testSeq2_groupWhen_NotEqual         = seq {seq {3}; seq {3; 2; 4}; seq {1}; seq {2}}
@@ -50,6 +51,12 @@ let seqTests =
             )
             testCase "does not return incorrect jagged list, case4: [3; 3; 2; 4; 2; 1]" (fun _ ->
                 Expect.notEqual (testSeq5 |> Seq.groupWhen isOdd |> list2) (testSeq5_groupWhen_NotEqual |> list2) "Seq.groupWhen did not return incorrect jagged list"
+            )
+            testCase "returns correct jagged list, case4: [6; 6; 2; 4; 2; 8]" (fun _ ->
+                Expect.equal (testSeq6 |> Seq.groupWhen isOdd |> list2) ([testSeq6 |> list]) "Seq.groupWhen did return correct jagged list"
+            )
+            testCase "does not return incorrect jagged list, case4: [6; 6; 2; 4; 2; 8]" (fun _ ->
+                Expect.notEqual (testSeq6 |> Seq.groupWhen isOdd |> list2) ([]) "Seq.groupWhen did not return empty (jagged) list"
             )
         ]
     ]

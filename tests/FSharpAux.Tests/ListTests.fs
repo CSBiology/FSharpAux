@@ -4,6 +4,11 @@ open FSharpAux
 open Expecto
 
 let testList1                           = [1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23]
+let testList2                           = [3; 3; 2; 4; 1; 2]
+let testList3                           = [3; 3; 2; 4; 1; 1]
+let testList4                           = [3; 3; 2; 4; 2; 2]
+let testList5                           = [3; 3; 2; 4; 2; 1]
+let testList6                           = [6; 6; 2; 4; 2; 8]
                                         
 let testList1_filteri_Equal             = [14; 23; 23; 69]
 let testList1_filteri_NotEqual          = [1337; 14; 23;]
@@ -18,7 +23,15 @@ let testList1_takeNth_NotEqual          = [5; 6; 7; 10]
 let testList1_skipNth_Equal             = [1337; 14; 23; 69; 2; 3; 9001; 23]
 let testList1_skipNth_NotEqual          = [5; 6; 7; 10]
 let testList1_groupWhen_Equal           = [[1337; 14]; [23]; [23]; [69]; [1; 2]; [3; 1000]; [9001]; [23]]
-let testList1_groupWhen_NotEuqal        = [[1337; 14]; [23]; [23]; [69]; [1; 2]; [3; 1000]; [9001; 23]]
+let testList1_groupWhen_NotEqual        = [[1337; 14]; [23]; [23]; [69]; [1; 2]; [3; 1000]; [9001; 23]]
+let testList2_groupWhen_Equal           = [[3]; [3; 2; 4]; [1; 2]]
+let testList2_groupWhen_NotEqual        = [[3]; [3; 2; 4]; [1]; [2]]
+let testList3_groupWhen_Equal           = [[3]; [3; 2; 4]; [1]; [1]]
+let testList3_groupWhen_NotEqual        = [[3]; [3; 2; 4]; [1; 1]]
+let testList4_groupWhen_Equal           = [[3]; [3; 2; 4; 2; 2]]
+let testList4_groupWhen_NotEqual        = [[3]; [3; 2; 4; 2]; [2]]
+let testList5_groupWhen_Equal           = [[3]; [3; 2; 4; 2]; [1]]
+let testList5_groupWhen_NotEqual        = [[3]; [3; 2; 4; 2; 1]]
 
 [<Tests>]
 let listTests =
@@ -89,11 +102,41 @@ let listTests =
         ]
         testList "List.groupWhen" [
             let isOdd n = n % 2 <> 0
-            testCase "returns correct jagged list" (fun _ ->
+            testCase "returns correct jagged list, case1: [1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23]" (fun _ ->
                 Expect.equal (testList1 |> List.groupWhen isOdd) testList1_groupWhen_Equal "List.groupWhen did return correct JaggedList"
             )
-            testCase "does not return incorrect jagged list" (fun _ ->
-                Expect.notEqual (testList1 |> List.groupWhen isOdd) testList1_groupWhen_NotEuqal "List.groupWhen did not return incorrect JaggedList"
+            testCase "does not return incorrect jagged list, case1: [1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23]" (fun _ ->
+                Expect.notEqual (testList1 |> List.groupWhen isOdd) testList1_groupWhen_NotEqual "List.groupWhen did not return incorrect JaggedList"
+            )
+            testCase "returns correct jagged list, case2: [3; 3; 2; 4; 1; 2]" (fun _ ->
+                Expect.equal (testList2 |> List.groupWhen isOdd) testList2_groupWhen_Equal "List.groupWhen did return correct JaggedList"
+            )
+            testCase "does not return incorrect jagged list, case2: [3; 3; 2; 4; 1; 2]" (fun _ ->
+                Expect.notEqual (testList2 |> List.groupWhen isOdd) testList2_groupWhen_NotEqual "List.groupWhen did not return incorrect JaggedList"
+            )
+            testCase "returns correct jagged list, case3: [3; 3; 2; 4; 1; 1]" (fun _ ->
+                Expect.equal (testList3 |> List.groupWhen isOdd) testList3_groupWhen_Equal "List.groupWhen did return correct JaggedList"
+            )
+            testCase "does not return incorrect jagged list, case3: [3; 3; 2; 4; 1; 1]" (fun _ ->
+                Expect.notEqual (testList3 |> List.groupWhen isOdd) testList3_groupWhen_NotEqual "List.groupWhen did not return incorrect JaggedList"
+            )
+            testCase "returns correct jagged list, case4: [3; 3; 2; 4; 2; 2]" (fun _ ->
+                Expect.equal (testList4 |> List.groupWhen isOdd) testList4_groupWhen_Equal "List.groupWhen did return correct JaggedList"
+            )
+            testCase "does not return incorrect jagged list, case4: [3; 3; 2; 4; 2; 2]" (fun _ ->
+                Expect.notEqual (testList4 |> List.groupWhen isOdd) testList4_groupWhen_NotEqual "List.groupWhen did not return incorrect JaggedList"
+            )
+            testCase "returns correct jagged list, case5: [3; 3; 2; 4; 2; 1]" (fun _ ->
+                Expect.equal (testList5 |> List.groupWhen isOdd) testList5_groupWhen_Equal "List.groupWhen did return correct JaggedList"
+            )
+            testCase "does not return incorrect jagged list, case5: [3; 3; 2; 4; 2; 1]" (fun _ ->
+                Expect.notEqual (testList5 |> List.groupWhen isOdd) testList5_groupWhen_NotEqual "List.groupWhen did not return incorrect JaggedList"
+            )
+            testCase "returns correct jagged list, case6: [6; 6; 2; 4; 2; 8]" (fun _ ->
+                Expect.equal (testList6 |> List.groupWhen isOdd) [testList6] "List.groupWhen did return correct JaggedList"
+            )
+            testCase "does not return incorrect jagged list, case6: [6; 6; 2; 4; 2; 8]" (fun _ ->
+                Expect.notEqual (testList6 |> List.groupWhen isOdd) [[]] "List.groupWhen did not return incorrect JaggedList"
             )
         ]
     ]
