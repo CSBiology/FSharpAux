@@ -341,13 +341,15 @@ module Array =
     ///    Array.groupWhen isOdd [|3;3;2;4;1;2|] = [|[|3|]; [|3; 2; 4|]; [|1; 2|]|]
     let groupWhen f (array : 'T []) =
         let inds = findIndices f array
-        Array.init (inds.Length) (
-            fun i ->
-                if i + 1 = inds.Length then
-                    array.[Array.last inds ..]
-                else
-                    array.[inds.[i] .. inds.[i + 1] - 1]
-            )
+        if inds.Length = 0 then [|array|]
+        else 
+            Array.init (inds.Length) (
+                fun i ->
+                    if i + 1 = inds.Length then
+                        array.[Array.last inds ..]
+                    else
+                        array.[inds.[i] .. inds.[i + 1] - 1]
+                )
 
 // ########################################
 // Static extensions

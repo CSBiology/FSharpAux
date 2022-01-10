@@ -3,7 +3,7 @@
 [<AutoOpen>]
 module JaggedArray =
 
-    /// Transposes a jagged array
+    /// Transposes a jagged array.
     let transpose (arr: 'T [][]) =
         if arr.Length > 0 then 
             let colSize = arr.[0].Length
@@ -11,33 +11,36 @@ module JaggedArray =
         else
             arr
 
-    /// Converts a jagged list into a jagged array
+    /// Creates a jagged array from a jagged list.
     let ofJaggedList (data: 'T list list) =
         data
         |> List.map (fun l -> l |> Array.ofList)
         |> Array.ofList
 
-    /// Converts a jagged array into a jagged list
+    /// Creates a jagged list from a jagged array.
     let toJaggedList (arr: 'T [][]) =
         arr
         |> Array.map (fun a -> a |> List.ofArray)
         |> List.ofArray
 
-    /// Converts a jagged Seq into a jagged array
+    /// Creates a jagged array from a jagged seq.
     let ofJaggedSeq (data: seq<#seq<'T>>) =
         data
         |> Seq.map (fun s -> s |> Array.ofSeq)
         |> Array.ofSeq
     
-    /// Copies the jagged array
+    /// Copies the jagged array.
     let copy (arr : _[][]) = 
         Array.init arr.Length (fun i ->
             Array.copy arr.[i]
             )
-    /// Converts a jagged array into a jagged seq
+    /// Creates a jagged seq from a jagged array.
     let toJaggedSeq (arr: 'T [][]) =
         arr
         |> Seq.map (fun s -> s |> Array.toSeq) 
+
+    /// Creates a jagged array from a 2D array.
+    let ofArray2D (arr : 'T [,]) = Array2D.toJaggedArray arr
 
     /// Builds a new jagged array whose inner arrays are the results of applying the given function to each of their elements.
     let map (mapping: 'T -> 'U) (jArray : 'T[][]) =
@@ -55,29 +58,29 @@ module JaggedArray =
     let map3 (mapping : 'T1 -> 'T2 -> 'T3 -> 'U) (jArray1 : 'T1[][]) (jArray2 : 'T2[][]) (jArray3 : 'T3[][]) =
         jArray1 |> Array.mapi (fun index x -> (Array.map3 mapping x jArray2.[index] jArray3.[index]))
 
-    ///Builds a new jagged array whose inner arrays are the results of applying the given function to each of their elements. The integer index passed to the function indicates the index of element in the inner array being transformed.
+    /// Builds a new jagged array whose inner arrays are the results of applying the given function to each of their elements. The integer index passed to the function indicates the index of element in the inner array being transformed.
     let mapi (mapping: int -> 'T -> 'U) (jArray : 'T[][]) =
         jArray
         |> Array.map (fun x -> x |> Array.mapi mapping)
 
-    ///Applies a function to each element of the inner arrays of the jagged array, threading an accumulator argument through the computation.
+    /// Applies a function to each element of the inner arrays of the jagged array, threading an accumulator argument through the computation.
     let innerFold (folder: 'State -> 'T -> 'State) (state: 'State) (jArray : 'T[][]) =
         jArray
         |> Array.map (fun x -> x |> Array.fold folder state )
 
-    ///Applies a function to each element of the inner arrays of the jagged array, threading an accumulator argument through the computation. 
-    ///A second function is the applied to each result of the predeceding computation, again passing an accumulater through the computation 
+    /// Applies a function to each element of the inner arrays of the jagged array, threading an accumulator argument through the computation. 
+    /// A second function is the applied to each result of the predeceding computation, again passing an accumulater through the computation.
     let fold (innerFolder : 'State1 -> 'T -> 'State1) (outerFolder : 'State2 -> 'State1 -> 'State2) (innerState : 'State1) (outerState : 'State2) ((jArray : 'T[][])) =
         jArray
         |> innerFold innerFolder innerState
         |> Array.fold outerFolder outerState
 
-    ///Returns a new jagged array whose inner arrays only contain the elements for which the given predicate returns true
+    /// Returns a new jagged array whose inner arrays only contain the elements for which the given predicate returns true.
     let innerFilter (predicate: 'T -> bool) (jArray: 'T[][]) =
         jArray
         |> Array.map (fun x -> x |> Array.filter predicate)
 
-    ///Applies the given function to each element in the inner arrays of the jagged array. Returns the jagged array whose inner arrays are comprised of the results x for each element where the function returns Some(x)
+    /// Applies the given function to each element in the inner arrays of the jagged array. Returns the jagged array whose inner arrays are comprised of the results x for each element where the function returns Some(x).
     let innerChoose (chooser: 'T -> 'U option) (jArray: 'T[][]) =
         jArray
         |> Array.map (fun x -> x |> Array.choose chooser)
@@ -216,14 +219,12 @@ module JaggedArray =
         |> Array.indexed
         |> Array.collect (fun (i,x : (int * 'T) []) -> Array.map (fun (j,y) -> i,j,y) x)
 
-    let ofArray2D (arr2d : 'T [,]) = Array2D.toJaggedArray arr2d
-
 
 [<AutoOpen>]
 module JaggedList =
     
 
-    // Transposes a jagged array
+    // Transposes a jagged list.
     let transpose (data: 'T list list) =
         let rec transpose = function
             | (_::_)::_ as M -> List.map List.head M :: transpose (List.map List.tail M)
@@ -231,26 +232,26 @@ module JaggedList =
         transpose data
 
 
-    // Converts a jagged list into a jagged array     
-    let toJaggedList (data: 'T list list) =
+    // Creates a jagged list into a jagged array.
+    let toJaggedArray (data: 'T list list) =
         data
         |> List.map (fun l -> l |> Array.ofList)
         |> Array.ofList
 
 
-    // Converts a jagged array into a jagged list
+    // Creates a jagged list from a jagged array.
     let ofJaggedArray (arr: 'T [][]) =
         arr
         |> Array.map (fun a -> a |> List.ofArray)
         |> List.ofArray
 
-    // Converts a jagged Seq into a jagged list
+    // Creates a jagged list from a jagged seq.
     let ofJaggedSeq (data: seq<#seq<'T>>) =
         data
         |> Seq.map (fun s -> s |> List.ofSeq)
         |> List.ofSeq
 
-    // Converts a jagged list into a jagged seq
+    // Creates a jagged seq to a jagged list.
     let toJaggedSeq (data: 'T list list) =
         data
         |> Seq.map (fun s -> s |> List.toSeq) 
@@ -271,29 +272,29 @@ module JaggedList =
     let map3 (mapping : 'T1 -> 'T2 -> 'T3 -> 'U) (jlist1 : 'T1 list list) (jlist2 : 'T2 list list) (jlist3 : 'T3 list list) =
         jlist1 |> List.mapi (fun index x -> (List.map3 mapping x jlist2.[index] jlist3.[index]))
 
-    ///Builds a new jagged list whose inner lists are the results of applying the given function to each of their elements. The integer index passed to the function indicates the index of element in the inner list being transformed.
+    /// Builds a new jagged list whose inner lists are the results of applying the given function to each of their elements. The integer index passed to the function indicates the index of element in the inner list being transformed.
     let mapi (mapping: int -> 'T -> 'U) (jlist : 'T list list) =
         jlist
         |> List.map (fun x -> x |> List.mapi mapping)
 
-    ///Applies a function to each element of the inner lists of the jagged list, threading an accumulator argument through the computation.
+    /// Applies a function to each element of the inner lists of the jagged list, threading an accumulator argument through the computation.
     let innerFold (folder: 'State -> 'T -> 'State) (state: 'State) (jlist : 'T list list) =
         jlist
         |> List.map (fun x -> x |> List.fold folder state )
 
-    ///Applies a function to each element of the inner lists of the jagged list, threading an accumulator argument through the computation. 
-    ///A second function is the applied to each result of the predeceding computation, again passing an accumulater through the computation 
+    /// Applies a function to each element of the inner lists of the jagged list, threading an accumulator argument through the computation. 
+    /// A second function is the applied to each result of the predeceding computation, again passing an accumulater through the computation.
     let fold (innerFolder : 'State1 -> 'T -> 'State1) (outerFolder : 'State2 -> 'State1 -> 'State2) (innerState : 'State1) (outerState : 'State2) ((jlist : 'T list list)) =
         jlist
         |> innerFold innerFolder innerState
         |> List.fold outerFolder outerState
 
-    ///Returns a new jagged list whose inner lists only contain the elements for which the given predicate returns true
+    /// Returns a new jagged list whose inner lists only contain the elements for which the given predicate returns true.
     let innerFilter (predicate: 'T -> bool) (jlist: 'T list list) =
         jlist
         |> List.map (fun x -> x |> List.filter predicate)
 
-    ///Applies the given function to each element in the inner lists of the jagged List. Returns the jagged list whose inner lists are comprised of the results x for each element where the function returns Some(x)
+    /// Applies the given function to each element in the inner lists of the jagged List. Returns the jagged list whose inner lists are comprised of the results x for each element where the function returns Some(x).
     let innerChoose (chooser: 'T -> 'U option) (jlist: 'T list list) =
         jlist
         |> List.map (fun x -> x |> List.choose chooser)

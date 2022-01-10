@@ -94,6 +94,7 @@ let arrayTests =
             )
             testCase "does not return incorrect jagged array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_NotEqual "Array.groupWhen did not return incorrect jagged array"
+                Expect.notEqual (testArray1 |> Array.groupWhen isOdd) [||] "Array.groupWhen did not return empty jagged array"
             )
         ]
     ]
