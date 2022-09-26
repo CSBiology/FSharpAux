@@ -250,10 +250,14 @@ module String =
 //    let string = new StringBuilderCE ()
 
     /// Returns the first char of a string.
-    let first (str : string) = str.Chars 0
+    let first (str : string) = 
+        if str.Length = 0 then failwith "String is empty."
+        else str.Chars 0
     
     /// Returns the last char of a string.
-    let last (str : string) = str.Chars (str.Length - 1)
+    let last (str : string) = 
+        if str.Length = 0 then failwith "String is empty."
+        else str.Chars (str.Length - 1)
     
     /// Splits an input string at a given delimiter (substring).
     let splitS (delimiter : string) (str : string) = str.Split ([|delimiter|], StringSplitOptions.None)
