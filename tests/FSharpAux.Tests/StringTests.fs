@@ -38,7 +38,7 @@ let stringTests =
                 Expect.notEqual ("Hi there!" |> String.first) '!' "String.first did not return incorrect Char"
             )
             testCase "errors if empty" (fun _ ->
-                Expect.throws ("" |> String.first) "String.first did throw an exception"
+                Expect.throws (fun () -> "" |> String.first |> ignore) "String.first did throw an exception"
             )
         ]
         testList "String.last" [
@@ -49,7 +49,7 @@ let stringTests =
                 Expect.notEqual ("Hi there!" |> String.last) 'u' "String.first did not return incorrect Char"
             )
             testCase "errors if empty" (fun _ ->
-                Expect.throws ("" |> String.last) "String.last did throw an exception"
+                Expect.throws (fun () -> "" |> String.last |> ignore) "String.last did throw an exception"
             )
         ]
         testList "String.splitS" [
