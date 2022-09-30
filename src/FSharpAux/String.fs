@@ -251,12 +251,12 @@ module String =
 
     /// Returns the first char of a string.
     let first (str : string) = 
-        if str.Length = 0 then failwith "String is empty."
+        if str.Length = 0 then invalidArg (nameof str) "The input string was empty."
         else str.Chars 0
     
     /// Returns the last char of a string.
     let last (str : string) = 
-        if str.Length = 0 then failwith "String is empty."
+        if str.Length = 0 then failwith "The input string was empty."
         else str.Chars (str.Length - 1)
     
     /// Splits an input string at a given delimiter (substring).
