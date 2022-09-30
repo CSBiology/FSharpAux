@@ -256,7 +256,7 @@ module String =
     
     /// Returns the last char of a string.
     let last (str : string) = 
-        if str.Length = 0 then failwith "The input string was empty."
+        if str.Length = 0 then invalidArg (nameof str) "The input string was empty."
         else str.Chars (str.Length - 1)
     
     /// Splits an input string at a given delimiter (substring).
