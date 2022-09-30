@@ -351,6 +351,20 @@ module Array =
                         array.[inds.[i] .. inds.[i + 1] - 1]
                 )
 
+    /// Computes the intersection of two arrays.
+    let intersect (arr1 : 'T []) (arr2 : 'T []) =
+        let smallerArr, largerArr =
+            if arr1.Length >= arr2.Length then arr2, arr1
+            else arr1, arr2
+        smallerArr
+        |> Array.filter (fun e -> Array.contains e largerArr)
+
+    /// Computes the outersection (known as "symmetric difference" in mathematics) of two arrays.
+    let outersect (arr1 : 'T []) arr2 = [|
+        for e in arr1 do if Array.contains e arr2 |> not then e
+        for e in arr2 do if Array.contains e arr1 |> not then e
+    |]
+
 // ########################################
 // Static extensions
 

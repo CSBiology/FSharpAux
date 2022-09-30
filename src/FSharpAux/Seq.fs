@@ -103,6 +103,20 @@ module Seq =
     
         tmp
 
+    /// Computes the intersection of two sequences.
+    let intersect (seq1 : seq<'T>) seq2 = seq {
+        let smallerSeq, largerSeq =
+            if Seq.length seq1 >= Seq.length seq2 then seq2, seq1
+            else seq1, seq2
+        for e in smallerSeq do if Seq.contains e largerSeq then e
+    }
+
+    /// Computes the outersection (known as "symmetric difference" in mathematics) of two sequences.
+    let outersect (seq1 : seq<'T>) seq2 = seq {
+        for e in seq1 do if Seq.contains e seq2 |> not then e
+        for e in seq2 do if Seq.contains e seq1 |> not then e
+    }
+
 
 // // Without continuation passing
 
