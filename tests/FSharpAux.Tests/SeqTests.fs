@@ -59,4 +59,9 @@ let seqTests =
                 Expect.notEqual (testSeq6 |> Seq.groupWhen isOdd |> list2) ([]) "Seq.groupWhen did not return empty (jagged) list"
             )
         ]
+        testList "Seq.intersect" [
+            testCase "returns correct list, case1: []" (fun _ ->
+                Expect.equal 
+            )
+        ]
     ]
