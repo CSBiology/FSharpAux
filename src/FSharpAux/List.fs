@@ -273,18 +273,16 @@ module List =
         let smallerList, largerList =
             if list1.Length >= list2.Length then list2, list1
             else list1, list2
-        let hs = System.Collections.Generic.HashSet<'T>(HashIdentity.Structural<'T>)    // for distinction
-        let rec loop predicate l1 l2 fl =
-            match l1 with
-            | h :: t -> if predicate h l2 && hs.Add h then loop predicate t l2 (h :: fl) else loop predicate t l2 fl
-            | [] -> fl
-        loop List.contains smallerList largerList []
+        let hsSl = System.Collections.Generic.HashSet<'T>(HashIdentity.Structural<'T>)
+        smallerList |> List.iter (hsSl.Add >> ignore)
+        hsSl.IntersectWith largerList
+        List.ofSeq hsSl
 
     /// Computes the outersection (known as "symmetric difference" in mathematics) of two lists.
-    let outersect (list1 : 'T list) list2 = [
-        for e in list1 do if List.contains e list2 then e
-        for e in list2 do if List.contains e list1 then e
-    ]
+    let outersect (list1 : 'T list) (list2 : 'T list) = 
+        let hsS1 = System.Collections.Generic.HashSet<'T>(HashIdentity.Structural<'T>)
+        list1 |> List.iter (hsS1.Add >> ignore)
+        hsS1.SymmetricExc
 
 // ########################################
 // Static extensions

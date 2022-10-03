@@ -356,14 +356,17 @@ module Array =
         let smallerArr, largerArr =
             if arr1.Length >= arr2.Length then arr2, arr1
             else arr1, arr2
-        smallerArr
-        |> Array.filter (fun e -> Array.contains e largerArr)
+        let hsSa = HashSet<'T>(HashIdentity.Structural<'T>)
+        smallerArr |> Array.iter (hsSa.Add >> ignore)
+        hsSa.IntersectWith largerArr
+        Array.ofSeq hsSa
 
     /// Computes the outersection (known as "symmetric difference" in mathematics) of two arrays.
-    let outersect (arr1 : 'T []) arr2 = [|
-        for e in arr1 do if Array.contains e arr2 |> not then e
-        for e in arr2 do if Array.contains e arr1 |> not then e
-    |]
+    let outersect arr1 (arr2 : 'T []) =
+        let hsS1 = HashSet<'T>(HashIdentity.Structural<'T>)
+        arr1 |> Array.iter (hsS1.Add >> ignore)
+        hsS1.SymmetricExceptWith arr2
+        Array.ofSeq hsS1
 
 // ########################################
 // Static extensions
