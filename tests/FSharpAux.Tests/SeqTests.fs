@@ -61,7 +61,13 @@ let seqTests =
         ]
         testList "Seq.intersect" [
             testCase "returns correct list, case1: []" (fun _ ->
-                Expect.equal 
+                Expect.equal (Seq.intersect Seq.empty Seq.empty |> list) [] "Seq.intersect did return correct list"
+            )
+            testCase "returns correct list, case2: []" (fun _ ->
+                Expect.equal (Seq.intersect Seq.empty testSeq1 |> list) [] "Seq.intersect did return correct list"
+            )
+            testCase "returns correct list, case3: []" (fun _ ->
+                Expect.equal (Seq.intersect testSeq2 Seq.empty |> list) [] "Seq.intersect did return correct list"
             )
         ]
     ]
