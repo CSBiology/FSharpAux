@@ -1,5 +1,7 @@
 ﻿namespace FSharpAux
 
+open System.Collections.Generic
+
 [<AutoOpen>]
 module Array = 
 
