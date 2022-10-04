@@ -139,4 +139,32 @@ let listTests =
                 Expect.notEqual (testList6 |> List.groupWhen isOdd) [[]] "List.groupWhen did not return incorrect JaggedList"
             )
         ]
+        testList "List.intersect" [
+            testCase "does not return incorrect list, case1: []" (fun _ ->
+                Expect.equal (List.intersect List.empty List.empty) [] "List.intersect did return correct list"
+            )
+            testCase "does not return incorrect list, case2: []" (fun _ ->
+                Expect.equal (List.intersect List.empty testList6) [] "List.intersect did return correct list"
+            )
+            testCase "does not return incorrect list, case3: []" (fun _ ->
+                Expect.equal (List.intersect testList5 List.empty) [] "List.intersect did return correct list"
+            )
+            testCase "does not return incorrect list, case4: [2; 4]" (fun _ ->
+                Expect.equal (List.intersect testList5 testList6) [2; 4] "List.intersect did return correct list"
+            )
+        ]
+        testList "List.outersect" [
+            testCase "does not return incorrect list, case1: []" (fun _ ->
+                Expect.equal (List.outersect List.empty List.empty) [] "List.outersect did return correct list"
+            )
+            testCase "does not return incorrect list, case2: [6; 2; 4; 8]" (fun _ ->
+                Expect.equal (List.outersect List.empty testList6) [6; 2; 4; 8] "List.outersect did return correct list"
+            )
+            testCase "does not return incorrect list, case3: [3; 2; 4; 1]" (fun _ ->
+                Expect.equal (List.outersect testList5 List.empty) [3; 2; 4; 1] "List.outersect did return correct list"
+            )
+            testCase "does not return incorrect list, case4: [3; 1; 6; 8]" (fun _ ->
+                Expect.equal (List.outersect testList5 testList6) [3; 1; 6; 8] "List.outersect did return correct list"
+            )
+        ]
     ]

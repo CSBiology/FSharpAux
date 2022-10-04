@@ -4,6 +4,8 @@ open FSharpAux
 open Expecto 
 
 let testArray1                          = [|1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23|]
+let testArray2                          = [|3; 3; 2; 4; 2; 1|]
+let testArray3                          = [|6; 6; 2; 4; 2; 8|]
 
 let testArray1_filteri_Equal            = [|14; 23; 23; 69|]
 let testArray1_filteri_NotEqual         = [|1337; 14; 23;|]
@@ -95,6 +97,34 @@ let arrayTests =
             testCase "does not return incorrect jagged array" (fun _ ->
                 Expect.notEqual (testArray1 |> Array.groupWhen isOdd) testArray1_groupWhen_NotEqual "Array.groupWhen did not return incorrect jagged array"
                 Expect.notEqual (testArray1 |> Array.groupWhen isOdd) [||] "Array.groupWhen did not return empty jagged array"
+            )
+        ]
+        testList "Array.intersect" [
+            testCase "returns correct array, case1: [||]" (fun _ ->
+                Expect.equal (Array.intersect Array.empty Array.empty) [||] "Array.intersect did not return empty array"
+            )
+            testCase "returns correct array, case2: [||]" (fun _ ->
+                Expect.equal (Array.intersect Array.empty testArray3) [||] "Array.intersect did not return empty array"
+            )
+            testCase "returns correct array, case3: [||]" (fun _ ->
+                Expect.equal (Array.intersect testArray2 Array.empty) [||] "Array.intersect did not return empty array"
+            )
+            testCase "returns correct array, case4: [|2; 4|]" (fun _ ->
+                Expect.equal (Array.intersect testArray2 testArray3) [|2; 4|] "Array.intersect did not return correct array"
+            )
+        ]
+        testList "Array.outersect" [
+            testCase "returns correct array, case1: [||]" (fun _ ->
+                Expect.equal (Array.outersect Array.empty Array.empty) [||] "Array.outersect did not return empty array"
+            )
+            testCase "returns correct array, case2: [|6; 2; 4; 8|]" (fun _ ->
+                Expect.equal (Array.outersect Array.empty testArray3) [|6; 2; 4; 8|] "Array.outersect did return false array"
+            )
+            testCase "returns correct array, case3: [|3; 2; 4; 1|]" (fun _ ->
+                Expect.equal (Array.outersect testArray2 Array.empty) [|3; 2; 4; 1|] "Array.outersect did return false array"
+            )
+            testCase "returns correct array, case4: [|6; 8; 3; 1|]" (fun _ ->
+                Expect.equal (Array.outersect testArray2 testArray3) [|3; 1; 6; 8|] "Array.outersect did return false array"
             )
         ]
     ]
