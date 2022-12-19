@@ -268,6 +268,23 @@ module List =
         |> List.map List.rev
         |> List.rev
 
+    /// Computes the intersection of two lists.
+    let intersect (list1 : 'T list) (list2 : 'T list) =
+        let smallerList, largerList =
+            if list1.Length >= list2.Length then list2, list1
+            else list1, list2
+        let hsSl = System.Collections.Generic.HashSet<'T>(HashIdentity.Structural<'T>)
+        smallerList |> List.iter (hsSl.Add >> ignore)
+        hsSl.IntersectWith largerList
+        List.ofSeq hsSl
+
+    /// Computes the outersection (known as "symmetric difference" in mathematics) of two lists.
+    let outersect (list1 : 'T list) (list2 : 'T list) = 
+        let hsS1 = System.Collections.Generic.HashSet<'T>(HashIdentity.Structural<'T>)
+        list1 |> List.iter (hsS1.Add >> ignore)
+        hsS1.SymmetricExceptWith list2
+        List.ofSeq hsS1
+
 // ########################################
 // Static extensions
 

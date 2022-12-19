@@ -1,5 +1,7 @@
 ﻿namespace FSharpAux
 
+open System.Collections.Generic
+
 [<AutoOpen>]
 module Array = 
 
@@ -350,6 +352,23 @@ module Array =
                     else
                         array.[inds.[i] .. inds.[i + 1] - 1]
                 )
+
+    /// Computes the intersection of two arrays.
+    let intersect (arr1 : 'T []) (arr2 : 'T []) =
+        let smallerArr, largerArr =
+            if arr1.Length >= arr2.Length then arr2, arr1
+            else arr1, arr2
+        let hsSa = HashSet<'T>(HashIdentity.Structural<'T>)
+        smallerArr |> Array.iter (hsSa.Add >> ignore)
+        hsSa.IntersectWith largerArr
+        Array.ofSeq hsSa
+
+    /// Computes the outersection (known as "symmetric difference" in mathematics) of two arrays.
+    let outersect arr1 (arr2 : 'T []) =
+        let hsS1 = HashSet<'T>(HashIdentity.Structural<'T>)
+        arr1 |> Array.iter (hsS1.Add >> ignore)
+        hsS1.SymmetricExceptWith arr2
+        Array.ofSeq hsS1
 
 // ########################################
 // Static extensions

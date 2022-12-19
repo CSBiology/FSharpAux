@@ -59,4 +59,32 @@ let seqTests =
                 Expect.notEqual (testSeq6 |> Seq.groupWhen isOdd |> list2) ([]) "Seq.groupWhen did not return empty (jagged) list"
             )
         ]
+        testList "Seq.intersect" [
+            testCase "returns correct list, case1: []" (fun _ ->
+                Expect.equal (Seq.intersect Seq.empty Seq.empty |> list) [] "Seq.intersect did return correct list"
+            )
+            testCase "returns correct list, case2: []" (fun _ ->
+                Expect.equal (Seq.intersect Seq.empty testSeq1 |> list) [] "Seq.intersect did return correct list"
+            )
+            testCase "returns correct list, case3: []" (fun _ ->
+                Expect.equal (Seq.intersect testSeq2 Seq.empty |> list) [] "Seq.intersect did return correct list"
+            )
+            testCase "returns correct list, case4: [2; 4]" (fun _ ->
+                Expect.equal (Seq.intersect testSeq5 testSeq6 |> list) [2; 4] "Seq.intersect did return correct list"
+            )
+        ]
+        testList "Seq.outersect" [
+            testCase "returns correct list, case1: []" (fun _ ->
+                Expect.equal (Seq.outersect Seq.empty Seq.empty |> list) [] "Seq.outersect did return correct list"
+            )
+            testCase "returns correct list, case2: [3; 2; 4; 1]" (fun _ ->
+                Expect.equal (Seq.outersect Seq.empty testSeq3 |> list) [3; 2; 4; 1] "Seq.outersect did return correct list"
+            )
+            testCase "returns correct list, case3: [3; 2; 4; 1]" (fun _ ->
+                Expect.equal (Seq.outersect testSeq2 Seq.empty |> list) [3; 2; 4; 1] "Seq.outersect did return correct list"
+            )
+            testCase "returns correct list, case4: [3; 1; 6; 8]" (fun _ ->
+                Expect.equal (Seq.outersect testSeq5 testSeq6 |> list) [3; 1; 6; 8] "Seq.outersect did return correct list"
+            )
+        ]
     ]

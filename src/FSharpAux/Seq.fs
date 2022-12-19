@@ -103,6 +103,23 @@ module Seq =
     
         tmp
 
+        /// Computes the intersection of two sequences.
+    let intersect (seq1 : seq<'T>) seq2 : seq<'T> = 
+        let smallerSeq, largerSeq =
+            if Seq.length seq1 >= Seq.length seq2 then seq2, seq1
+            else seq1, seq2
+        let hsSs = HashSet<'T>(HashIdentity.Structural<'T>)
+        smallerSeq |> Seq.iter (hsSs.Add >> ignore)
+        hsSs.IntersectWith largerSeq
+        hsSs
+
+    /// Computes the outersection (known as "symmetric difference" in mathematics) of two sequences.
+    let outersect seq1 (seq2 : seq<'T>) : seq<'T> = 
+        let hsS1 = HashSet<'T>(HashIdentity.Structural<'T>)
+        seq1 |> Seq.iter (hsS1.Add >> ignore)
+        hsS1.SymmetricExceptWith seq2
+        hsS1
+
 
 // // Without continuation passing
 
