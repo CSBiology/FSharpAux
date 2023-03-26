@@ -18,6 +18,8 @@ let testSeq4_groupWhen_Equal            = seq {seq {3}; seq {3; 2; 4; 2; 2}}
 let testSeq4_groupWhen_NotEqual         = seq {seq {3}; seq {3; 2; 4; 2}; seq {2}}
 let testSeq5_groupWhen_Equal            = seq {seq {3}; seq {3; 2; 4; 2}; seq {1}}
 let testSeq5_groupWhen_NotEqual         = seq {seq {3}; seq {3; 2; 4; 2; 1}}
+let testSeq_map4_1                      = seq {(3, 3, 3, 3); (3, 3, 3, 3); (2, 2, 2, 2); (4, 4, 4, 4); (1, 1, 2, 2); (2, 1, 2, 1)}
+let testSeq_map4_2                      = seq {(3, 3, 3, 1337); (3, 3, 3, 14); (2, 2, 2, 23); (4, 4, 4, 23); (1, 1, 2, 69); (2, 1, 2, 1)}
 
 // helper functions
 let list s = Seq.toList s
@@ -26,6 +28,16 @@ let list2 s = Seq.map (Seq.toList) s |> Seq.toList
 [<Tests>]
 let seqTests =
     testList "SeqTests" [
+        testList "Seq.map4" [
+            testCase "throws when any seq is null" <| fun _ ->
+                Expect.throws (fun _ -> Seq.map4 (fun _ _ _ _ -> ()) testSeq2 testSeq2 null testSeq2 |> ignore) "Seq.map4 did not throw when any seq is null"
+            testCase "maps correctly" <| fun _ ->
+                let res = Seq.map4 (fun a b c d -> a, b, c, d) testSeq2 testSeq3 testSeq4 testSeq5 |> list
+                Expect.sequenceEqual res (list testSeq_map4_1) "Seq.map4 did not map seqs correctly"
+            testCase "maps correctly with unequal seq lengths" <| fun _ ->
+                let res = Seq.map4 (fun a b c d -> a, b, c, d) testSeq2 testSeq3 testSeq4 testSeq1 |> list
+                Expect.sequenceEqual res (list testSeq_map4_2) "Seq.map4 did not map correctly when seqs have unequal lengths"
+        ]
         let isOdd = fun n -> n % 2 <> 0
         testList "Seq.groupWhen" [
             testCase "returns correct jagged list, case1: [3; 3; 2; 4; 1; 2]" (fun _ ->
