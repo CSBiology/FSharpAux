@@ -6,6 +6,10 @@ open Expecto
 [<Tests>]
 let stringTests =
     testList "StringTests" [
+        testList "String.endsWith" [
+            testCase "Returns correct bool" <| fun _ ->
+                Expect.isTrue (String.endsWith "World" "Hello World") "Returned incorrect bool"
+        ]
         testList "String.trim" [
             testCase "trims input correctly" <| fun _ ->
                 Expect.equal (String.trim "      \tHi there!\n     ") "Hi there!" "String.trim did not trim correctly"
