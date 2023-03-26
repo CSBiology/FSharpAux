@@ -3,13 +3,17 @@
 open System.Collections.Generic
 
 [<AutoOpen>]
-module Seq =    
-    
-    ///Adds a value to the back of a sequence.
+module Seq =
+
+    let inline internal checkNonNull argName arg =
+        if isNull arg then
+            nullArg argName
+
+    /// Adds a value to the back of a sequence.
     let appendSingleton (s : seq<'T>) (value : 'T) =
         Seq.append s (Seq.singleton value)
 
-    ///Adds a value to the front of a sequence.
+    /// Adds a value to the front of a sequence.
     let consSingleton (s : seq<'T>) (value : 'T) =
         Seq.append (Seq.singleton value) s
 
@@ -222,16 +226,41 @@ module Seq =
                         
 
 
-   
-    
+
     /// Returns head of a seq as option or None if seq is empty.
     let tryHead s = Seq.tryPick Some s
-    
+
     /// Returns head of a seq or default value if seq is empty.
     let headOrDefault defaultValue s =
         match (tryHead s) with
         | Some x    -> x
         | None      -> defaultValue
+
+    /// <summary>
+    /// Builds a new collection whose elements are the results of applying the given function
+    /// to the corresponding quadruples of elements from the four sequences. If one input sequence if shorter than
+    /// the others then the remaining elements of the longer sequences are ignored.
+    /// </summary>
+    /// <param name="mapping">The function to transform quadruples of elements from the input sequences.</param>
+    /// <param name="source1">The first input sequence.</param>
+    /// <param name="source2">The second input sequence.</param>
+    /// <param name="source3">The third input sequence.</param>
+    /// <param name="source4">The fourth input sequence.</param>
+    /// <returns>The result sequence.</returns>
+    /// <exception cref="System.ArgumentNullException">Thrown when any of the input sequences is null.</exception>
+    let map4 (mapping : 'T -> 'T -> 'T -> 'T -> 'U) (source1 : seq<'T>) (source2 : seq<'T>) (source3 : seq<'T>) (source4 : seq<'T>) =
+        checkNonNull "source1" source1
+        checkNonNull "source2" source2
+        checkNonNull "source3" source3
+        checkNonNull "source4" source4
+        let e1 = source1.GetEnumerator()
+        let e2 = source2.GetEnumerator()
+        let e3 = source3.GetEnumerator()
+        let e4 = source4.GetEnumerator()
+        seq {
+            while e1.MoveNext() && e2.MoveNext() && e3.MoveNext() && e4.MoveNext() do
+                yield mapping e1.Current e2.Current e3.Current e4.Current
+        }
 
     /// Splits a sequence of pairs into two sequences.
     let unzip (input : seq<_>) =
