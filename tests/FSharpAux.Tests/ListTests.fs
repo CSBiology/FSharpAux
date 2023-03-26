@@ -32,10 +32,18 @@ let testList4_groupWhen_Equal           = [[3]; [3; 2; 4; 2; 2]]
 let testList4_groupWhen_NotEqual        = [[3]; [3; 2; 4; 2]; [2]]
 let testList5_groupWhen_Equal           = [[3]; [3; 2; 4; 2]; [1]]
 let testList5_groupWhen_NotEqual        = [[3]; [3; 2; 4; 2; 1]]
+let testList_map4                       = [(3, 3, 3, 3); (3, 3, 3, 3); (2, 2, 2, 2); (4, 4, 4, 4); (1, 1, 2, 2); (2, 1, 2, 1)]
 
 [<Tests>]
 let listTests =
     testList "ListTests" [
+        testList "List.map4" [
+            testCase "throws when lists have different lengths" <| fun _ ->
+                Expect.throws (fun _ -> List.map4 (fun _ _ _ _ -> ()) [1] [2] [3; 3] [4] |> ignore) "List.map4 did not throw when lists had different lengths"
+            testCase "maps correctly" <| fun _ ->
+                let res = List.map4 (fun a b c d -> a, b, c, d) testList2 testList3 testList4 testList5
+                Expect.sequenceEqual res testList_map4 "List.map4 did not map lists correctly"
+        ]
         testList "List.filteri" [
             testCase "returns correct list" (fun _ ->
                 Expect.equal (testList1 |> List.filteri (fun i t -> i < 5 && t < 100)) testList1_filteri_Equal "List.filteri did return correct List"

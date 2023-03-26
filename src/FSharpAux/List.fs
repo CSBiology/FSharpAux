@@ -4,7 +4,27 @@ open Microsoft.FSharp.Core.OptimizedClosures
 
 [<AutoOpen>]
 module List = 
-    
+
+    /// <summary>
+    /// Builds a new collection whose elements are the results of applying the given function
+    /// to the corresponding elements of the four collections simultaneously.
+    /// </summary>
+    /// <param name="mapping">The function to transform quadruples of elements from the input lists.</param>
+    /// <param name="list1">The first input list.</param>
+    /// <param name="list2">The second input list.</param>
+    /// <param name="list3">The third input list.</param>
+    /// <param name="list4">The fourth input list.</param>
+    /// <returns>The list of transformed elements.</returns>
+    let map4 (mapping : 'T -> 'T -> 'T -> 'T -> 'U) (list1 : 'T list) (list2 : 'T list) (list3 : 'T list) (list4 : 'T list) =
+        if list1.Length <> list2.Length || list1.Length <> list3.Length || list1.Length <> list4.Length then
+            failwithf "The input lists have different lengths.\n\tlist1.Length = %i; list2.Length = %i; list3.Length = %i; list4.Length = %i" list1.Length list2.Length list3.Length list4.Length
+        let rec loop acc nl1 nl2 nl3 nl4 =
+            match nl1, nl2, nl3, nl4 with
+            | h1 :: t1, h2 :: t2, h3 :: t3, h4 :: t4 ->
+                loop (mapping h1 h2 h3 h4 :: acc) t1 t2 t3 t4
+            | _ -> List.rev acc
+        loop [] list1 list2 list3 list4
+
     /// Applies a function to each element of the list, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN then computes f (... (f i0 i1)...) iN and returns the intermediary and final results. Raises ArgumentException if the list has size zero.
     let scanReduce f l = 
         match l with 

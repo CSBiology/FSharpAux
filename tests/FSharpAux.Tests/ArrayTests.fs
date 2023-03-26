@@ -6,6 +6,8 @@ open Expecto
 let testArray1                          = [|1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23|]
 let testArray2                          = [|3; 3; 2; 4; 2; 1|]
 let testArray3                          = [|6; 6; 2; 4; 2; 8|]
+let testArray4                          = [|6; 6; 2; 4; 2; 9|]
+let testArray5                          = [|6; 6; 2; 4; 2; 5|]
 
 let testArray1_filteri_Equal            = [|14; 23; 23; 69|]
 let testArray1_filteri_NotEqual         = [|1337; 14; 23;|]
@@ -21,10 +23,20 @@ let testArray1_skipNth_Equal            = [|1337; 14; 23; 69; 2; 3; 9001; 23|]
 let testArray1_skipNth_NotEqual         = [|5; 6; 7; 10|]
 let testArray1_groupWhen_Equal          = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001|]; [|23|]|]
 let testArray1_groupWhen_NotEqual       = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001; 23|]|]
+let testArray_map4                      = [|(3, 6, 6, 6); (3, 6, 6, 6); (2, 2, 2, 2); (4, 4, 4, 4); (2, 2, 2, 2); (1, 8, 9, 5)|]
 
 [<Tests>]
 let arrayTests =
     testList "ArrayTests" [
+        testList "Array.map4" [
+            testCase "Throws when any array is null" <| fun _ ->
+                Expect.throws (fun _ -> Array.map4 (fun _ _ _ _ -> ()) testArray2 testArray3 null null |> ignore) "Array.map4 did not throw when an input array was null"
+            testCase "Throws when arrays have unequal lengths" <| fun _ ->
+                Expect.throws (fun _ -> Array.map4 (fun _ _ _ _ -> ()) [|1|] [||] [|3|] [|4|] |> ignore) "Array.map4 did not throw when input arrays have unequal length"
+            testCase "Maps correctly" <| fun _ ->
+                let res = Array.map4 (fun a b c d -> a, b, c, d) testArray2 testArray3 testArray4 testArray5
+                Expect.sequenceEqual res testArray_map4 "Array.map4 did not map correctly"
+        ]
         testList "Array.filteri" [
             testCase "returns correct array" (fun _ ->
                 Expect.equal (testArray1 |> Array.filteri (fun i t -> i < 5 && t < 100)) testArray1_filteri_Equal "Array.filteri did return correct array"
