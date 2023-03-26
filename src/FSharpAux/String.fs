@@ -65,6 +65,9 @@ module String =
     /// Folds the string list by seperating entries with a single space
     let joinWords (input: string list) : string = (String.concat " " input).Trim()
 
+    /// Takes a string and returns its copy with all leading and trailing white-space characters removed.
+    let trim (str : string) = str.Trim()
+
     /// Returns if the string is null or empty
     let inline isNullOrEmpty text = String.IsNullOrEmpty text
 

@@ -6,6 +6,10 @@ open Expecto
 [<Tests>]
 let stringTests =
     testList "StringTests" [
+        testList "String.trim" [
+            testCase "trims input correctly" <| fun _ ->
+                Expect.equal (String.trim "      \tHi there!\n     ") "Hi there!" "String.trim did not trim correctly"
+        ]
         testList "String.contains" [
             testCase "contains present substring" (fun _ ->
                 Expect.isTrue ("Hi there!" |> String.contains "Hi") "String.contains did not return true for proper substring"
