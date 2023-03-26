@@ -9,9 +9,16 @@ open System
 open System.Globalization
 
 module String =
-    
-    /// Checks whether the given text starts with the given prefix
+
+    /// <summary>
+    /// Checks whether the given text starts with the given prefix.
+    /// </summary>
     let inline startsWith (prefix:string) (text:string) = text.StartsWith prefix
+
+    /// <summary>
+    /// Checks whether the given text ends with the given suffix.
+    /// </summary>
+    let inline endsWith (suffix : string) (str : string) = str.EndsWith suffix
 
     /// Replaces the given "replacement" for every occurence of the pattern in the given text 
     let inline replace (pattern:string) replacement (text:string) = text.Replace(pattern,replacement)
