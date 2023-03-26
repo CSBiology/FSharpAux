@@ -24,7 +24,30 @@ module Array =
     //        else
     //            i <- i + 1
     //    found
-    
+
+    /// <summary>
+    /// Builds a new collection whose elements are the results of applying the given function
+    /// to the corresponding quadruples from the four collections. The four input
+    /// arrays must have the same length, otherwise an <c>ArgumentException</c> is
+    /// raised.
+    /// </summary>
+    /// <param name="mapping">The function to transform the quadruples of the input elements.</param>
+    /// <param name="array1">The first input array.</param>
+    /// <param name="array2">The second input array.</param>
+    /// <param name="array3">The third input array.</param>
+    /// <param name="array4">The fourth input array.</param>
+    /// <exception cref="T:System.ArgumentException">Thrown when the input arrays differ in length.</exception>
+    /// <exception cref="T:System.ArgumentNullException">Thrown when any of the input arrays is null.</exception>
+    /// <returns>The array of transformed elements.</returns>
+    let map4 (mapping : 'T -> 'T -> 'T -> 'T -> 'U) (array1 : 'T []) (array2 : 'T []) (array3 : 'T []) (array4 : 'T []) =
+        checkNonNull "array1" array1
+        checkNonNull "array2" array2
+        checkNonNull "array3" array3
+        checkNonNull "array4" array4
+        if array1.Length <> array2.Length || array1.Length <> array3.Length || array1.Length <> array4.Length then
+            failwithf "The input lists have different lengths.\n\tarray1.Length = %i; array2.Length = %i; array3.Length = %i; array4.Length = %i" array1.Length array2.Length array3.Length array4.Length
+        [|for i = 0 to array1.Length - 1 do yield mapping array1[i] array2[i] array3[i] array4[i]|]
+
     /// Builds a new array that contains every element of the input array except for that on position index.
     let removeIndex index (arr : 'T []) =
         if index < arr.Length then
