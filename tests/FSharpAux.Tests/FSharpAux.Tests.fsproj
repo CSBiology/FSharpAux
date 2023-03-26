@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DictionaryTests.fs" />
     <Compile Include="SeqTests.fs" />
     <Compile Include="ArrayTests.fs" />
     <Compile Include="Array2DTests.fs" />

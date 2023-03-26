@@ -115,6 +115,52 @@ module Dictionary =
         | true -> Some table.[key]
         | false -> None
 
+    /// <summary>
+    /// Returns the value of the given key if present in the given Dictionary. Else returns None.
+    /// </summary>
+    let tryGetValue k (dict : Dictionary<'K,'V>) = 
+        let b,v = dict.TryGetValue(k)
+        // Only get value if 
+        if b then Some v
+        else 
+            None
+
+    /// <summary>
+    /// Returns the value to the key k if it is bound, else fails.
+    /// </summary>
+    let getValue k (dict : Dictionary<'K,'V>) =
+        try 
+            dict.Item k
+        with
+        | _ -> failwithf "Key %O is not present in Dictionary %O." k dict
+
+    /// <summary>
+    /// Returns the trimmed string of the given key if present in the given Dictionary. Else returns None.
+    /// </summary>
+    let tryGetString k (dict : Dictionary<'K,string>) = 
+        let b,v = dict.TryGetValue(k)
+        // Only get value if 
+        if b && v.Trim() <> ""
+        then 
+            v.Trim() |> Some
+        else 
+            None
+
+    /// <summary>
+    /// Returns the number of key/value pairs contained in the given Dictionary.
+    /// </summary>
+    let length (dict : Dictionary<'K,'V>) = 
+        dict.Count
+
+    /// <summary>
+    /// Applies an inner copy function to all values in a given Dictionary and returns a copy of the Dictionary.
+    /// </summary>
+    let copyRecursive (innerCopyF : 'V -> 'V) (dict : Dictionary<'K,'V>) =
+        let newDict = Dictionary<'K,'V>()
+        for kv in dict do
+            newDict.Add(kv.Key,innerCopyF kv.Value)
+        newDict
+
 
 //    /// <summary>Folds over the bindings in the dictionary </summary>
 //    /// <param name="folder">The function to update the state given the input key/value pairs.</param>
