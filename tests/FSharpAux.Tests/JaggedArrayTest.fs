@@ -32,6 +32,10 @@ let testJaggArr1_toIndexedArray_Equal =
     [|(0, 0, "I "); (0, 1, "am "); (0, 2, "Jesus!"); (1, 0, "No"); (1, 1, " you"); (1, 2, "are"); (1, 3, "not")|]
 let testJaggArr1_toIndexedArray_NotEqual = 
     [|(1, 0, "No"); (1, 1, " you"); (1, 2, "are"); (1, 3, "not"); (0, 0, "I "); (0, 1, "am "); (0, 2, "Jesus!")|]
+let testJaggArr2 = [|[|1;2;3|]; [|4;5;6|]|]
+let testJaggArr2_transposed = [|[|1;4|]; [|2;5|]; [|3;6|]|]
+let testJaggArr3 = [|[|1;2;3|]; [|4;5|]|]
+
 
 [<Tests>]
 let jaggedArrayTests =
@@ -60,6 +64,13 @@ let jaggedArrayTests =
                 Expect.notEqual (JaggedArray.init 3 7 (fun i j -> i * 2, j * 3)) testJaggArr1_init_NotEqual "JaggedArray.init did not return incorrect jagged array"
             )
         ]
+        testList "JaggedArray.transpose" [
+            testCase "returns correct jagged array" (fun _ ->
+                Expect.equal (JaggedArray.transpose testJaggArr2) testJaggArr2_transposed "JaggedArray.transpose did return incorrect jagged array"
+            )
+            testCase "throws exception when lengths are unequal" <| fun _ ->
+                Expect.throws (fun _ -> JaggedArray.transpose testJaggArr3 |> ignore) "JaggedArray.transpose did not throw when lengths are unequal"
+        ]
     ]
 
 
@@ -73,6 +84,10 @@ let testJaggList1_init_NotEqual = [
     [(0, 0); (0, 3); (0, 6); (0, 9); (0, 12); (0, 15); (0, 18)];
     [(4, 0); (4, 3); (4, 6); (4, 9); (4, 12); (4, 15); (4, 18)]
 ]
+let testJaggList2 = [[1;2;3]; [4;5;6]]
+let testJaggList2_transposed = [[1;4]; [2;5]; [3;6]]
+let testJaggList3 = [[1;2;3]; [4;5]]
+
 
 [<Tests>]
 let jaggedListTests =
@@ -83,6 +98,14 @@ let jaggedListTests =
             )
             testCase "does not return incorrect list" (fun _ ->
                 Expect.notEqual (JaggedList.init 3 7 (fun i j -> i * 2, j * 3)) testJaggList1_init_NotEqual "JaggedList.init did not return incorrect list"
+            )
+        ]
+        testList "JaggedList.transpose" [
+            testCase "returns correct jagged list" (fun _ ->
+                Expect.equal (JaggedList.transpose testJaggList2) testJaggList2_transposed "JaggedList.transpose did not return correct list"
+            )
+            testCase "throws exception when lengths are unequal" (fun _ ->
+                Expect.throws (fun _ -> JaggedList.transpose testJaggList3 |> ignore) "JaggedList.transpose did not throw when lengths are unequal"
             )
         ]
     ]

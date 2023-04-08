@@ -5,6 +5,8 @@ module JaggedArray =
 
     /// Transposes a jagged array.
     let transpose (arr: 'T [][]) =
+        if arr |> Array.exists (fun t -> t.Length <> arr[0].Length) then
+            failwith "Elements in input array have different lengths."
         if arr.Length > 0 then 
             let colSize = arr.[0].Length
             Array.init (colSize) (fun rowI ->  Array.init (arr.Length) (fun colI -> (arr.[colI].[rowI])))
@@ -226,6 +228,8 @@ module JaggedList =
 
     // Transposes a jagged list.
     let transpose (data: 'T list list) =
+        if data |> List.exists (fun t -> t.Length <> data.Head.Length) then
+            failwith "Elements in input list have different lengths."
         let rec transpose = function
             | (_::_)::_ as M -> List.map List.head M :: transpose (List.map List.tail M)
             | _ -> []
