@@ -10,7 +10,7 @@ open BlackFox.Fake
 open Fake.Core
 open Fake.IO.Globbing.Operators
 
-let pack = BuildTask.create "Pack" [clean; build; runTests] {
+let pack = BuildTask.create "Pack" [clean; build; runTests; runTestsFable] {
     if promptYesNo (sprintf "creating stable package with version %s OK?" stableVersionTag ) 
         then
             !! "src/**/*.*proj"
@@ -51,7 +51,7 @@ let pack = BuildTask.create "Pack" [clean; build; runTests] {
     else failwith "aborted"
 }
 
-let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean; build; runTests] {
+let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean; build; runTests; runTestsFable] {
     if promptYesNo (sprintf "package tag will be %s OK?" prereleaseTag )
         then 
             !! "src/**/*.*proj"
