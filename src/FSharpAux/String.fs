@@ -38,7 +38,7 @@ module String =
 
     let isNewline c = c = '\r' || c = '\n'
             
-    /// Returns a sequence of strings split by the predicate    
+    /// Returns a sequence of strings split by the predicate
     let splitBy (isDelimiter:char -> bool) (str:string) = 
         seq{
             let result = new Text.StringBuilder()
@@ -47,7 +47,7 @@ module String =
                     result.Append char |> ignore
                 else if result.Length > 0 then 
                     yield result.ToString()
-                    result.Length <- 0
+                    result.Clear() |> ignore
 
             // yield the last accumulated value if one exists
             if result.Length > 0 then yield result.ToString()
