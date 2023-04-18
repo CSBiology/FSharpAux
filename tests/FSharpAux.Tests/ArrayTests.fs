@@ -1,28 +1,31 @@
 ﻿module ArrayTests
 
 open FSharpAux
-open Expecto 
+#if FABLE_COMPILER
+open Fable.Mocha
+#else
+open Expecto
+#endif
 
-let testArray1                          = [|1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23|]
-let testArray2                          = [|3; 3; 2; 4; 2; 1|]
-let testArray3                          = [|6; 6; 2; 4; 2; 8|]
+let private testArray1                          = [|1337; 14; 23; 23; 69; 1; 2; 3; 1000; 9001; 23|]
+let private testArray2                          = [|3; 3; 2; 4; 2; 1|]
+let private testArray3                          = [|6; 6; 2; 4; 2; 8|]
 
-let testArray1_filteri_Equal            = [|14; 23; 23; 69|]
-let testArray1_filteri_NotEqual         = [|1337; 14; 23;|]
-let testArray1_choosei_Equal            = [|14.; 23.; 23.; 69.|]
-let testArray1_choosei_NotEqual         = [|1337.; 14.; 23.;|]
-let testArray1_findIndices_Equal        = [|1; 2; 3; 4; 5; 6; 7; 10|]
-let testArray1_findIndices_NotEqual     = [|5; 6; 7; 10|]
-let testArray1_findIndicesBack_Equal    = [|10; 7; 6; 5; 4; 3; 2; 1|]
-let testArray1_findIndicesBack_NotEqual = [|5; 6; 7; 10|]
-let testArray1_takeNth_Equal            = [|23; 1; 1000|]
-let testArray1_takeNth_NotEqual         = [|5; 6; 7; 10|]
-let testArray1_skipNth_Equal            = [|1337; 14; 23; 69; 2; 3; 9001; 23|]
-let testArray1_skipNth_NotEqual         = [|5; 6; 7; 10|]
-let testArray1_groupWhen_Equal          = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001|]; [|23|]|]
-let testArray1_groupWhen_NotEqual       = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001; 23|]|]
+let private testArray1_filteri_Equal            = [|14; 23; 23; 69|]
+let private testArray1_filteri_NotEqual         = [|1337; 14; 23;|]
+let private testArray1_choosei_Equal            = [|14.; 23.; 23.; 69.|]
+let private testArray1_choosei_NotEqual         = [|1337.; 14.; 23.;|]
+let private testArray1_findIndices_Equal        = [|1; 2; 3; 4; 5; 6; 7; 10|]
+let private testArray1_findIndices_NotEqual     = [|5; 6; 7; 10|]
+let private testArray1_findIndicesBack_Equal    = [|10; 7; 6; 5; 4; 3; 2; 1|]
+let private testArray1_findIndicesBack_NotEqual = [|5; 6; 7; 10|]
+let private testArray1_takeNth_Equal            = [|23; 1; 1000|]
+let private testArray1_takeNth_NotEqual         = [|5; 6; 7; 10|]
+let private testArray1_skipNth_Equal            = [|1337; 14; 23; 69; 2; 3; 9001; 23|]
+let private testArray1_skipNth_NotEqual         = [|5; 6; 7; 10|]
+let private testArray1_groupWhen_Equal          = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001|]; [|23|]|]
+let private testArray1_groupWhen_NotEqual       = [|[|1337; 14|]; [|23|]; [|23|]; [|69|]; [|1; 2|]; [|3; 1000|]; [|9001; 23|]|]
 
-[<Tests>]
 let arrayTests =
     testList "ArrayTests" [
         testList "Array.filteri" [
@@ -113,6 +116,8 @@ let arrayTests =
                 Expect.equal (Array.intersect testArray2 testArray3) [|2; 4|] "Array.intersect did not return correct array"
             )
         ]
+        #if FABLE_COMPILER
+        #else
         testList "Array.outersect" [
             testCase "returns correct array, case1: [||]" (fun _ ->
                 Expect.equal (Array.outersect Array.empty Array.empty) [||] "Array.outersect did not return empty array"
@@ -127,4 +132,5 @@ let arrayTests =
                 Expect.equal (Array.outersect testArray2 testArray3) [|3; 1; 6; 8|] "Array.outersect did return false array"
             )
         ]
+        #endif
     ]

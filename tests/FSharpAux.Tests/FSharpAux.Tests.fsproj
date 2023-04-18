@@ -18,15 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Deedle" Version="2.4.1" />
-    <PackageReference Include="FSharp.Data" Version="4.2.0" />
+	<PackageReference Include="Fable.Mocha" Version="2.16.0" />
     <PackageReference Include="Expecto" Version="9.*" />
-    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\FSharpAux\FSharpAux.fsproj" />
-    <ProjectReference Include="..\..\src\FSharpAux.IO\FSharpAux.IO.fsproj" />
   </ItemGroup>
 </Project>
