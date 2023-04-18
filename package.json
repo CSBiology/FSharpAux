@@ -1,0 +1,20 @@
+{
+  "name": "fsharpaux",
+  "version": "1.1.0",
+  "description": "Extensions, auxiliary functions and data structures for the F# programming language",
+  "type": "module",
+  "scripts": {
+    "pretest": "dotnet fable tests/FSharpAux.Tests -o dist/tests",
+    "test": "mocha dist/tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSBiology/FSharpAux.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CSBiology/FSharpAux/issues"
+  },
+  "homepage": "https://github.com/CSBiology/FSharpAux#readme"
+}
