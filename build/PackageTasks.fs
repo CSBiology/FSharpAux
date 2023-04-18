@@ -29,6 +29,25 @@ let pack = BuildTask.create "Pack" [clean; build; runTests] {
                         OutputPath = Some pkgDir
                 }
             ))
+            // This is used to create FSharpAux.Fable with the Fable subfolder as explained here:
+            // https://fable.io/docs/your-fable-project/author-a-fable-library.html
+            "src/FSharpAux/FSharpAux.fsproj"
+            |> Fake.DotNet.DotNet.pack (fun p ->
+                let msBuildParams =
+                    {p.MSBuildParams with 
+                        Properties = ([
+                            "PackageId", "FSharpAux.Fable"
+                            "Version",stableVersionTag
+                            "PackageReleaseNotes",  (release.Notes |> String.concat "\r\n")
+                        ] @ p.MSBuildParams.Properties)
+                    }
+                let test = p
+                {
+                    p with 
+                        MSBuildParams = msBuildParams
+                        OutputPath = Some pkgDir
+                }
+            )
     else failwith "aborted"
 }
 
@@ -52,6 +71,25 @@ let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean;
                                 MSBuildParams = msBuildParams
                         }
             ))
+            // This is used to create ISADotNet.Fable with the Fable subfolder as explained here:
+            // https://fable.io/docs/your-fable-project/author-a-fable-library.html
+            "src/FSharpAux/FSharpAux.fsproj"
+            |> Fake.DotNet.DotNet.pack (fun p ->
+                let msBuildParams =
+                    {p.MSBuildParams with 
+                        Properties = ([
+                            "PackageId", "FSharpAux.Fable"
+                            "Version", prereleaseTag
+                            "PackageReleaseNotes",  (release.Notes |> String.toLines)
+                        ] @ p.MSBuildParams.Properties)
+                    }
+                {
+                    p with 
+                        VersionSuffix = Some prereleaseSuffix
+                        OutputPath = Some pkgDir
+                        MSBuildParams = msBuildParams
+                }
+            )
     else
         failwith "aborted"
 }

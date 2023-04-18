@@ -3,8 +3,6 @@ namespace FSharpAux
 open System
 open System.Collections
 open System.Collections.Generic
-open System.Runtime.InteropServices
-open System.Diagnostics.Contracts
 
 // ArrayDivvy
 // ArraySegment

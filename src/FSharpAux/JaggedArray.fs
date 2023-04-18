@@ -39,8 +39,13 @@ module JaggedArray =
         arr
         |> Seq.map (fun s -> s |> Array.toSeq) 
 
+    #if FABLE_COMPILER
+    #else
+
     /// Creates a jagged array from a 2D array.
     let ofArray2D (arr : 'T [,]) = Array2D.toJaggedArray arr
+
+    #endif
 
     /// Builds a new jagged array whose inner arrays are the results of applying the given function to each of their elements.
     let map (mapping: 'T -> 'U) (jArray : 'T[][]) =

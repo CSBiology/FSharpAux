@@ -65,6 +65,8 @@ module Array =
         if arrn = 0 then invalidArg "arr" "the input array is empty"
         else scanSubRight f arr 0 (arrn - 2) arr.[arrn - 1]
 
+    #if FABLE_COMPILER
+    #else
     
     /// Stacks an array of arrays horizontally.
     let stackHorizontal (arrs : array<array<'t>>) =
@@ -72,7 +74,7 @@ module Array =
         let aMinlength = alength |> Array.min
         let aMaxlength = alength |> Array.max
         if (aMinlength = aMaxlength) then        
-            Array2D.init arrs.Length  aMinlength (fun i ii -> arrs.[i].[ii])
+            Array2D.init arrs.Length aMinlength (fun i ii -> arrs.[i].[ii])
         else
             invalidArg "arr" "the input arrays are of different length"
 
@@ -85,8 +87,8 @@ module Array =
             Array2D.init aMinlength arrs.Length (fun i ii -> arrs.[ii].[i])
         else
         invalidArg "arr" "the input arrays are of different length"
-  
-  
+    #endif
+
     /// Shuffels the input array (method: Fisher-Yates). Define the random number generator outside of a potential loop.
     let shuffleFisherYates (rnd : System.Random) (arr : _[]) =
         let tmpArr = Array.copy arr
@@ -363,12 +365,15 @@ module Array =
         hsSa.IntersectWith largerArr
         Array.ofSeq hsSa
 
+    #if FABLE_COMPILER
+    #else
     /// Computes the outersection (known as "symmetric difference" in mathematics) of two arrays.
     let outersect arr1 (arr2 : 'T []) =
         let hsS1 = HashSet<'T>(HashIdentity.Structural<'T>)
         arr1 |> Array.iter (hsS1.Add >> ignore)
         hsS1.SymmetricExceptWith arr2
         Array.ofSeq hsS1
+    #endif
 
 // ########################################
 // Static extensions

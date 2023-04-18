@@ -167,13 +167,16 @@ module String =
         | (true,guid) -> guid
         | _ -> defaultValue
 
+    #if FABLE_COMPILER
+    #else
+
     /// Try to parse char else return default value    
     let tryParseCharDefault defaultValue (str:string) =
         match Char.TryParse(str) with
         | (true,c) -> c
         | _ -> defaultValue
 
-
+    #endif
 
     /// Checks whether the string is a boolean value
     let isBool (s:string) =

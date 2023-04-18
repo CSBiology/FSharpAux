@@ -21,8 +21,13 @@ module Seq =
     let initRepeatValues length values =
         Seq.initInfinite (fun _ -> values) |> Seq.take length |> Seq.concat
 
+
+    #if FABLE_COMPILER
+    #else
     /// Sorts sequence in descending order.
+    [<System.Obsolete("Use Seq.sortByDescending instead")>]
     let sortByDesc f s = System.Linq.Enumerable.OrderByDescending(s, new System.Func<'a,'b>(f))
+    #endif
 
     /// Iterates over the elements of the input sequence and groups adjacent
     /// elements. A new group is started after the specified predicate holds 
@@ -113,6 +118,9 @@ module Seq =
         hsSs.IntersectWith largerSeq
         hsSs
 
+    #if FABLE_COMPILER
+    #else
+
     /// Computes the outersection (known as "symmetric difference" in mathematics) of two sequences.
     let outersect seq1 (seq2 : seq<'T>) : seq<'T> = 
         let hsS1 = HashSet<'T>(HashIdentity.Structural<'T>)
@@ -120,6 +128,7 @@ module Seq =
         hsS1.SymmetricExceptWith seq2
         hsS1
 
+    #endif
 
 // // Without continuation passing
 
