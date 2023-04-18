@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/CSBiology/FSharpAux/issues"
   },
-  "homepage": "https://github.com/CSBiology/FSharpAux#readme"
+  "homepage": "https://github.com/CSBiology/FSharpAux#readme",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
 }
