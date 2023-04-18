@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.x.x
+    - name: Restore fable
+      run: dotnet tool restore
     - name: Setup Node.js environment
       uses: actions/setup-node@v3
       with:
@@ -42,6 +44,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.x.x
+    - name: Restore fable
+      run: dotnet tool restore
     - name: Setup Node.js environment
       uses: actions/setup-node@v3
       with:
