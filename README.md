@@ -4,6 +4,19 @@ Extensions, auxiliary functions and data structures for the F# programming langu
 
 ## Develop
 
+### Requirements
+
+- .Net 6.0
+- node.js ~16 (higher might work) [only for fable testing]
+- npm ~8 (higher might work) [only for fable testing]
+
+### Setup
+
+1. `dotnet tool restore`
+1. `npm install`
+
+### Build Tasks
+
 Build tasks are contained in ./build/build.fsproj.
 
 To build the project, run either `./build.cmd` or `./build.sh`
