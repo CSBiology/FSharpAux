@@ -41,9 +41,14 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "build", "build\build.fsproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54AFBE98-5A25-4CBD-A31A-B210B6277C04}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpAux.Core", "src\FSharpAux.Core\FSharpAux.Core.fsproj", "{7C56ACC3-6E09-48AB-85A5-3FAC0147205B}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpAux.Core", "src\FSharpAux.Core\FSharpAux.Core.fsproj", "{7C56ACC3-6E09-48AB-85A5-3FAC0147205B}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpAux.Core.Tests", "tests\FSharpAux.Core.Tests\FSharpAux.Core.Tests.fsproj", "{3097A2A1-D467-4637-B3F5-151D496226B1}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharpAux.Core.Tests", "tests\FSharpAux.Core.Tests\FSharpAux.Core.Tests.fsproj", "{3097A2A1-D467-4637-B3F5-151D496226B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FSharpAux.Mocha.Tests", "FSharpAux.Mocha.Tests", "{C3802614-2C64-4A07-B416-9863FBABE347}"
+	ProjectSection(SolutionItems) = preProject
+		tests\FSharpAux.Mocha.Tests\Main.js = tests\FSharpAux.Mocha.Tests\Main.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +95,7 @@ Global
 		{55D331D3-DE09-41B0-ADF7-46A27F167172} = {679D5DF9-7F8C-4A7D-970E-B5CC9989958A}
 		{7C56ACC3-6E09-48AB-85A5-3FAC0147205B} = {54AFBE98-5A25-4CBD-A31A-B210B6277C04}
 		{3097A2A1-D467-4637-B3F5-151D496226B1} = {679D5DF9-7F8C-4A7D-970E-B5CC9989958A}
+		{C3802614-2C64-4A07-B416-9863FBABE347} = {679D5DF9-7F8C-4A7D-970E-B5CC9989958A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {158906BE-AD71-4CE0-ABD2-68C41969AAB5}

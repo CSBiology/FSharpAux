@@ -22,8 +22,7 @@ let runTestsDotnet = BuildTask.create "runTestsDotnet" [clean; build] {
 
 module private FableHelper =
 
-    let FableTestRootPath = "tests/FSharpAux.Core.Tests"
-    let FableTestFolder = "dist/tests"
+    let FableTestPath = "tests/FSharpAux.Mocha.Tests/fable"
 
     open Fake.Core
 
@@ -51,7 +50,8 @@ module private FableHelper =
         |> ignore
     
 let cleanFable = BuildTask.create "cleanFable" [clean; build] {
-    FableHelper.run FableHelper.dotnet "fable clean --yes" FableHelper.FableTestRootPath
+    System.IO.Directory.CreateDirectory FableHelper.FableTestPath |> ignore
+    FableHelper.run FableHelper.dotnet "fable clean --yes" FableHelper.FableTestPath
 }
 
 /// runs `npm test` in root. 
