@@ -10,6 +10,9 @@ let testProjects =
         "tests/FSharpAux.IO.Tests/FSharpAux.IO.Tests.fsproj"
     ]
 
+let fableProject = "src/FSharpAux.Core/FSharpAux.Core.fsproj"
+let fableProjectName = "FSharpAux.Fable"
+
 let solutionFile  = $"{project}.sln"
 
 let configuration = "Release"

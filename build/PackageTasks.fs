@@ -10,7 +10,7 @@ open BlackFox.Fake
 open Fake.Core
 open Fake.IO.Globbing.Operators
 
-let pack = BuildTask.create "Pack" [clean; build; runTests; runTestsFable] {
+let pack = BuildTask.create "Pack" [clean; build; runTests] {
     if promptYesNo (sprintf "creating stable package with version %s OK?" stableVersionTag ) 
         then
             !! "src/**/*.*proj"
@@ -31,17 +31,16 @@ let pack = BuildTask.create "Pack" [clean; build; runTests; runTestsFable] {
             ))
             // This is used to create FSharpAux.Fable with the Fable subfolder as explained here:
             // https://fable.io/docs/your-fable-project/author-a-fable-library.html
-            "src/FSharpAux/FSharpAux.fsproj"
+            fableProject
             |> Fake.DotNet.DotNet.pack (fun p ->
                 let msBuildParams =
                     {p.MSBuildParams with 
                         Properties = ([
-                            "PackageId", "FSharpAux.Fable"
+                            "PackageId", fableProjectName
                             "Version",stableVersionTag
                             "PackageReleaseNotes",  (release.Notes |> String.concat "\r\n")
                         ] @ p.MSBuildParams.Properties)
                     }
-                let test = p
                 {
                     p with 
                         MSBuildParams = msBuildParams
@@ -51,7 +50,7 @@ let pack = BuildTask.create "Pack" [clean; build; runTests; runTestsFable] {
     else failwith "aborted"
 }
 
-let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean; build; runTests; runTestsFable] {
+let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean; build; runTests] {
     if promptYesNo (sprintf "package tag will be %s OK?" prereleaseTag )
         then 
             !! "src/**/*.*proj"
@@ -73,12 +72,12 @@ let packPrerelease = BuildTask.create "PackPrerelease" [setPrereleaseTag; clean;
             ))
             // This is used to create ISADotNet.Fable with the Fable subfolder as explained here:
             // https://fable.io/docs/your-fable-project/author-a-fable-library.html
-            "src/FSharpAux/FSharpAux.fsproj"
+            fableProject
             |> Fake.DotNet.DotNet.pack (fun p ->
                 let msBuildParams =
                     {p.MSBuildParams with 
                         Properties = ([
-                            "PackageId", "FSharpAux.Fable"
+                            "PackageId", fableProjectName
                             "Version", prereleaseTag
                             "PackageReleaseNotes",  (release.Notes |> String.toLines)
                         ] @ p.MSBuildParams.Properties)

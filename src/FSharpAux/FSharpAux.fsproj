@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>FSharpAux.Core</RootNamespace>
-    <AssemblyName>FSharpAux.Core</AssemblyName>
+    <RootNamespace>FSharpAux</RootNamespace>
+    <AssemblyName>FSharpAux</AssemblyName>
     <Name>FSharpAux</Name>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -24,7 +24,6 @@
     <Compile Include="PSeq.fs" />
     <Compile Include="Seq.fs" />
     <Compile Include="String.fs" />
-	
   </ItemGroup>
 	
   <ItemGroup>

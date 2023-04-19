@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>FSharpAux</RootNamespace>
-    <AssemblyName>FSharpAux</AssemblyName>
-    <Name>FSharpAux</Name>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
@@ -20,7 +17,6 @@
     <Compile Include="Colors.fs" />
     <Compile Include="AdjacencyGraph.fs" />
     <Compile Include="Array.fs" />
-    <Compile Include="Array2D.fs" />
     <Compile Include="ArrayDivvy.fs" />
     <Compile Include="BidirectionalDictionary.fs" />
     <Compile Include="DateTime.fs" />
@@ -40,6 +36,10 @@
     <Compile Include="Set.fs" />
     <Compile Include="String.fs" />
     <Compile Include="Tree.fs" />
-	
+  </ItemGroup>
+
+  <!-- Required for Fable compatibility -->
+  <ItemGroup Condition=" '$(PackageId)' == 'FSharpAux.Fable' ">
+  	<Content Include="*.fsproj; **\*.fs; **\*.fsi" PackagePath="fable\" />
   </ItemGroup>
 </Project>

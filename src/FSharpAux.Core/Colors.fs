@@ -1,4 +1,5 @@
 ﻿namespace FSharpAux
+
 //http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 /// Represents an ARGB (alpha, red, green, blue) color
 module Colors =
@@ -62,7 +63,6 @@ module Colors =
         | G g -> 2.0 + float (c.B - c. R) / float (g - min)
         | B b -> 4.0 + float (c.R - c.G) / float (b - min)
         | _   -> failwithf "" // can't be
-
 
     /// Gets the hue-saturation-brightness (HSB) saturation value for this Color structure.
     let getSaturation col =

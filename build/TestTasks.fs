@@ -6,7 +6,7 @@ open Fake.DotNet
 open ProjectInfo
 open BasicTasks
 
-let runTests = BuildTask.create "RunTests" [clean; build] {
+let runTestsDotnet = BuildTask.create "runTestsDotnet" [clean; build] {
     testProjects
     |> Seq.iter (fun testProject ->
         Fake.DotNet.DotNet.test(fun testParams ->
@@ -22,12 +22,17 @@ let runTests = BuildTask.create "RunTests" [clean; build] {
 
 module private FableHelper =
 
+    let FableTestRootPath = "tests/FSharpAux.Core.Tests"
+    let FableTestFolder = "dist/tests"
+
     open Fake.Core
 
     let createProcess exe arg dir =
         CreateProcess.fromRawCommandLine exe arg
         |> CreateProcess.withWorkingDirectory dir
         |> CreateProcess.ensureExitCode
+
+    let dotnet = createProcess "dotnet"
 
     let npm =
         let npmPath =
@@ -45,9 +50,19 @@ module private FableHelper =
         |> Proc.run
         |> ignore
     
+let cleanFable = BuildTask.create "cleanFable" [clean; build] {
+    FableHelper.run FableHelper.dotnet "fable clean --yes" FableHelper.FableTestRootPath
+}
 
-let runTestsFable = BuildTask.create "RunTestsFable" [clean; build] {
+/// runs `npm test` in root. 
+/// npm test consists of `test` and `pretest`
+/// check package.json in root for behavior
+let runTestsFable = BuildTask.create "RunTestsFable" [clean; cleanFable; build] {
     FableHelper.run FableHelper.npm "test" ""
+}
+
+let runTests = BuildTask.create "RunTests" [clean; build; runTestsFable; runTestsDotnet] { 
+    ()
 }
 
 // to do: use this once we have actual tests
