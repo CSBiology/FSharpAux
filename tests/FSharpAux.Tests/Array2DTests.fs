@@ -1,8 +1,5 @@
 ﻿module Array2DTests
 
-#if FABLE_COMPILER
-#else
-
 open FSharpAux
 open Expecto 
 
@@ -166,4 +163,3 @@ let array2dTests =
             )
         ]
     ]
-#endif
