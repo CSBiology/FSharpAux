@@ -24,8 +24,8 @@ let private testSeq5_groupWhen_Equal            = seq {seq {3}; seq {3; 2; 4; 2}
 let private testSeq5_groupWhen_NotEqual         = seq {seq {3}; seq {3; 2; 4; 2; 1}}
 
 // helper functions
-let list s = Seq.toList s
-let list2 s = Seq.map (Seq.toList) s |> Seq.toList
+let private list s = Seq.toList s
+let private list2 s = Seq.map (Seq.toList) s |> Seq.toList
 
 let seqTests =
     testList "SeqTests" [

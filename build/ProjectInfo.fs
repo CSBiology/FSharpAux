@@ -6,6 +6,7 @@ let project = "FSharpAux"
 
 let testProjects = 
     [
+        "tests/FSharpAux.Core.Tests/FSharpAux.Core.Tests.fsproj"
         "tests/FSharpAux.Tests/FSharpAux.Tests.fsproj"
         "tests/FSharpAux.IO.Tests/FSharpAux.IO.Tests.fsproj"
     ]

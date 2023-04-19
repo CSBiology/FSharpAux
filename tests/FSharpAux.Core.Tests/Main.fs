@@ -1,4 +1,4 @@
-﻿module Plotly.NET.Tests
+﻿module Tests
 
 #if FABLE_COMPILER
 open Fable.Mocha
