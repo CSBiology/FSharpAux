@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>FSharpAux</RootNamespace>
+    <AssemblyName>FSharpAux</AssemblyName>
+    <Name>FSharpAux</Name>
+    <OutputType>Library</OutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Hex.fs" />
+    <Compile Include="Colors.fs" />
+    <Compile Include="AdjacencyGraph.fs" />
+    <Compile Include="Array.fs" />
+    <Compile Include="Array2D.fs" />
+    <Compile Include="ArrayDivvy.fs" />
+    <Compile Include="BidirectionalDictionary.fs" />
+    <Compile Include="DateTime.fs" />
+    <Compile Include="Dict.fs" />
+    <Compile Include="Dictionary.fs" />
+    <Compile Include="Guid.fs" />
+    <Compile Include="Interop.fs" />
+    <Compile Include="JaggedArray.fs" />
+    <Compile Include="KdTree.fs" />
+    <Compile Include="List.fs" />
+    <Compile Include="Map.fs" />
+    <Compile Include="Math.fs" />
+    <Compile Include="MultiMap.fs" />
+    <Compile Include="Regex.fs" />
+    <Compile Include="ResizeArray.fs" />
+    <Compile Include="Seq.fs" />
+    <Compile Include="Set.fs" />
+    <Compile Include="String.fs" />
+    <Compile Include="Tree.fs" />
+	
+  </ItemGroup>
+</Project>
