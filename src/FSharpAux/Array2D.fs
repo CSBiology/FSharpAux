@@ -1,10 +1,5 @@
 ﻿namespace FSharpAux
 
-// This module does not work in Fable.
-// To remove it from fable compilation the following syntax is used.
-// it ends below all code in this module with a #endif
-#if FABLE_COMPILER
-#else
 
 [<AutoOpen>]
 module Array2D =
@@ -360,5 +355,3 @@ module Array2D =
         |> Array.map Array.indexed
         |> Array.indexed
         |> Array.collect (fun (i,x : (int * 'T) []) -> Array.map (fun (j,y) -> i,j,y) x)
-
-#endif

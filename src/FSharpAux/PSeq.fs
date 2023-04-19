@@ -4,12 +4,6 @@ namespace FSharpAux
 // The code is take from Fsharp Powerpack project
 // Special thanks to the original authors under (http://fsharppowerpack.codeplex.com/)
 
-// This module does not work in Fable.
-// To remove it from fable compilation the following syntax is used.
-// it ends below all code in this module with a #endif
-#if FABLE_COMPILER
-#else
-
 open System
 open System.Linq
 open System.Threading
@@ -295,5 +289,3 @@ module PSeq =
     
     let withCancellation cancellationToken s = 
         toP(s).WithCancellation(cancellationToken)
-
-#endif

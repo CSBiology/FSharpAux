@@ -5,12 +5,6 @@
 // the time it takes to hash a string is proportional to its length). For this reason, it is wholly possible for a memoized function to have less performance than an unmemoized function. Always profile
 // code to determine whether optimization is necessary and whether memoization genuinely improves performance.
 
-// This module does not work in Fable.
-// To remove it from fable compilation the following syntax is used.
-// it ends below all code in this module with a #endif
-#if FABLE_COMPILER
-#else
-
 /// Memoization pattern
 module Memoization =
 
@@ -36,8 +30,6 @@ module Memoization =
                 dict.TryAdd(n, temp) |> ignore
                 temp
 
-        
-#endif
 
 //    // Example            
 //    let rec fib = memoize(fun n ->
