@@ -6,7 +6,9 @@
   "scripts": {
     "pretest": "dotnet fable tests/FSharpAux.Core.Tests -o tests/JsNativeTests/fable",
     "test": "mocha tests/JsNativeTests/fable",
-    "posttest": "mocha tests/JsNativeTests"
+    "posttest": "mocha tests/JsNativeTests",
+    "test:live": "mocha --watch --parallel tests/JsNativeTests/fable",
+    "testnative:live": "mocha --watch --parallel tests/JsNativeTests"
   },
   "repository": {
     "type": "git",

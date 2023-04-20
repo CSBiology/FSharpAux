@@ -196,11 +196,5 @@ docs/tools/FSharp.Formatting.svclog
 /pkg
 /dist/tests
 /node_modules
-/tests/JsNativeTests/fable/StringTests.js
-/tests/JsNativeTests/fable/src/FSharpAux.Core
-/tests/JsNativeTests/fable/SeqTests.js
-/tests/JsNativeTests/fable/MathTests.js
-/tests/JsNativeTests/fable/Main.js
-/tests/JsNativeTests/fable/ListTests.js
-/tests/JsNativeTests/fable/JaggedArrayTest.js
-/tests/JsNativeTests/fable/ArrayTests.js
+tests/JsNativeTests/fable/**/*.js
+tests/JsNativeTests/fable/**/*.js.map

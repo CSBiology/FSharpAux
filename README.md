@@ -56,3 +56,10 @@ Build tasks are contained in ./build/build.fsproj.
 To build the project, run either `./build.cmd` or `./build.sh`
 
 To pass build targets: `./build.cmd <tagetName>` or `./build.sh <tagetName>`
+
+#### Tests
+
+- You can run all tests with `./build.cmd watchtests` in watch mode.
+- Or you can run the tests once with `./build.cmd runtests`.
+- `build/TestTaks.fs` contains more buildtarget to test specific cases.
+

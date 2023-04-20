@@ -6,9 +6,9 @@ let project = "FSharpAux"
 
 let testProjects = 
     [
-        "tests/FSharpAux.Core.Tests/FSharpAux.Core.Tests.fsproj"
-        "tests/FSharpAux.Tests/FSharpAux.Tests.fsproj"
-        "tests/FSharpAux.IO.Tests/FSharpAux.IO.Tests.fsproj"
+        "tests/FSharpAux.Core.Tests"
+        "tests/FSharpAux.Tests"
+        "tests/FSharpAux.IO.Tests"
     ]
 
 let fableProject = "src/FSharpAux.Core/FSharpAux.Core.fsproj"
