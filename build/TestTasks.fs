@@ -22,7 +22,7 @@ let runTestsDotnet = BuildTask.create "runTestsDotnet" [clean; build] {
 
 module private FableHelper =
 
-    let FableTestPath = "tests/FSharpAux.Mocha.Tests/fable"
+    let FableTestPath = "tests/JsNativeTests/fable"
 
     open Fake.Core
 

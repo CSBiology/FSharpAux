@@ -4,9 +4,9 @@
   "description": "Extensions, auxiliary functions and data structures for the F# programming language",
   "type": "module",
   "scripts": {
-    "pretest": "dotnet fable tests/FSharpAux.Core.Tests -o tests/FSharpAux.Mocha.Tests/fable",
-    "test": "mocha tests/FSharpAux.Mocha.Tests/fable",
-    "posttest": "mocha tests/FSharpAux.Mocha.Tests"
+    "pretest": "dotnet fable tests/FSharpAux.Core.Tests -o tests/JsNativeTests/fable",
+    "test": "mocha tests/JsNativeTests/fable",
+    "posttest": "mocha tests/JsNativeTests"
   },
   "repository": {
     "type": "git",
