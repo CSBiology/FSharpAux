@@ -8,6 +8,13 @@ The documentation can be found [here.](http://csbiology.github.io/FSharpAux)
 
 The documentation for this library is automatically generated (using the F# Formatting) from *.fsx and *.md files in the docs folder. If you find a typo, please submit a pull request!
 
+## Nuget 
+
+| Package Name         | Nuget                                                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `FSharpAux.Core`      | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux.Core)](https://www.nuget.org/packages/FSharpAux.Core/) |
+| `FSharpAux`           | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux)](https://www.nuget.org/packages/FSharpAux/) |
+
 ## Develop
 
 ### ProjectDescription

@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>FSharpAux</RootNamespace>
     <AssemblyName>FSharpAux</AssemblyName>
     <Name>FSharpAux</Name>
-    <OutputType>Library</OutputType>
+  	<Authors>Kevin Schneider, Timo Mühlhaus, Oliver Maus, Kevin Frey, Jonathan Ott, David Zimmer, Benedikt Venn, Heinrich Lukas Weil</Authors>
+  	<Description>Extensions, auxiliary functions and data structures for the F# programming language.</Description>
+  	<Summary>Extensions, auxiliary functions and data structures for the F# programming language.</Summary>
+  	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+  	<PackageTags>F#;FSharp</PackageTags>
+  	<RepositoryUrl>https://github.com/CSBiology/FsSpreadsheet</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -12,6 +18,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <!-- Optional: Include PDB in the built .nupkg -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <OutputType>Library</OutputType>
+  	<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 	
   <ItemGroup>
