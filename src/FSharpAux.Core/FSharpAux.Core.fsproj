@@ -1,23 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-  	<TargetFramework>netstandard2.0</TargetFramework>
-  	<Authors>Kevin Schneider, Timo Mühlhaus, Oliver Maus, Kevin Frey, Jonathan Ott, David Zimmer, Benedikt Venn, Heinrich Lukas Weil</Authors>
-  	<Description>Extensions, auxiliary functions and data structures for the F# programming language.</Description>
-  	<Summary>Extensions, auxiliary functions and data structures for the F# programming language.</Summary>
-  	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-  	<PackageTags>F#;FSharp;fable;fable-library;fable-javascript</PackageTags>
-  	<RepositoryUrl>https://github.com/CSBiology/FsSpreadsheet</RepositoryUrl>
-  	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-  	<!-- Optional: Declare that the Repository URL can be published to NuSpec -->
-  	<PublishRepositoryUrl>true</PublishRepositoryUrl>
-  	<!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
-  	<EmbedUntrackedSources>true</EmbedUntrackedSources>
-  	<!-- Optional: Include PDB in the built .nupkg -->
-  	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  	<OutputType>Library</OutputType>
-  	<RepositoryType>git</RepositoryType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Kevin Schneider, Timo Mühlhaus, Oliver Maus, Kevin Frey, Jonathan Ott, David Zimmer, Benedikt Venn, Heinrich Lukas Weil</Authors>
+    <Description>Extensions, auxiliary functions and data structures for the F# programming language.</Description>
+    <Summary>Extensions, auxiliary functions and data structures for the F# programming language.</Summary>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>F#;FSharp;fable;fable-library;fable-javascript</PackageTags>
+    <RepositoryUrl>https://github.com/CSBiology/FsSpreadsheet</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <OutputType>Library</OutputType>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-	
+  
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Hex.fs" />
@@ -45,8 +47,12 @@
     <Compile Include="Tree.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
+
   <!-- Required for Fable compatibility -->
   <ItemGroup>
-  	<Content Include="*.fsproj; **\*.fs; **\*.fsi" PackagePath="fable\" />
+    <Content Include="*.fsproj; **\*.fs; **\*.fsi" PackagePath="fable\" />
   </ItemGroup>
 </Project>

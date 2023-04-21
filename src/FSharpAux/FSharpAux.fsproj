@@ -5,12 +5,12 @@
     <RootNamespace>FSharpAux</RootNamespace>
     <AssemblyName>FSharpAux</AssemblyName>
     <Name>FSharpAux</Name>
-  	<Authors>Kevin Schneider, Timo Mühlhaus, Oliver Maus, Kevin Frey, Jonathan Ott, David Zimmer, Benedikt Venn, Heinrich Lukas Weil</Authors>
-  	<Description>Extensions, auxiliary functions and data structures for the F# programming language.</Description>
-  	<Summary>Extensions, auxiliary functions and data structures for the F# programming language.</Summary>
-  	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-  	<PackageTags>F#;FSharp</PackageTags>
-  	<RepositoryUrl>https://github.com/CSBiology/FsSpreadsheet</RepositoryUrl>
+    <Authors>Kevin Schneider, Timo Mühlhaus, Oliver Maus, Kevin Frey, Jonathan Ott, David Zimmer, Benedikt Venn, Heinrich Lukas Weil</Authors>
+    <Description>Extensions, auxiliary functions and data structures for the F# programming language.</Description>
+    <Summary>Extensions, auxiliary functions and data structures for the F# programming language.</Summary>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>F#;FSharp</PackageTags>
+    <RepositoryUrl>https://github.com/CSBiology/FsSpreadsheet</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -19,9 +19,11 @@
     <!-- Optional: Include PDB in the built .nupkg -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <OutputType>Library</OutputType>
-  	<RepositoryType>git</RepositoryType>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-	
+  
   <ItemGroup>
     <Compile Include="Array.fs" />
     <Compile Include="Array2D.fs" />
@@ -33,8 +35,9 @@
     <Compile Include="Seq.fs" />
     <Compile Include="String.fs" />
   </ItemGroup>
-	
+  
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
     <ProjectReference Include="..\FSharpAux.Core\FSharpAux.Core.fsproj" />
   </ItemGroup>
 </Project>

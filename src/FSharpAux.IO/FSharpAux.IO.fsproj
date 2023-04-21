@@ -12,6 +12,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <!-- Optional: Include PDB in the built .nupkg -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -21,6 +23,7 @@
     <Compile Include="SeqIO.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
     <ProjectReference Include="..\FSharpAux\FSharpAux.fsproj" />
   </ItemGroup>
 </Project>
