@@ -118,7 +118,7 @@ module RunTests =
     /// runs `npm test` in root. 
     /// npm test consists of `test` and `pretest`
     /// check package.json in root for behavior
-    let runTestsFable = BuildTask.create "RunTestsFable" [clean; cleanFable; build] {
+    let runTestsFable = BuildTask.create "runTestsFable" [clean; cleanFable; build] {
         run npm "test" ""
     }
 
