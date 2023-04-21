@@ -118,7 +118,7 @@ module RunTests =
     /// runs `npm test` in root. 
     /// npm test consists of `test` and `pretest`
     /// check package.json in root for behavior
-    let runTestsFable = BuildTask.create "runTestsFable" [clean; cleanFable; build] {
+    let runTestsJs = BuildTask.create "runTestsJS" [clean; cleanFable; build] {
         run npm "test" ""
     }
 
@@ -136,7 +136,7 @@ module RunTests =
         )
     }
 
-let runTests = BuildTask.create "RunTests" [clean; build; RunTests.runTestsFable; RunTests.runTestsDotnet] { 
+let runTests = BuildTask.create "RunTests" [clean; build; RunTests.runTestsJs; RunTests.runTestsDotnet] { 
     ()
 }
 
@@ -167,7 +167,7 @@ module WatchTests =
         |> runParallel
     }
 
-    let watchJS = BuildTask.create "watchJS" [clean; build] {
+    let watchJS = BuildTask.create "watchTestsJS" [clean; build] {
         fableTestsProcesses
         |> runParallel
     }
