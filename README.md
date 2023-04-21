@@ -28,10 +28,8 @@ subgraph TestSuites
     M -- on transpiled files --> A
 end
 subgraph Packages
-    E("FSharpAux.Fable [includes Fable folder]")
-    F("FSharpAux.Core [.NET dll only]")
+    F("FSharpAux.Core [includes Fable folder]")
     G("FSharpAux")
-    A -- packages --> E
     A -- packages --> F
     B -- packages --> G
     F -- nuget dependency --- G
