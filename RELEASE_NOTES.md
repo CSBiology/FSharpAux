@@ -8,6 +8,38 @@ This is a major release that introduces a split of `FSharpAux` into 2 projects:
 
 Additional release notes:
 
+**FSharpAux**
+* Add functions for:
+    * String:
+    	* trim: Takes a string and returns its copy with all leading and trailing white-space characters removed.
+	* List:
+    	* intersect: Computes the intersection of two lists.
+		* outersect: Computes the outersection (known as "symmetric difference" in mathematics) of two lists.
+		* groupWhen: Iterates over elements of the input list and groups adjacent elements. A new group is started when the specified predicate holds about the element of the list (and at the beginning of the iteration).  
+For example:  
+    `List.groupWhen isOdd [3;3;2;4;1;2]` = `[[3]; [3; 2; 4]; [1; 2]]`
+	* Array:
+    	* intersect: Computes the intersection of two arrays.
+		* outersect: Computes the outersection (known as "symmetric difference" in mathematics) of two arrays.
+		* groupWhen: Iterates over elements of the input array and groups adjacent elements. A new group is started when the specified predicate holds about the element of the array (and at the beginning of the iteration).  
+For example:  
+    `Array.groupWhen isOdd [|3;3;2;4;1;2|]` = `[|[|3|]; [|3; 2; 4|]; [|1; 2|]|]`
+	* Seq:
+    	* intersect: Computes the intersection of two sequences.
+		* outersect: Computes the outersection (known as "symmetric difference" in mathematics) of two sequences.
+	* JaggedArray:
+    	* ofArray2D: Creates a jagged array from a 2D array.
+* Fix bugs:
+    * Seq:
+    	* groupWhen: Returned incorrect results when last item met condition. Last item was not grouped alone even if it should.
+	* String:
+    	* first: Returned `IndexOutOfRangeException` when applied to empty strings. Changed to `System.IndexOutOfRangeException`.
+    	* last: Returned `IndexOutOfRangeException` when applied to empty strings. Changed to `System.IndexOutOfRangeException`.
+	* Array:
+    	* groupWhen: Returned an empty array if the predicate never returned true.
+    	* contains: Removed. Is present in FSharp.Core library by now and therefore not needed anymore.
+* Some typo fixes
+
 
 #### 1.1.0 - Monday, November 8, 2021
 
