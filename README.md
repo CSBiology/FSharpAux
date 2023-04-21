@@ -10,10 +10,10 @@ The documentation for this library is automatically generated (using the F# Form
 
 ## Nuget 
 
-| Package Name         | Nuget                                                                                                                |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `FSharpAux.Core`      | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux.Core)](https://www.nuget.org/packages/FSharpAux.Core/) |
-| `FSharpAux`           | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux)](https://www.nuget.org/packages/FSharpAux/) |
+| Package Name         | Nuget                                                                                                                | Description |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------- |-------------|
+| `FSharpAux.Core`     | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux.Core)](https://www.nuget.org/packages/FSharpAux.Core/)       | fable compatible |
+| `FSharpAux`          | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux)](https://www.nuget.org/packages/FSharpAux/)                 | |
 
 ## Develop
 
