@@ -25,7 +25,7 @@ subgraph TestSuites
     M("Mocha [Native]<br>on transpiled fable js files")
     C -- tests --> A
     D -- tests --> B
-    M -- on transpiled files --> B
+    M -- on transpiled files --> A
 end
 subgraph Packages
     E("FSharpAux.Fable [includes Fable folder]")
