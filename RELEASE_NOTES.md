@@ -1,3 +1,14 @@
+#### 2.0.0 - Friday, April 21, 2023
+
+This is a major release that introduces a split of `FSharpAux` into 2 projects:
+- `FSharpAux.Core` contains all functionality that can be transpiled into javascript via Fable
+- `FSharpAux` depends on `FSharpAux.Core` and adds functionality that will only work in .NET environments.
+
+`FSharpAux.IO` is not affected by this change, as IO functionality cannot be transpiled anyways.
+
+Additional release notes:
+
+
 #### 1.1.0 - Monday, November 8, 2021
 
 **FSharpAux**
