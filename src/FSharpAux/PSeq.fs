@@ -289,4 +289,3 @@ module PSeq =
     
     let withCancellation cancellationToken s = 
         toP(s).WithCancellation(cancellationToken)
-

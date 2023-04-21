@@ -2,8 +2,8 @@
 namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("FSharpAux")>]
-[<assembly: AssemblyProductAttribute("FSharpAux")>]
+[<assembly: AssemblyTitleAttribute("FSharpAux.Core")>]
+[<assembly: AssemblyProductAttribute("FSharpAux.Core")>]
 [<assembly: AssemblyDescriptionAttribute("Auxiliary functions and data structures for F# programming language")>]
 [<assembly: AssemblyVersionAttribute("1.0.0")>]
 [<assembly: AssemblyFileVersionAttribute("1.0.0")>]
@@ -11,8 +11,8 @@ open System.Reflection
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] AssemblyTitle = "FSharpAux"
-    let [<Literal>] AssemblyProduct = "FSharpAux"
+    let [<Literal>] AssemblyTitle = "FSharpAux.Core"
+    let [<Literal>] AssemblyProduct = "FSharpAux.Core"
     let [<Literal>] AssemblyDescription = "Auxiliary functions and data structures for F# programming language"
     let [<Literal>] AssemblyVersion = "1.0.0"
     let [<Literal>] AssemblyFileVersion = "1.0.0"

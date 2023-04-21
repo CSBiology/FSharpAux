@@ -1,9 +1,12 @@
 ﻿module MathTests
 
 open FSharpAux
+#if FABLE_COMPILER
+open Fable.Mocha
+#else
 open Expecto
+#endif
 
-[<Tests>]
 let mathTests =
     testList "MathTests" [
         testList "Math.nthRoot" [

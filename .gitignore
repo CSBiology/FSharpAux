@@ -194,3 +194,7 @@ docs/content/release-notes.md
 docs/tools/FSharp.Formatting.svclog
 /docs
 /pkg
+/dist/tests
+/node_modules
+tests/JsNativeTests/fable/**/*.js
+tests/JsNativeTests/fable/**/*.js.map

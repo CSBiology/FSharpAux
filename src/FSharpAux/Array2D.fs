@@ -1,5 +1,6 @@
 ﻿namespace FSharpAux
 
+
 [<AutoOpen>]
 module Array2D =
 
@@ -354,4 +355,3 @@ module Array2D =
         |> Array.map Array.indexed
         |> Array.indexed
         |> Array.collect (fun (i,x : (int * 'T) []) -> Array.map (fun (j,y) -> i,j,y) x)
-

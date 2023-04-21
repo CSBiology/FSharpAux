@@ -3,13 +3,13 @@
 open FSharpAux
 open Expecto 
 
-let testArr2d1 =
+let private testArr2d1 =
     array2D [|
         [0 .. 9]
         [99; 66; 44; 11; 22; 33; 55; 0; 11; 0]
     |]
 
-let testArr2d_rotate90DegClockwise_Equal = 
+let private testArr2d_rotate90DegClockwise_Equal = 
     array2D
         [
             [99; 0]
@@ -23,7 +23,7 @@ let testArr2d_rotate90DegClockwise_Equal =
             [11; 8]
             [0; 9]
         ]
-let testArr2d_rotate90DegClockwise_NotEqual = 
+let private testArr2d_rotate90DegClockwise_NotEqual = 
     array2D
         [
             [33; 5]
@@ -37,7 +37,7 @@ let testArr2d_rotate90DegClockwise_NotEqual =
             [11; 3]
             [22; 4]
         ]
-let testArr2d_rotate90DegCounterClockwise_Equal = 
+let private testArr2d_rotate90DegCounterClockwise_Equal = 
     array2D
         [
             [9; 0]
@@ -51,7 +51,7 @@ let testArr2d_rotate90DegCounterClockwise_Equal =
             [1; 66]
             [0; 99]
         ]
-let testArr2d_rotate90DegCounterClockwise_NotEqual = 
+let private testArr2d_rotate90DegCounterClockwise_NotEqual = 
     array2D
         [
             [99; 0]
@@ -65,54 +65,53 @@ let testArr2d_rotate90DegCounterClockwise_NotEqual =
             [9; 0]
             [8; 11]
         ]
-let testArr2d_rotate180Deg_Equal = 
+let private testArr2d_rotate180Deg_Equal = 
     array2D
         [
             [0; 11; 0; 55; 33; 22; 11; 44; 66; 99]
             [9; 8; 7; 6; 5; 4; 3; 2; 1; 0]
         ]
-let testArr2d_rotate180Deg_NotEqual = 
+let private testArr2d_rotate180Deg_NotEqual = 
     array2D
         [
             [0; 11; 0; 55; 33; 4; 3; 2; 1; 0]
             [9; 8; 7; 6; 5; 22; 11; 44; 66; 99]
         ]
-let testArr2d_flipHorizontally_Equal = 
+let private testArr2d_flipHorizontally_Equal = 
     array2D
         [
             [99; 66; 44; 11; 22; 33; 55; 0; 11; 0]
             [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
         ]
-let testArr2d_flipHorizontally_NotEqual = 
+let private testArr2d_flipHorizontally_NotEqual = 
     array2D
         [
             [0; 1; 2; 3; 4; 5; 6; 7; 8; 9]
             [99; 66; 44; 11; 22; 33; 55; 0; 11; 0]
         ]
-let testArr2d_flipVertically_Equal = 
+let private testArr2d_flipVertically_Equal = 
     array2D
         [
             [9; 8; 7; 6; 5; 4; 3; 2; 1; 0]
             [0; 11; 0; 55; 33; 22; 11; 44; 66; 99]
         ]
-let testArr2d_flipVertically_NotEqual = 
+let private testArr2d_flipVertically_NotEqual = 
     array2D
         [
             [0; 11; 0; 55; 33; 22; 11; 44; 66; 99]
             [9; 8; 7; 6; 5; 4; 3; 2; 1; 0]
         ]
-let testArr2d_toIndexedArray_Equal = 
+let private testArr2d_toIndexedArray_Equal = 
     [|(0, 0, 0); (0, 1, 1); (0, 2, 2); (0, 3, 3); (0, 4, 4); (0, 5, 5);
     (0, 6, 6); (0, 7, 7); (0, 8, 8); (0, 9, 9); (1, 0, 99); (1, 1, 66);
     (1, 2, 44); (1, 3, 11); (1, 4, 22); (1, 5, 33); (1, 6, 55); (1, 7, 0);
     (1, 8, 11); (1, 9, 0)|]
-let testArr2d_toIndexedArray_NotEqual = 
+let private testArr2d_toIndexedArray_NotEqual = 
     [|(1, 2, 44); (1, 3, 11); (1, 4, 22); (1, 5, 33); (1, 6, 55); (1, 7, 0);
     (1, 8, 11); (1, 9, 0); (0, 0, 0); (0, 1, 1); (0, 2, 2); (0, 3, 3); (0, 4, 4); (0, 5, 5);
     (0, 6, 6); (0, 7, 7); (0, 8, 8); (0, 9, 9); (1, 0, 99); (1, 1, 66)|]
 
 
-[<Tests>]
 let array2dTests =
     testList "Array2DTests" [
         testList "Array2D.rotate90DegClockwise" [

@@ -6,9 +6,13 @@ let project = "FSharpAux"
 
 let testProjects = 
     [
-        "tests/FSharpAux.Tests/FSharpAux.Tests.fsproj"
-        "tests/FSharpAux.IO.Tests/FSharpAux.IO.Tests.fsproj"
+        "tests/FSharpAux.Core.Tests"
+        "tests/FSharpAux.Tests"
+        "tests/FSharpAux.IO.Tests"
     ]
+
+let fableProject = "src/FSharpAux.Core/FSharpAux.Core.fsproj"
+let fableProjectName = "FSharpAux.Fable"
 
 let solutionFile  = $"{project}.sln"
 

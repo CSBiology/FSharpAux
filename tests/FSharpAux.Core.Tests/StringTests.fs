@@ -1,9 +1,12 @@
 module StringTests
 
 open FSharpAux
-open Expecto 
+#if FABLE_COMPILER
+open Fable.Mocha
+#else
+open Expecto
+#endif
 
-[<Tests>]
 let stringTests =
     testList "StringTests" [
         testList "String.trim" [
