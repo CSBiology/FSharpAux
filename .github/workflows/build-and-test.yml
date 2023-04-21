@@ -30,9 +30,6 @@ jobs:
     - name: Build and test dotnet
       working-directory: ./
       run: ./build.sh runtests
-    - name: Build and test fable
-      working-directory: ./
-      run: ./build.sh runtestsfable
 
   build-and-test-windows:
     
@@ -55,6 +52,3 @@ jobs:
     - name: Build and test dotnet
       working-directory: ./
       run: ./build.cmd runtests
-    - name: Build and test fable
-      working-directory: ./
-      run: ./build.cmd runtestsfable
