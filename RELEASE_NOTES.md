@@ -3,6 +3,7 @@
 This is a major release that introduces a split of `FSharpAux` into 2 projects:
 - `FSharpAux.Core` contains all functionality that can be transpiled into javascript via Fable
 - `FSharpAux` depends on `FSharpAux.Core` and adds functionality that will only work in .NET environments.
+  The name is intentionally kept the same as the old package, since this is the package you'll want to use in .NET.
 
 `FSharpAux.IO` is not affected by this change, as IO functionality cannot be transpiled anyways.
 
