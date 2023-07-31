@@ -117,6 +117,20 @@ module Dictionary =
         | true -> Some v
         | false -> None
 
+    /// <summary>Performs a shallow copy of the input dictionary</summary>
+    /// <param name="table">The input dictionary.</param>
+    /// <returns>A shallow copy of the dictionary.</returns>
+    let copy (table: IDictionary<'k,'v>) = new Dictionary<'k,'v>(table)
+
+    /// <summary>Performs a deep copy of the input dictionary</summary>
+    /// <param name="table">The input dictionary.</param>
+    /// <returns>A deep copy of the dictionary.</returns>
+    let deepCopy (table: IDictionary<'k,'v> when 'v :> ICloneable) = 
+        let ret = new Dictionary<'k,'v>(table.Count)
+        for entry in table do
+            ret.Add(entry.Key, entry.Value.Clone() :?> 'v )    
+        ret
+
 
 //    /// <summary>Folds over the bindings in the dictionary </summary>
 //    /// <param name="folder">The function to update the state given the input key/value pairs.</param>
