@@ -55,9 +55,10 @@ module Dictionary =
     /// If a binding with the given key already exists in the input dictionary, the existing binding is replaced by the new binding in the result dictionary.</summary>
     /// <param name="key">The input key.</param>
     /// <returns>The dictionary with change in place.</returns>
-    let addOrUpdateInPlace key value (table:#IDictionary<_,_>) =
-        match table.ContainsKey(key) with
-        | true  -> table.[key] <- value
+    let addOrUpdateInPlace (key: 'k) (value: 'v) (table:#IDictionary<'k,'v>) =
+        let mutable v = value
+        match table.TryGetValue(key,&v) with
+        | true  -> v <- value
         | false -> table.Add(key,value)
         table
 
@@ -66,11 +67,11 @@ module Dictionary =
     /// <param name="f">The function to aggregate old value and new value.</param>
     /// <param name="key">The input key.</param>    
     /// <returns>The dictionary with change in place.</returns>
-    let addOrUpdateInPlaceBy f key value (table:#IDictionary<_,_>) =
-        match table.ContainsKey(key) with
+    let addOrUpdateInPlaceBy f (key: 'k) (value: 'v) (table:#IDictionary<'k,'v>) =
+        let mutable v = value
+        match table.TryGetValue(key,&v) with
         | true  -> 
-            let value' = table.[key]
-            table.[key] <- f value' value
+            v <- f v value
         | false -> table.Add(key,value)
         table
 
@@ -110,9 +111,10 @@ module Dictionary =
     /// of the dictionary and <c>None</c> if not.</summary>
     /// <param name="key">The input key.</param>
     /// <returns>The mapped value, or None if the key is not in the dictionary.</returns>
-    let tryFind key (table:#IDictionary<_,_>) =
-        match table.ContainsKey(key) with
-        | true -> Some table.[key]
+    let tryFind (key:'k) (table:#IDictionary<'k,'v>) =
+        let mutable v = Unchecked.defaultof<'v>
+        match table.TryGetValue(key,&v) with
+        | true -> Some v
         | false -> None
 
 
