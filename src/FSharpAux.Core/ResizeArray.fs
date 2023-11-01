@@ -401,3 +401,24 @@ module ResizeArray =
                 acc <- curr
                 accv <- currv
         accv
+
+    let inline sum (array: ResizeArray< ^T>) =
+        checkNonNull "array" array
+        let mutable acc = LanguagePrimitives.GenericZero< ^T>
+        for i = 0 to array.Count - 1 do
+            acc <- Checked.(+) acc array.[i]
+        acc
+
+    let inline sumBy ([<InlineIfLambda>] projection: 'T -> ^R) (array: ResizeArray<'T>) =
+        checkNonNull "array" array
+        let mutable acc = LanguagePrimitives.GenericZero< ^R>
+        for i = 0 to array.Count - 1 do
+            acc <- Checked.(+) acc (projection array.[i])
+        acc
+
+    let countIf (projection: 'T -> bool) (arr: ResizeArray<'T>): int =  
+        let mutable acc = 0
+        for i=0 to arr.Count - 1 do
+            if projection arr.[i] then
+                acc <- acc + 1
+        acc
