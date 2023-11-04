@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include="SeqTests.fs" />
     <Compile Include="ArrayTests.fs" />
+    <Compile Include="ResizeArrayTests.fs" />
     <Compile Include="Array2DTests.fs" />
     <Compile Include="JaggedArrayTest.fs" />
     <Compile Include="ListTests.fs" />
