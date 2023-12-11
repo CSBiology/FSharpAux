@@ -8,6 +8,7 @@ let all =
         [
             SeqTests.seqTests
             ArrayTests.arrayTests
+            ResizeArrayTests.resizeArrayTests
             Array2DTests.array2dTests
             JaggedArrayTest.main
             ListTests.listTests
