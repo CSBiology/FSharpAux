@@ -259,7 +259,7 @@ module SchemaReader =
                 let header    = convertHeaderLine separator header
 
                 Seq.unfold(fun line -> 
-                    if line = null then 
+                    if isNull line then 
                         reader.Close() 
                         None 
                     else 
@@ -276,7 +276,7 @@ module SchemaReader =
                     | true  ->
                         for i = 1 to skipLinesBeforeHeader do reader.ReadLine() |> ignore
                         let tmpLine = reader.ReadLine()
-                        if tmpLine = null then 
+                        if isNull tmpLine then 
                             reader.Close()
                             String.Empty
                         else

@@ -96,8 +96,8 @@ module FileIO =
     /// Detects whether the given path does not contains invalid characters.
     let isValidPath (path:string) =
         Path.GetInvalidPathChars()
-        |> Array.filter (fun char -> path.Contains(char.ToString()))
-        |> Array.isEmpty
+        |> Array.exists (fun char -> path.Contains(char.ToString()))
+        |> not
 
 
     /// Creates a directory if it does not exist.
@@ -140,7 +140,7 @@ module FileIO =
     let FileEnumerator (filePath) =
         use reader = File.OpenText(filePath)
         Seq.unfold(fun line ->
-            if line = null then
+            if isNull line then
                 reader.Close()
                 None
             else
@@ -206,11 +206,11 @@ module FileIO =
 
 
     /// Appends a text if the value is not null
-    let inline appendIfNotNull value s = appendIfTrue (value <> null) (sprintf "%s%A" s value)
+    let inline appendIfNotNull value s = appendIfTrue (not (isNull value)) (sprintf "%s%A" s value)
 
 
     /// Appends a text if the value is not null
-    let inline appendStringIfValueIsNotNull value = appendIfTrue (value <> null)
+    let inline appendStringIfValueIsNotNull value = appendIfTrue (not (isNull value))
 
 
     /// Appends a text if the value is not null or empty

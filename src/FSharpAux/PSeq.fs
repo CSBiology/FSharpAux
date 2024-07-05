@@ -130,7 +130,7 @@ module PSeq =
         ParallelEnumerable.ElementAt(toP(s), n)
 
     let map2 f s1 s2 = 
-        ParallelEnumerable.Zip(toP(s1),toP(s2), Func<_,_,_>(fun x y -> f x y))
+        ParallelEnumerable.Zip(toP(s1),toP(s2), Func<_,_,_>(f))
 
     let zip s1 s2 = 
         ParallelEnumerable.Zip(toP(s1),toP(s2), Func<_,_,_>(fun x y -> (x,y)))
@@ -167,7 +167,7 @@ module PSeq =
         ParallelEnumerable.Select(distinct, Func<_,_>(fun (x,px) -> x))
 
     let sort s  = 
-        ParallelEnumerable.OrderBy(toP(s), Func<_,_>(fun x -> x), ComparisonIdentity.Structural<_>) :> pseq<'T>
+        ParallelEnumerable.OrderBy(toP(s), Func<_,_>(id), ComparisonIdentity.Structural<_>) :> pseq<'T>
 
     let sortBy (f : 'T -> 'Key) s = 
         ParallelEnumerable.OrderBy(toP(s), Func<_,_>(f), ComparisonIdentity.Structural<_>) :> pseq<'T>
@@ -235,7 +235,7 @@ module PSeq =
         | :? seq<float> as s -> unbox(ParallelEnumerable.Min(toP(s)))
         | :? seq<float32> as s -> unbox(ParallelEnumerable.Min(toP(s)))
         | :? seq<decimal> as s -> unbox(ParallelEnumerable.Min(toP(s)))
-        | _ ->  ParallelEnumerable.Min(toP(s), Func<_,_>(fun x -> x))
+        | _ ->  ParallelEnumerable.Min(toP(s), Func<_,_>(id))
 
     let inline minBy (f : ^T -> ^U) (s : seq< ^T >) : ^T when ^U : comparison = 
         let elemsAndVals = ParallelEnumerable.Select(toP(s), Func<_,_>(fun x -> f x, x))
@@ -250,7 +250,7 @@ module PSeq =
         | :? seq<float> as s -> unbox(ParallelEnumerable.Max(toP(s)))
         | :? seq<float32> as s -> unbox(ParallelEnumerable.Max(toP(s)))
         | :? seq<decimal> as s -> unbox(ParallelEnumerable.Max(toP(s)))
-        | _ ->  ParallelEnumerable.Max(toP(s), Func<_,_>(fun x -> x))
+        | _ ->  ParallelEnumerable.Max(toP(s), Func<_,_>(id))
 
     let inline maxBy (f : ^T -> ^U) (s : seq< ^T >) : ^T = 
         let elemsAndVals = ParallelEnumerable.Select(toP(s), Func<_,_>(fun x -> f x, x))
