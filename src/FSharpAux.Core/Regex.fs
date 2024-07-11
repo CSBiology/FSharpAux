@@ -9,10 +9,11 @@ module Regex =
     //http://stackoverflow.com/questions/5684014/f-mapping-regular-expression-matches-with-active-patterns
     module Active = 
         /// Returns the first occurencing match of the pattern 
+        [<return: Struct>]
         let (|RegexMatchValue|_|) (regex:Regex) input =
             let m = regex.Match(input)    
-            if m.Success then Some m.Value
-            else None
+            if m.Success then ValueSome m.Value
+            else ValueNone
 
 
 
@@ -68,12 +69,13 @@ module Regex =
     /// Returns a seq of group values matching the pattern 
     let parseAll regexStr line = 
         let rec loop (m:Match) =
-            seq {
             match m.Success with
             | true -> 
-                yield (List.tail [ for g in m.Groups -> g.Value ])
-                yield! loop (m.NextMatch())
-            | false -> () }
+                seq {
+                    yield (List.tail [ for g in m.Groups -> g.Value ])
+                    yield! loop (m.NextMatch()) 
+                }
+            | false -> Seq.empty
         let m = Regex.Match(line,regexStr)
         loop m
 

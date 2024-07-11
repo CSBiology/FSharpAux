@@ -174,9 +174,10 @@ module Seq =
         keyList 
         |> Seq.map (
             fun k -> 
-                if m.ContainsKey(k) then
-                    aggregation m.[k]
-                else
+                match m.TryGetValue k with
+                | true, mk ->
+                    aggregation mk
+                | false, _ ->
                     defaultValue 
         )
 

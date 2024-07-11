@@ -14,9 +14,10 @@ module PathFileName =
         | _ -> failwith "No file or directory given."
 
     /// Active Pattern for determining file extension.
+    [<return: Struct>]
     let (|EndsWith|_|) (extension : string) (file : string) = 
-        if file.EndsWith extension then Some()
-        else None
+        if file.EndsWith extension then ValueSome()
+        else ValueNone
 
     /// Active Pattern for determining file name.
     let (|FileInfoFullName|) (f : FileInfo) = f.FullName

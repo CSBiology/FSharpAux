@@ -54,7 +54,9 @@ module Dict =
                 member s.ContainsKey(k) = d.ContainsKey(Some(k))
                 member s.TryGetValue(k,r) = 
                     let key = Some(k)
-                    if d.ContainsKey(key) then (r <- d.[key]; true) else false
+                    match d.TryGetValue key with 
+                    | true, v -> r <- v; true
+                    | false, _ -> false
                 member s.Remove(k : 'Key) = (raise (NotSupportedException(notMutable)) : bool) 
                     
           interface ICollection<KeyValuePair<'Key, 'T>> with 

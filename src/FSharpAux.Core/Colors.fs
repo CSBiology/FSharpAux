@@ -19,6 +19,7 @@ module Colors =
         | B v -> v
 
     /// Color structure
+    [<Struct>]
     type Color = {
         /// The alpha component value of this Color structure.
         A : byte
