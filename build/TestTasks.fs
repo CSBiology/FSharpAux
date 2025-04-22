@@ -131,6 +131,7 @@ module RunTests =
                         Logger = Some "console;verbosity=detailed"
                         Configuration = DotNet.BuildConfiguration.fromString configuration
                         NoBuild = true
+                        MSBuildParams = { testParams.MSBuildParams with DisableInternalBinLog = true }
                 }
             ) testProject
         )
