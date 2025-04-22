@@ -111,11 +111,11 @@ module Seq =
         hsSs
 
     /// <summary>
-    /// Divides the input sequence into chunks depending on the projection function.
+    /// Divides the input sequence into chunks by a key projection function.
     /// 
-    /// A new chunk is created each time the projection function returns true.
+    /// A new chunk is created each time the projection function returns a new value, and the resulting chunks are tupled with their keys.
     ///
-    /// Example: Seq.chunkBy isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
+    /// Example: Seq.chunkBy isOdd [3;3;2;4;1;2] = seq [(true, [3; 3]); (false, [2; 4]); (true, [1]); (false, [2])]
     /// </summary>
     /// <param name="projection">The function to determine if an element creates a new chunk</param>
     /// <param name="source"></param>
@@ -123,19 +123,25 @@ module Seq =
         seq {
             use e = source.GetEnumerator ()
             if e.MoveNext () then
-                let mutable g = projection e.Current
+                // the key of the current chunk
+                let mutable chunkKey = projection e.Current
+                // the members of the current chunk
                 let mutable members = ResizeArray ()
                 members.Add e.Current
+
                 while e.MoveNext () do
-                    let key = projection e.Current
-                    if g = key then 
+                    let currentKey = projection e.Current
+                    if chunkKey = currentKey then 
+                        // add item to current chunk if projection returns the chunk key again
                         members.Add e.Current
                     else
-                        yield g, members |> Seq.cast<'T>
-                        g <- key
+                        // yield current chunk and start a new one if projection returns a new key
+                        yield chunkKey, members |> Seq.cast<'T>
+                        chunkKey <- currentKey
                         members <- ResizeArray ()
                         members.Add e.Current
-                yield g, members |> Seq.cast<'T>
+
+                yield chunkKey, members |> Seq.cast<'T>
         }
 
 // // Without continuation passing
