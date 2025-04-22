@@ -110,6 +110,34 @@ module Seq =
         hsSs.IntersectWith largerSeq
         hsSs
 
+    /// <summary>
+    /// Divides the input sequence into chunks depending on the projection function.
+    /// 
+    /// A new chunk is created each time the projection function returns true.
+    ///
+    /// Example: Seq.chunkBy isOdd [3;3;2;4;1;2] = seq [[3]; [3; 2; 4]; [1; 2]]
+    /// </summary>
+    /// <param name="projection">The function to determine if an element creates a new chunk</param>
+    /// <param name="source"></param>
+    let chunkBy (projection: 'T -> 'Key) (source: seq<'T>) = 
+        seq {
+            use e = source.GetEnumerator ()
+            if e.MoveNext () then
+                let mutable g = projection e.Current
+                let mutable members = ResizeArray ()
+                members.Add e.Current
+                while e.MoveNext () do
+                    let key = projection e.Current
+                    if g = key then 
+                        members.Add e.Current
+                    else
+                        yield g, members |> Seq.cast<'T>
+                        g <- key
+                        members <- ResizeArray ()
+                        members.Add e.Current
+                yield g, members |> Seq.cast<'T>
+        }
+
 // // Without continuation passing
 
 //    let groupWhen f (input:seq<_>) = seq {
