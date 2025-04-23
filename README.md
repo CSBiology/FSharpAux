@@ -45,7 +45,7 @@ end
 
 ### Requirements
 
-- .Net 6.0
+- .Net 8.0
 - node.js ~16 (higher might work) [only for fable testing]
 - npm ~8 (higher might work) [only for fable testing]
 

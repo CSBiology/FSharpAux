@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
@@ -13,9 +13,9 @@
   <ItemGroup>
     <PackageReference Include="Deedle" Version="2.4.1" />
     <PackageReference Include="FSharp.Data" Version="4.2.0" />
-    <PackageReference Include="Expecto" Version="9.*" />
-    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
+      <PackageReference Include="Expecto" Version="10.*" />
+      <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.15.*" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
   </ItemGroup>
 
   <ItemGroup>
