@@ -12,8 +12,8 @@ The documentation for this library is automatically generated (using the F# Form
 
 | Package Name         | Nuget                                                                                                                | Description |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------- |-------------|
-| `FSharpAux.Core`     | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux.Core)](https://www.nuget.org/packages/FSharpAux.Core/)       | fable compatible |
-| `FSharpAux`          | [![NuGet Badge](https://buildstats.info/nuget/FSharpAux)](https://www.nuget.org/packages/FSharpAux/)                 | |
+| `FSharpAux.Core`     | [![NuGet Version](https://img.shields.io/nuget/v/FSharpAux.Core)](https://www.nuget.org/packages/FSharpAux.Core) | fable compatible |
+| `FSharpAux`          | [![NuGet Version](https://img.shields.io/nuget/v/FSharpAux)](https://www.nuget.org/packages/FSharpAux)                 | |
 
 ## Develop
 
