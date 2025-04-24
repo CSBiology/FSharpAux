@@ -1,9 +1,13 @@
 #### 2.1.0 – Thursday, April 24, 2025
 
-This is a minor release that updates all dependencies and migrates the project to .NET 8. Additionally, there's the following new feature:
+This is a minor release that updates all dependencies and migrates the project to .NET 8. Additionally, there are the following new features:
 * Add functions for:
-    * `Seq`:
-    	* `chunkBy`: Divides the input sequence into chunks by a key projection function.
+  * `Seq`:
+    * `chunkBy`: Divides the input sequence into chunks by a key projection function.
+  * `Dictionary`:
+    * `copy`: Performs a shallow copy of the input dictionary.
+	* `deepCopy`: Performs a deep copy of the input dictionary.
+* Improve performance of several functions/methods in `Colors`, `Dictionary`, `Regex`, `Seq`, `String`, and `FileIO`.
 
 #### 2.0.0 - Friday, April 21, 2023
 
