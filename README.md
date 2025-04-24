@@ -39,7 +39,7 @@ subgraph Packages
     G("FSharpAux")
     A -- packages --> F
     B -- packages --> G
-    F -- nuget dependency --- G
+    G -- nuget dependency --> F
 end
 ```
 
