@@ -27,8 +27,8 @@ subgraph Libraries
     B -- depends on --> A
 end
 subgraph TestSuites
-    C("FSharpAux.Core.Tests [Mocha + Expecto]")
     D("FSharpAux.Tests [Expecto]")
+    C("FSharpAux.Core.Tests [Mocha + Expecto]")
     M("Mocha [Native]<br>on transpiled fable js files")
     C -- tests --> A
     D -- tests --> B
