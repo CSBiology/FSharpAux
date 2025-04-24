@@ -1,4 +1,4 @@
-# FSharpAux	# FSharpAux
+# FSharpAux
 
 Extensions, auxiliary functions and data structures for the F# programming language
 
