@@ -1,3 +1,10 @@
+#### 2.1.0 – Thursday, April 24, 2025
+
+This is a minor release that updates all dependencies and migrates the project to .NET 8. Additionally, there's the following new feature:
+* Add functions for:
+    * `Seq`:
+    	* `chunkBy`: Divides the input sequence into chunks by a key projection function.
+
 #### 2.0.0 - Friday, April 21, 2023
 
 This is a major release that introduces a split of `FSharpAux` into 2 projects:
