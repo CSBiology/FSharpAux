@@ -150,12 +150,9 @@ module FileIO =
     /// Reads a gZip file line by line without creating a tempory file
     /// Alternatively use FileEnumerator
     let readFileGZip (filePath:string) =
-        seq {let outStream = new MemoryStream()
-             use reader     = File.OpenRead(filePath)
-             use unzip      = new GZipStream(reader, CompressionMode.Decompress, true)
-             unzip.CopyTo(outStream)
-             outStream.Seek(0L,SeekOrigin.Begin) |> ignore
-             use textReader = new StreamReader(outStream, Encoding.Default)
+        seq {use reader     = File.OpenRead(filePath)
+             use unzip      = new GZipStream(reader, CompressionMode.Decompress)
+             use textReader = new StreamReader(unzip, Encoding.Default)
              while not textReader.EndOfStream do
                 yield textReader.ReadLine()}
 
