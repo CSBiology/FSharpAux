@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="FileIOTests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 
@@ -20,5 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\FSharpAux\FSharpAux.fsproj" />
+    <ProjectReference Include="..\..\src\FSharpAux.IO\FSharpAux.IO.fsproj" />
   </ItemGroup>
 </Project>
